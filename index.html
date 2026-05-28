@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Portal | 簡約財經觀測站</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 全域樣式：淺淺的大地色系，若有似無 */
+        :root {
+            --bg-color: #FBF9F6;       /* 極淺米白大地色 */
+            --card-bg: #FFFFFF;
+            --border-color: #EFEBE4;   /* 淡淡的大地色邊框 */
+            --text-main: #4A443C;     /* 深大地色文字 */
+            --text-muted: #8C8275;    /* 淺大地色輔助字 */
+            --accent-color: #9E8E77;  /* 點綴大地色 */
+            --shadow: 0 4px 20px rgba(158, 142, 119, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans TC', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* 標頭區區塊 */
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        header p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        /* 頂部即時資訊列 */
+        .market-ticker {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .ticker-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .ticker-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .ticker-name {
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .ticker-price {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--text-main);
+        }
+
+        .ticker-info {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .disclaimer {
+            grid-column: 1 / -1;
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            background: #F4F0EA;
+            padding: 6px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        /* 主內容版面：左邊新聞、右邊計算機 */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+        }
+
+        @media (max-width: 900px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 區塊共同樣式 */
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            position: relative;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* 新聞專區 */
+        .news-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .time-filter {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 6px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .news-item {
+            padding-bottom: 20px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .news-meta {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .news-tag {
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+
+        .news-title {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-main);
+            text-decoration: none;
+            margin-bottom: 6px;
+            display: block;
+            transition: color 0.2s;
+        }
+
+        .news-title:hover {
+            color: var(--accent-color);
+        }
+
+        .news-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* 強大計算機專區 */
+        .calc-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            align-self: start;
+        }
+
+        .calc-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 25px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 10px 15px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .tab-btn.active {
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent-color);
+        }
+
+        .calc-panel {
+            display: none;
+        }
+
+        .calc-panel.active {
+            display: block;
+        }
+
+        /* 表單樣式 */
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-main);
+            border-radius: 6px;
+            font-size: 1rem;
+            outline: none;
+            transition: border 0.2s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--accent-color);
+        }
+
+        .calc-btn {
+            width: 100%;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            margin-top: 10px;
+        }
+
+        .calc-btn:hover {
+            opacity: 0.9;
+        }
+
+        .result-box {
+            margin-top: 25px;
+            background: var(--bg-color);
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .result-title {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .result-value {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .result-detail {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* 標準計算機網格 */
+        .standard-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .standard-screen {
+            grid-column: 1 / -1;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            text-align: right;
+            font-size: 1.5rem;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            min-height: 60px;
+            word-wrap: break-word;
+        }
+
+        .btn-grid {
+            background: #F4F0EA;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            text-align: center;
+            user-select: none;
+        }
+
+        .btn-grid:active {
+            background: var(--border-color);
+        }
+
+        .btn-grid.op {
+            background: var(--border-color);
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <header>
+        <h1>PERSPECTIVE</h1>
+        <p>時尚簡約財經資產配置觀測</p>
+    </header>
+
+    <div class="market-ticker">
+        <div class="disclaimer">⚠️ 本網頁所有資料（包含報價與新聞）均為靜態模擬數據，非即時即期資訊，僅供視覺與計算展示使用。</div>
+        
+        <div class="ticker-card">
+            <div class="ticker-header">
+                <span class="ticker-name">VTI (先鋒整體股市ETF)</span>
+                <span class="news-tag">最新報價</span>
+            </div>
+            <div class="ticker-price">$262.45</div>
+            <div class="ticker-info">
+                <span>昨收: $261.10</span>
+                <span style="color: #6B8E23;">+0.52%</span>
+            </div>
+        </div>
+
+        <div class="ticker-card">
+            <div class="ticker-header">
+                <span class="ticker-name">VXUS (先鋒全世界除美股ETF)</span>
+                <span class="news-tag">最新報價</span>
+            </div>
+            <div class="ticker-price">$63.80</div>
+            <div class="ticker-info">
+                <span>昨收: $64.12</span>
+                <span style="color: #CD5C5C;">-0.50%</span>
+            </div>
+        </div>
+
+        <div class="ticker-card" style="grid-column: auto;">
+            <div class="ticker-header">
+                <span class="ticker-name" style="font-size: 0.9rem; color: var(--accent-color);">焦點焦點・最新摘要</span>
+            </div>
+            <div class="news-desc" style="-webkit-line-clamp: 3; font-size: 0.8rem; margin-top: 5px;">
+                通膨數據符合預期，美股大盤 VTI 保持高檔震盪；而受歐元區經濟數據疲軟影響，非美股市 VXUS 今日相對承壓。全球資產配置投資人正密切鎖定下週聯準會最新政策表態。
+            </div>
+        </div>
+    </div>
+
+    <div class="main-layout">
+        
+        <div class="news-section">
+            <h2 class="section-title">最新財經新聞</h2>
+            
+            <div class="time-filter">
+                <button class="filter-btn active" onclick="filterNews('all')">全部</button>
+                <button class="filter-btn" onclick="filterNews('today')">本日</button>
+                <button class="filter-btn" onclick="filterNews('week')">本週</button>
+                <button class="filter-btn" onclick="filterNews('month')">本月</button>
+            </div>
+
+            <div class="news-list" id="newsContainer">
+                <div class="news-item" data-time="today">
+                    <div class="news-meta">
+                        <span class="news-tag">VTI</span>
+                        <span>今日最新</span>
+                    </div>
+                    <a href="#" class="news-title" onclick="event.preventDefault();">資金持續流入全市場核心，VTI 規模再創歷史新高</a>
+                    <div class="news-desc">隨著長線資產配置觀念普及，散戶與機構資金持續低頭湧入先鋒整體股市型基金，展現全市場指數量化投資的長期韌性。</div>
+                </div>
+
+                <div class="news-item" data-time="week">
+                    <div class="news-meta">
+                        <span class="news-tag">VXUS</span>
+                        <span>本週重要</span>
+                    </div>
+                    <a href="#" class="news-title" onclick="event.preventDefault();">非美資產估值具吸引力，經理人建議配置 VXUS 均衡風險</a>
+                    <div class="news-desc">華爾街多位資產配置策略師指出，雖然美股表現強勁，但從估值角度來看，包含歐洲與新興市場的 VXUS 擁有更健康的下檔保護，適合長期平衡。</div>
+                </div>
+
+                <div class="news-item" data-time="month">
+                    <div class="news-meta">
+                        <span class="news-tag">VTI & VXUS</span>
+                        <span>本月回顧</span>
+                    </div>
+                    <a href="#" class="news-title" onclick="event.preventDefault();">全球全市場配置策略：如何利用 VTI 與 VXUS 打造完美全天候組合</a>
+                    <div class="news-desc">本月專題深入探討：透過 80/20 或 60/40 的經典美股與非美股配置，投資人能以極低的內扣費用，完美捕捉全球經濟成長的果實。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="calc-section">
+            <h2 class="section-title">時尚智能計算</h2>
+            
+            <div class="calc-tabs">
+                <button class="tab-btn active" onclick="switchTab(event, 'std-calc')">標準計算</button>
+                <button class="tab-btn" onclick="switchTab(event, 'compound-calc')">複利定期定額</button>
+                <button class="tab-btn" onclick="switchTab(event, 'ratio-calc')">資產配置比例</button>
+            </div>
+
+            <div id="std-calc" class="calc-panel active">
+                <div class="standard-screen" id="calcScreen">0</div>
+                <div class="standard-grid">
+                    <div class="btn-grid op" onclick="clearScreen()">C</div>
+                    <div class="btn-grid op" onclick="pressOp('/')">÷</div>
+                    <div class="btn-grid op" onclick="pressOp('*')">×</div>
+                    <div class="btn-grid op" onclick="pressOp('-')">−</div>
+                    <div class="btn-grid" onclick="pressNum('7')">7</div>
+                    <div class="btn-grid" onclick="pressNum('8')">8</div>
+                    <div class="btn-grid" onclick="pressNum('9')">9</div>
+                    <div class="btn-grid op" onclick="pressOp('+')">+</div>
+                    <div class="btn-grid" onclick="pressNum('4')">4</div>
+                    <div class="btn-grid" onclick="pressNum('5')">5</div>
+                    <div class="btn-grid" onclick="pressNum('6')">6</div>
+                    <div class="btn-grid op" style="grid-row: span 2; display: flex; align-items: center; justify-content: center;" onclick="calculateResult()">=</div>
+                    <div class="btn-grid" onclick="pressNum('1')">1</div>
+                    <div class="btn-grid" onclick="pressNum('2')">2</div>
+                    <div class="btn-grid" onclick="pressNum('3')">3</div>
+                    <div class="btn-grid" style="grid-column: span 2;" onclick="pressNum('0')">0</div>
+                    <div class="btn-grid" onclick="pressNum('.')">.</div>
+                </div>
+            </div>
+
+            <div id="compound-calc" class="calc-panel">
+                <div class="input-group">
+                    <label>每月定期定額投入金額 (元)</label>
+                    <input type="number" id="monthlyRent" value="10000">
+                </div>
+                <div class="input-group">
+                    <label>預期年化報酬率 (%)</label>
+                    <input type="number" id="annualReturn" value="7" step="0.1">
+                </div>
+                <div class="input-group">
+                    <label>投資年前期 (年)</label>
+                    <input type="number" id="years" value="10">
+                </div>
+                <button class="calc-btn" onclick="runCompoundCalc()">開始試算</button>
+                
+                <div class="result-box">
+                    <div class="result-title">預估複利總資產</div>
+                    <div class="result-value" id="compoundResult">$ 0</div>
+                    <div class="result-detail" id="compoundDetail">本金: 0 | 累計利息: 0</div>
+                </div>
+            </div>
+
+            <div id="ratio-calc" class="calc-panel">
+                <div class="input-group">
+                    <label>預計投入總資本 (元)</label>
+                    <input type="number" id="totalCapital" value="1000000">
+                </div>
+                <div class="input-group">
+                    <label>VTI 目標配置比例 (%)</label>
+                    <input type="number" id="vtiRatio" value="80">
+                </div>
+                <div class="input-group">
+                    <label>VXUS 目標配置比例 (%)</label>
+                    <input type="number" id="vxusRatio" value="20" disabled style="opacity: 0.6;">
+                </div>
+                <button class="calc-btn" onclick="runRatioCalc()">計算配置金額</button>
+                
+                <div class="result-box">
+                    <div class="result-title">配置建議結果</div>
+                    <div class="result-value" id="ratioResult" style="font-size: 1.1rem; white-space: pre-line;">請輸入上方數據並點擊計算</div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // 1. 新聞篩選功能
+    function filterNews(timeframe) {
+        // 更新按鈕狀態
+        const buttons = document.querySelectorAll('.filter-btn');
+        buttons.forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+
+        // 篩選新聞項目
+        const items = document.querySelectorAll('.news-item');
+        items.forEach(item => {
+            if (timeframe === 'all' || item.getAttribute('data-time') === timeframe) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+
+    // 2. 計算機籤頁切換
+    function switchTab(evt, tabId) {
+        const panels = document.querySelectorAll('.calc-panel');
+        panels.forEach(p => p.classList.remove('active'));
+        
+        const tabs = document.querySelectorAll('.tab-btn');
+        tabs.forEach(t => t.classList.remove('active'));
+
+        document.getElementById(tabId).classList.add('active');
+        evt.currentTarget.classList.add('active');
+    }
+
+    // 3. 標準計算機邏輯
+    let currentInput = '0';
+    const screen = document.getElementById('calcScreen');
+
+    function pressNum(num) {
+        if (currentInput === '0' && num !== '.') {
+            currentInput = num;
+        } else {
+            currentInput += num;
+        }
+        screen.innerText = currentInput;
+    }
+
+    function pressOp(op) {
+        currentInput += ' ' + op + ' ';
+        screen.innerText = currentInput;
+    }
+
+    function clearScreen() {
+        currentInput = '0';
+        screen.innerText = currentInput;
+    }
+
+    function calculateResult() {
+        try {
+            // 安全處理基礎運算
+            let cleanInput = currentInput.replace(/×/g, '*').replace(/÷/g, '/');
+            let res = Function('"use strict";return (' + cleanInput + ')')();
+            currentInput = Number(res.toFixed(4)).toString();
+            screen.innerText = currentInput;
+        } catch (e) {
+            screen.innerText = 'Error';
+            currentInput = '0';
+        }
+    }
+
+    // 4. 複利定期定額試算邏輯
+    function runCompoundCalc() {
+        const p = parseFloat(document.getElementById('monthlyRent').value) || 0;
+        const annualRate = parseFloat(document.getElementById('annualReturn').value) || 0;
+        const y = parseInt(document.getElementById('years').value) || 0;
+
+        const r = annualRate / 100 / 12; // 月利率
+        const n = y * 12; // 總月份
+
+        let total = 0;
+        if(r === 0) {
+            total = p * n;
+        } else {
+            total = p * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
+        }
+
+        const principal = p * n;
+        const interest = total - principal;
+
+        document.getElementById('compoundResult').innerText = '$ ' + Math.round(total).toLocaleString();
+        document.getElementById('compoundDetail').innerText = `總本金: ${Math.round(principal).toLocaleString()} 元 | 累計複利息: ${Math.round(interest).toLocaleString()} 元`;
+    }
+
+    // 5. 資產配置比例連動與計算
+    const vtiInput = document.getElementById('vtiRatio');
+    const vxusInput = document.getElementById('vxusRatio');
+    
+    // 自動讓 VTI + VXUS = 100%
+    vtiInput.addEventListener('input', () => {
+        let val = parseFloat(vtiInput.value) || 0;
+        if (val > 100) val = 100;
+        if (val < 0) val = 0;
+        vtiInput.value = val;
+        vxusInput.value = (100 - val);
+    });
+
+    function runRatioCalc() {
+        const total = parseFloat(document.getElementById('totalCapital').value) || 0;
+        const vtiPer = parseFloat(vtiInput.value) || 0;
+        const vxusPer = parseFloat(vxusInput.value) || 0;
+
+        const vtiAmount = total * (vtiPer / 100);
+        const vxusAmount = total * (vxusPer / 100);
+
+        document.getElementById('ratioResult').innerText = 
+            `VTI (${vtiPer}%): 應投入 $${Math.round(vtiAmount).toLocaleString()} 元\n` +
+            `VXUS (${vxusPer}%): 應投入 $${Math.round(vxusAmount).toLocaleString()} 元`;
+    }
+
+    // 網頁載入時預先執行一次試算
+    window.onload = function() {
+        runCompoundCalc();
+        runRatioCalc();
+    }
+</script>
+
+</body>
+</html>
