@@ -5,15 +5,19 @@ on:
     - cron: '0 * * * *' # 每小時整點自動執行一次 (UTC 時間)
   workflow_dispatch: # 允許你在 GitHub 介面上手動點擊執行
 
+# 🚀 在這裡加入全域環境變數，強制 GitHub Actions 使用 Node.js 24 執行所有 Actions
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
 jobs:
   update-data:
     runs-on: ubuntu-latest
     steps:
     - name: 檢出專案代碼
-      uses: actions/checkout@v4 # 🚀 已升級至 v4，支援最新 Node.js 24
+      uses: actions/checkout@v4
 
     - name: 設定 Python 環境
-      uses: actions/setup-python@v5 # 🚀 已升級至 v5，支援最新 Node.js 24
+      uses: actions/setup-python@v5
       with:
         python-version: '3.x'
 
