@@ -17,10 +17,10 @@ jobs:
       with:
         python-version: '3.10'
 
-    - name: 安裝高階網路連線套件
+    - name: 安裝高階網路與網頁解析套件
       run: |
         python -m pip install --upgrade pip
-        pip install requests # 🚀 安裝強大的 requests 套件來應付 Yahoo
+        pip install requests beautifulsoup4 # 🚀 這次多安裝了網頁解構利器 BeautifulSoup4
 
     - name: 執行更新腳本
       run: python update_prices.py
