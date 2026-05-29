@@ -3,728 +3,249 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial Portal | 簡約財經觀測站</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
-    
+    <title>PERSPECTIVE | 時尚簡約財經資產配置觀測</title>
     <style>
         :root {
-            --bg-color: #FBF9F6;       
-            --card-bg: #FFFFFF;
-            --border-color: #EFEBE4;   
-            --text-main: #4A443C;     
-            --text-muted: #8C8275;    
-            --accent-color: #9E8E77;  
-            --shadow: 0 4px 20px rgba(158, 142, 119, 0.05);
-            --up-color: #A3B899;
-            --down-color: #D3A297;
+            --bg-color: #F9F6F0;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --text-main: #2C2A29;
+            --text-sub: #7A7571;
+            --accent-green: #6B8E23;
+            --accent-red: #CD5C5C;
+            --border-color: #E6E1DA;
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Noto Sans TC', sans-serif;
-            -webkit-font-smoothing: antialiased;
-        }
-
         body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
-            line-height: 1.6;
+            margin: 0;
             padding: 40px 20px;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        header h1 {
-            font-size: 1.8rem;
-            font-weight: 500;
-            letter-spacing: 2px;
-            color: var(--text-main);
-            margin-bottom: 8px;
-        }
-
-        header p {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            letter-spacing: 1px;
-        }
-
-        .market-ticker {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .ticker-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: var(--shadow);
-        }
-
-        .ticker-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .ticker-name {
-            font-weight: 500;
-            font-size: 1.1rem;
-        }
-
-        .ticker-price {
-            font-size: 1.5rem;
-            font-weight: 400;
-            color: var(--text-main);
-        }
-
-        .ticker-info {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .disclaimer {
-            grid-column: 1 / -1;
-            text-align: center;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            background: #F4F0EA;
-            padding: 8px;
-            border-radius: 4px;
-            letter-spacing: 0.5px;
-        }
-
-        .main-layout {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 40px;
-        }
-
-        @media (max-width: 900px) {
-            .main-layout {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .section-title {
-            font-size: 1.2rem;
-            font-weight: 500;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-            position: relative;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .news-section {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-        }
-
-        .time-filter {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 25px;
-        }
-
-        .filter-btn {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-muted);
-            padding: 6px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-        }
-
-        .filter-btn.active, .filter-btn:hover {
-            background: var(--accent-color);
-            color: white;
-            border-color: var(--accent-color);
-        }
-
-        .news-list {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            align-items: center;
         }
-
-        .news-item {
-            padding-bottom: 20px;
-            border-bottom: 1px dashed var(--border-color);
-            transition: all 0.3s ease;
+        .container {
+            max-width: 1100px;
+            width: 100%;
         }
-
-        .news-item:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
+        header {
+            text-align: center;
+            margin-bottom: 40px;
         }
-
-        .news-meta {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-            display: flex;
-            gap: 12px;
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 5px;
+            margin-bottom: 10px;
         }
-
-        .news-tag {
-            color: var(--accent-color);
-            font-weight: 500;
-        }
-
-        .news-title {
+        header p {
+            color: var(--text-sub);
             font-size: 1rem;
-            font-weight: 500;
-            color: var(--text-main);
-            text-decoration: none;
-            margin-bottom: 6px;
-            display: block;
-            transition: color 0.2s;
+            letter-spacing: 2px;
         }
-
-        .news-title:hover {
-            color: var(--accent-color);
-        }
-
-        .news-desc {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .calc-section {
+        .status-bar {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            align-self: start;
-        }
-
-        .calc-tabs {
-            display: flex;
-            border-bottom: 1px solid var(--border-color);
-            margin-bottom: 25px;
-        }
-
-        .tab-btn {
-            background: none;
-            border: none;
-            padding: 10px 15px;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .tab-btn.active {
-            color: var(--text-main);
-            font-weight: 500;
-        }
-
-        .tab-btn.active::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: var(--accent-color);
-        }
-
-        .calc-panel {
-            display: none;
-        }
-
-        .calc-panel.active {
-            display: block;
-        }
-
-        .input-group {
-            margin-bottom: 18px;
-        }
-
-        .input-group label {
-            display: block;
+            padding: 12px 20px;
+            border-radius: 8px;
             font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 6px;
+            color: var(--text-sub);
+            margin-bottom: 30px;
+            text-align: center;
         }
-
-        .input-group input {
-            width: 100%;
-            padding: 10px 12px;
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            margin: 40px 0 20px 0;
+            padding-left: 10px;
+            border-left: 3px solid var(--text-main);
+            color: var(--text-main);
+        }
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+        .card {
+            background: var(--card-bg);
             border: 1px solid var(--border-color);
-            background: var(--bg-color);
-            color: var(--text-main);
-            border-radius: 6px;
-            font-size: 1rem;
-            outline: none;
-            transition: border 0.2s;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: transform 0.3s ease;
         }
-
-        .input-group input:focus {
-            border-color: var(--accent-color);
+        .card:hover {
+            transform: translateY(-3px);
         }
-
-        .calc-btn {
-            width: 100%;
-            background: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 6px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: opacity 0.2s;
-            margin-top: 10px;
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
         }
-
-        .calc-btn:hover {
-            opacity: 0.9;
+        .ticker-title {
+            font-size: 1.1rem;
+            font-weight: 600;
         }
-
-        .result-box {
-            margin-top: 25px;
-            background: var(--bg-color);
-            padding: 15px;
-            border-radius: 6px;
-            border-left: 3px solid var(--accent-color);
-        }
-
-        .result-title {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-bottom: 5px;
-        }
-
-        .result-value {
-            font-size: 1.4rem;
-            font-weight: 500;
-            color: var(--text-main);
-        }
-
-        .result-detail {
+        .ticker-name {
             font-size: 0.85rem;
-            color: var(--text-muted);
+            color: var(--text-sub);
             margin-top: 4px;
         }
-
-        .standard-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
+        .badge {
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: #EAE5DD;
+            color: var(--text-sub);
+            letter-spacing: 1px;
         }
-
-        .standard-screen {
-            grid-column: 1 / -1;
-            background: var(--bg-color);
-            border: 1px solid var(--border-color);
-            padding: 15px;
-            text-align: right;
-            font-size: 1.5rem;
-            border-radius: 6px;
-            margin-bottom: 10px;
-            min-height: 60px;
-            word-wrap: break-word;
+        .price-large {
+            font-size: 2.2rem;
+            font-weight: 300;
+            margin-bottom: 8px;
+            font-family: "Courier New", Courier, monospace;
         }
-
-        .btn-grid {
-            background: #F4F0EA;
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 15px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            text-align: center;
-            user-select: none;
-        }
-
-        .btn-grid:active {
-            background: var(--border-color);
-        }
-
-        .btn-grid.op {
-            background: var(--border-color);
-            color: var(--accent-color);
-            font-weight: 500;
-        }
-        
-        .loading-text {
-            color: var(--text-muted);
+        .change-row {
+            display: flex;
+            justify-content: space-between;
             font-size: 0.9rem;
-            font-style: italic;
-            text-align: center;
-            padding: 20px;
+            color: var(--text-sub);
+        }
+        .summary-card {
+            grid-column: 1 / -1;
+            background: #FAF8F5;
+        }
+        @media (min-width: 900px) {
+            .summary-card {
+                grid-column: span 1;
+            }
+            .grid-three {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    
     <header>
         <h1>PERSPECTIVE</h1>
-        <p>時尚簡約財經資產配置觀測</p>
+        <p>時尚簡約全球資產配置儀表板</p>
     </header>
 
-    <!-- 頂部區塊：最新報價與最新摘要（這裡的資料會由 GitHub Actions 每小時自動寫入更新） -->
-    <div class="market-ticker">
-        <div class="disclaimer">📊 數據狀態：本站報價與摘要由 GitHub Actions 每小時定時全自動更新。新聞專區為即時追蹤。</div>
-        
-        <div class="ticker-card">
-            <div class="ticker-header">
-                <span class="ticker-name">VTI (先鋒整體股市ETF)</span>
-                <span class="news-tag">定時更新</span>
+    <div class="status-bar">
+        📊 數據狀態：本站全球資產脈動經由 GitHub Actions 自動化核心每小時依序對齊最新數據。
+    </div>
+
+    <div class="section-title">GLOBAL INDEX ASSETS (美股大盤指數配置)</div>
+    <div class="grid-layout grid-three">
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="ticker-title">VTI</div>
+                    <div class="ticker-name">先鋒整體股市 ETF</div>
+                </div>
+                <span class="badge">美股大盤</span>
             </div>
-            <!-- GITHUB_ACTIONS_VTI_PRICE_START -->
-            <div class="ticker-price" id="vtiPrice">$372.54 (+0.17%)</div>
-            <div class="ticker-info">
-                <span>更新時間: <span id="vtiTime">2026-05-29</span></span>
-                <span style="color: #6B8E23;" id="vtiChange">+0.68%</span>
+            <div class="price-large" id="vti_price_block">$-.--</div>
+            <div class="change-row">
+                <span id="vti_change_block">-.--%</span>
+                <span>USD</span>
             </div>
-            <!-- GITHUB_ACTIONS_VTI_PRICE_END -->
         </div>
 
-        <div class="ticker-card">
-            <div class="ticker-header">
-                <span class="ticker-name">VXUS (全世界除美股ETF)</span>
-                <span class="news-tag">定時更新</span>
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="ticker-title">VXUS</div>
+                    <div class="ticker-name">全世界除美股 ETF</div>
+                </div>
+                <span class="badge">國際市場</span>
             </div>
-            <!-- GITHUB_ACTIONS_VXUS_PRICE_START -->
-            <div class="ticker-price" id="vxusPrice">$86.06 (+0.07%)</div>
-            <div class="ticker-info">
-                <span>更新時間: <span id="vxusTime">2026-05-29</span></span>
-                <span style="color: #6B8E23;" id="vxusChange">+0.32%</span>
+            <div class="price-large" id="vxus_price_block">$-.--</div>
+            <div class="change-row">
+                <span id="vxus_change_block">-.--%</span>
+                <span>USD</span>
             </div>
-            <!-- GITHUB_ACTIONS_VXUS_PRICE_END -->
         </div>
 
-        <div class="ticker-card">
-            <div class="ticker-header">
-                <span class="ticker-name" style="font-size: 0.9rem; color: var(--accent-color);">焦點市場摘要</span>
+        <div class="card summary-card">
+            <div class="card-header">
+                <div class="ticker-title">焦點市場摘要</div>
+                <span class="badge">AI 同步</span>
             </div>
-            <!-- GITHUB_ACTIONS_SUMMARY_START -->
-            <div class="news-desc" style="-webkit-line-clamp: 3; font-size: 0.8rem; margin-top: 5px;" id="marketSummary">美股大盤 VTI 目前來到 $372.54 (+0.17%)，全球除美股市場 VXUS 報 $86.06 (+0.07%)。數據同步自 Yahoo Finance 實時報價系統，於台北時間 2026-05-29 自動刷新。目前全市場指數資產配置比例表現穩健。</div>
-            <!-- GITHUB_ACTIONS_SUMMARY_END -->
+            <div style="font-size: 0.95rem; line-height: 1.6; color: #555;" id="marketSummary">
+                正在等待自動化系統注入最新市場動態摘要...
+            </div>
         </div>
     </div>
 
-    <!-- 主版面 -->
-    <div class="main-layout">
-        
-        <!-- 左：最新新聞專區（全自動即時抓取中文 Google 新聞） -->
-        <div class="news-section">
-            <h2 class="section-title">即時中文財經新聞 (VTI / VXUS)</h2>
-            
-            <div class="time-filter">
-                <button class="filter-btn active" onclick="changeFilter('all')">全部新聞</button>
-                <button class="filter-btn" onclick="changeFilter('VTI')">VTI 相關</button>
-                <button class="filter-btn" onclick="changeFilter('VXUS')">VXUS 相關</button>
+    <div class="section-title">TAIWAN & JAPAN STRATEGIC ASSETS (台股核心與日股配置)</div>
+    <div class="grid-layout">
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="ticker-title">台積電 (2330)</div>
+                    <div class="ticker-name">全球半導體龍頭核心</div>
+                </div>
+                <span class="badge">護國神山</span>
             </div>
-
-            <div class="news-list" id="newsContainer">
-                <div class="loading-text">正在為您連線動態抓取最新繁體中文財經新聞...</div>
+            <div class="price-large" id="tsmc_price_block">$-.--</div>
+            <div class="change-row">
+                <span id="tsmc_change_block">-.--%</span>
+                <span>TWD</span>
             </div>
         </div>
 
-        <!-- 右：功能強大計算機 -->
-        <div class="calc-section">
-            <h2 class="section-title">時尚智能計算</h2>
-            
-            <div class="calc-tabs">
-                <button class="tab-btn active" onclick="switchTab(event, 'std-calc')">標準計算</button>
-                <button class="tab-btn" onclick="switchTab(event, 'compound-calc')">複利定期定額</button>
-                <button class="tab-btn" onclick="switchTab(event, 'ratio-calc')">資產配置比例</button>
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="ticker-title">鴻海 (2317)</div>
+                    <div class="ticker-name">全球電子代工與現代表現</div>
+                </div>
+                <span class="badge">科技權值</span>
             </div>
-
-            <!-- 籤頁 1: 標準計算機 -->
-            <div id="std-calc" class="calc-panel active">
-                <div class="standard-screen" id="calcScreen">0</div>
-                <div class="standard-grid">
-                    <div class="btn-grid op" onclick="clearScreen()">C</div>
-                    <div class="btn-grid op" onclick="pressOp('/')">÷</div>
-                    <div class="btn-grid op" onclick="pressOp('*')">×</div>
-                    <div class="btn-grid op" onclick="pressOp('-')">−</div>
-                    <div class="btn-grid" onclick="pressNum('7')">7</div>
-                    <div class="btn-grid" onclick="pressNum('8')">8</div>
-                    <div class="btn-grid" onclick="pressNum('9')">9</div>
-                    <div class="btn-grid op" onclick="pressOp('+')">+</div>
-                    <div class="btn-grid" onclick="pressNum('4')">4</div>
-                    <div class="btn-grid" onclick="pressNum('5')">5</div>
-                    <div class="btn-grid" onclick="pressNum('6')">6</div>
-                    <div class="btn-grid op" style="grid-row: span 2; display: flex; align-items: center; justify-content: center;" onclick="calculateResult()">=</div>
-                    <div class="btn-grid" onclick="pressNum('1')">1</div>
-                    <div class="btn-grid" onclick="pressNum('2')">2</div>
-                    <div class="btn-grid" onclick="pressNum('3')">3</div>
-                    <div class="btn-grid" style="grid-column: span 2;" onclick="pressNum('0')">0</div>
-                    <div class="btn-grid" onclick="pressNum('.')">.</div>
-                </div>
+            <div class="price-large" id="honhai_price_block">$-.--</div>
+            <div class="change-row">
+                <span id="honhai_change_block">-.--%</span>
+                <span>TWD</span>
             </div>
-
-            <!-- 籤頁 2: 複利定期定額試算 -->
-            <div id="compound-calc" class="calc-panel">
-                <div class="input-group">
-                    <label>每月定期定額投入金額 (元)</label>
-                    <input type="number" id="monthlyRent" value="10000">
-                </div>
-                <div class="input-group">
-                    <label>預期年化報酬率 (%)</label>
-                    <input type="number" id="annualReturn" value="7" step="0.1">
-                </div>
-                <div class="input-group">
-                    <label>投資年限 (年)</label>
-                    <input type="number" id="years" value="10">
-                </div>
-                <button class="calc-btn" onclick="runCompoundCalc()">開始試算</button>
-                
-                <div class="result-box">
-                    <div class="result-title">預估複利總資產</div>
-                    <div class="result-value" id="compoundResult">$ 0</div>
-                    <div class="result-detail" id="compoundDetail">本金: 0 | 累計利息: 0</div>
-                </div>
-            </div>
-
-            <!-- 籤頁 3: 資產配置比例試算 -->
-            <div id="ratio-calc" class="calc-panel">
-                <div class="input-group">
-                    <label>預計投入總資本 (元)</label>
-                    <input type="number" id="totalCapital" value="1000000">
-                </div>
-                <div class="input-group">
-                    <label>VTI 目標配置比例 (%)</label>
-                    <input type="number" id="vtiRatio" value="80">
-                </div>
-                <div class="input-group">
-                    <label>VXUS 目標配置比例 (%)</label>
-                    <input type="number" id="vxusRatio" value="20" disabled style="opacity: 0.6;">
-                </div>
-                <button class="calc-btn" onclick="runRatioCalc()">計算配置金額</button>
-                
-                <div class="result-box">
-                    <div class="result-title">配置建議結果</div>
-                    <div class="result-value" id="ratioResult" style="font-size: 1.1rem; white-space: pre-line;">請輸入上方數據並點擊計算</div>
-                </div>
-            </div>
-
         </div>
 
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="ticker-title">元大台灣50 (0050)</div>
+                    <div class="ticker-name">台灣市值龍頭特選 ETF</div>
+                </div>
+                <span class="badge">台股大盤</span>
+            </div>
+            <div class="price-large" id="tw50_price_block">$-.--</div>
+            <div class="change-row">
+                <span id="tw50_change_block">-.--%</span>
+                <span>TWD</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="ticker-title">復華日本龍頭 (00981A)</div>
+                    <div class="ticker-name">日本特選頂級核心商社 ETF</div>
+                </div>
+                <span class="badge">日股聚焦</span>
+            </div>
+            <div class="price-large" id="japan_price_block">$-.--</div>
+            <div class="change-row">
+                <span id="japan_change_block">-.--%</span>
+                <span>TWD</span>
+            </div>
+        </div>
     </div>
 </div>
-
-<script>
-    // 透過免費開放的 RSS-to-JSON 網際網路接口，即時拉取 Google News 的最新中文財經消息
-    let currentFilter = 'all';
-    let cachedNews = [];
-
-    async function fetchLiveNews() {
-        const container = document.getElementById('newsContainer');
-        // 使用 Google News 繁體中文搜尋源
-        const rssUrlVti = encodeURIComponent('https://news.google.com/rss/search?q=VTI+ETF&hl=zh-TW&gl=TW&ceid=TW:zh-Hant');
-        const rssUrlVxus = encodeURIComponent('https://news.google.com/rss/search?q=VXUS+ETF&hl=zh-TW&gl=TW&ceid=TW:zh-Hant');
-        
-        try {
-            // 同時抓取兩個 RSS 源
-            const [resVti, resVxus] = await Promise.all([
-                fetch(`https://api.rss2json.com/v1/api.json?rss_url=${rssUrlVti}`).then(r => r.json()),
-                fetch(`https://api.rss2json.com/v1/api.json?rss_url=${rssUrlVxus}`).then(r => r.json())
-            ]);
-
-            cachedNews = [];
-            
-            if (resVti.status === 'ok' && resVti.items) {
-                resVti.items.slice(0, 4).forEach(item => {
-                    cachedNews.push({
-                        tag: 'VTI',
-                        title: item.title,
-                        link: item.link,
-                        pubDate: item.pubDate.split(' ')[0],
-                        description: item.description || '點擊閱讀完整報導內容。'
-                    });
-                });
-            }
-
-            if (resVxus.status === 'ok' && resVxus.items) {
-                resVxus.items.slice(0, 4).forEach(item => {
-                    cachedNews.push({
-                        tag: 'VXUS',
-                        title: item.title,
-                        link: item.link,
-                        pubDate: item.pubDate.split(' ')[0],
-                        description: item.description || '點擊閱讀完整報導內容。'
-                    });
-                });
-            }
-
-            // 依時間排序
-            cachedNews.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
-            renderNews();
-
-        } catch (error) {
-            container.innerHTML = '<div class="loading-text" style="color: #CD5C5C;">無法載入即時新聞，顯示預設快取。</div>';
-        }
-    }
-
-    function renderNews() {
-        const container = document.getElementById('newsContainer');
-        if (cachedNews.length === 0) {
-            container.innerHTML = '<div class="loading-text">目前暫無相關中文新聞。</div>';
-            return;
-        }
-
-        container.innerHTML = '';
-        cachedNews.forEach(item => {
-            if (currentFilter !== 'all' && item.tag !== currentFilter) return;
-
-            const html = `
-                <div class="news-item">
-                    <div class="news-meta">
-                        <span class="news-tag">${item.tag}</span>
-                        <span>${item.pubDate}</span>
-                    </div>
-                    <a href="${item.link}" target="_blank" class="news-title">${item.title}</a>
-                </div>
-            `;
-            container.innerHTML += html;
-        });
-    }
-
-    function changeFilter(filterType) {
-        currentFilter = filterType;
-        const buttons = document.querySelectorAll('.filter-btn');
-        buttons.forEach(btn => btn.classList.remove('active'));
-        event.target.classList.add('active');
-        renderNews();
-    }
-
-    // 計算機籤頁切換
-    function switchTab(evt, tabId) {
-        const panels = document.querySelectorAll('.calc-panel');
-        panels.forEach(p => p.classList.remove('active'));
-        
-        const tabs = document.querySelectorAll('.tab-btn');
-        tabs.forEach(t => t.classList.remove('active'));
-
-        document.getElementById(tabId).classList.add('active');
-        evt.currentTarget.classList.add('active');
-    }
-
-    // 標準計算機邏輯
-    let currentInput = '0';
-    const screen = document.getElementById('calcScreen');
-
-    function pressNum(num) {
-        if (currentInput === '0' && num !== '.') {
-            currentInput = num;
-        } else {
-            currentInput += num;
-        }
-        screen.innerText = currentInput;
-    }
-
-    function pressOp(op) {
-        currentInput += ' ' + op + ' ';
-        screen.innerText = currentInput;
-    }
-
-    function clearScreen() {
-        currentInput = '0';
-        screen.innerText = currentInput;
-    }
-
-    function calculateResult() {
-        try {
-            let cleanInput = currentInput.replace(/×/g, '*').replace(/÷/g, '/');
-            let res = Function('"use strict";return (' + cleanInput + ')')();
-            currentInput = Number(res.toFixed(4)).toString();
-            screen.innerText = currentInput;
-        } catch (e) {
-            screen.innerText = 'Error';
-            currentInput = '0';
-        }
-    }
-
-    // 複利定期定額試算邏輯
-    function runCompoundCalc() {
-        const p = parseFloat(document.getElementById('monthlyRent').value) || 0;
-        const annualRate = parseFloat(document.getElementById('annualReturn').value) || 0;
-        const y = parseInt(document.getElementById('years').value) || 0;
-
-        const r = annualRate / 100 / 12; 
-        const n = y * 12; 
-
-        let total = 0;
-        if(r === 0) {
-            total = p * n;
-        } else {
-            total = p * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
-        }
-
-        const principal = p * n;
-        const interest = total - principal;
-
-        document.getElementById('compoundResult').innerText = '$ ' + Math.round(total).toLocaleString();
-        document.getElementById('compoundDetail').innerText = `總本金: ${Math.round(principal).toLocaleString()} 元 | 累計複利息: ${Math.round(interest).toLocaleString()} 元`;
-    }
-
-    // 資產配置比例連動與計算
-    const vtiInput = document.getElementById('vtiRatio');
-    const vxusInput = document.getElementById('vxusRatio');
-    
-    vtiInput.addEventListener('input', () => {
-        let val = parseFloat(vtiInput.value) || 0;
-        if (val > 100) val = 100;
-        if (val < 0) val = 0;
-        vtiInput.value = val;
-        vxusInput.value = (100 - val);
-    });
-
-    function runRatioCalc() {
-        const total = parseFloat(document.getElementById('totalCapital').value) || 0;
-        const vtiPer = parseFloat(vtiInput.value) || 0;
-        const vxusPer = parseFloat(vxusInput.value) || 0;
-
-        const vtiAmount = total * (vtiPer / 100);
-        const vxusAmount = total * (vxusPer / 100);
-
-        document.getElementById('ratioResult').innerText = 
-            `VTI (${vtiPer}%): 應投入 $${Math.round(vtiAmount).toLocaleString()} 元
-` +
-            `VXUS (${vxusPer}%): 應投入 $${Math.round(vxusAmount).toLocaleString()} 元`;
-    }
-
-    window.onload = function() {
-        runCompoundCalc();
-        runRatioCalc();
-        fetchLiveNews();
-    }
-</script>
 
 </body>
 </html>
