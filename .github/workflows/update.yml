@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: 檢出專案代碼
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4 # 🚀 已升級至 v4，支援最新 Node.js 24
 
     - name: 設定 Python 環境
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5 # 🚀 已升級至 v5，支援最新 Node.js 24
       with:
         python-version: '3.x'
 
