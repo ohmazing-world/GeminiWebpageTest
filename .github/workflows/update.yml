@@ -5,10 +5,6 @@ on:
     - cron: '0 * * * *' # 每小時整點自動執行一次 (UTC 時間)
   workflow_dispatch: # 允許你在 GitHub 介面上手動點擊執行
 
-# 🚀 在這裡加入全域環境變數，強制 GitHub Actions 使用 Node.js 24 執行所有 Actions
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
-
 jobs:
   update-data:
     runs-on: ubuntu-latest
@@ -19,7 +15,7 @@ jobs:
     - name: 設定 Python 環境
       uses: actions/setup-python@v5
       with:
-        python-version: '3.x'
+        python-version: '3.12' # 🚀 明確指定使用較新的 Python 3.12 版本，會自動避開舊版 Node 依賴
 
     - name: 執行更新腳本
       run: python update_prices.py
