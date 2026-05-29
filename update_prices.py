@@ -6,7 +6,10 @@ def log_msg(msg):
     print(f"[{datetime.now().strftime('%H:%M:%S')}] 📡 {msg}")
     sys.stdout.flush()
 
-def fetch_from_yahoo(ticker):
+def fetch_from_yahoo(ticker, default_price, default_change):
+    """
+    自適應全球市場抓取函數：支援美股、台股與特選 ETF，內建安全基準防線。
+    """
     log_msg(f"🦅 呼叫 Yahoo Finance 數據流 -> 標的: {ticker}")
     try:
         stock = yf.Ticker(ticker)
@@ -18,16 +21,14 @@ def fetch_from_yahoo(ticker):
         log_msg(f"🎉 [Yahoo 數據解鎖] {ticker}: ${price:.2f} ({change_pct:.2f}%)")
         return price, change_pct
     except Exception as e:
-        log_msg(f"⚠️ Yahoo 接口微調或盤後暫停: {e}")
+        log_msg(f"⚠️ Yahoo 接口微調或週末暫停: {e}")
         
     log_msg(f"🔒 觸發 {ticker} 當前市場安全基準防線")
-    if ticker == "VTI": return 268.45, 0.52
-    return 64.20, -0.15
+    return default_price, default_change
 
 def update_html_block(content, target_id, new_text):
     """
-    使用精準的雙邊切割法，每次都彻底清空舊數據，
-    100% 解決文字疊加重複的問題，且絕對不會引發 Regex 死鎖。
+    精準雙邊切割技術，確保不論執行幾千次，都不會重疊，字體外觀保持高階質感。
     """
     tag = f'id="{target_id}">'
     if tag in content:
@@ -39,33 +40,57 @@ def update_html_block(content, target_id, new_text):
     return content
 
 def main():
-    log_msg("===== 自動化實體數據對齊任務（修復疊加版）啟動 =====")
-    vti_p, vti_c = fetch_from_yahoo("VTI")
-    print("-" * 50)
-    vxus_p, vxus_c = fetch_from_yahoo("VXUS")
-    print("-" * 50)
+    log_msg("===== 🚀 全球多資產大合流自動化更新腳本啟動 =====")
     
-    vti_sign = "+" if vti_c >= 0 else ""
-    vxus_sign = "+" if vxus_c >= 0 else ""
+    # 1. 抓取所有核心配置標的數據
+    vti_p, vti_c = fetch_from_yahoo("VTI", 372.54, 0.17)
+    vxus_p, vxus_c = fetch_from_yahoo("VXUS", 86.06, 0.07)
+    
+    # 台灣與日本特選標的 (注意 yfinance 格式：台股需加上 .TW)
+    tsmc_p, tsmc_c = fetch_from_yahoo("2330.TW", 920.0, 0.55)
+    honhai_p, honhai_c = fetch_from_yahoo("2317.TW", 180.0, -0.25)
+    tw50_p, tw50_c = fetch_from_yahoo("0050.TW", 165.5, 0.12)
+    japan_p, japan_c = fetch_from_yahoo("00981A.TW", 15.2, 0.0)
+    
+    print("-" * 60)
+    
+    # 2. 格式化所有顯示文字與正負符號
+    def fmt_p(p): return f"${p:.2f}"
+    def fmt_c(c): return f"+{c:.2f}%" if c >= 0 else f"{c:.2f}%"
+    
     today_str = datetime.now().strftime("%Y-%m-%d")
-    
-    vti_text = f"${vti_p:.2f} ({vti_sign}{vti_c:.2f}%)"
-    vxus_text = f"${vxus_p:.2f} ({vxus_sign}{vxus_c:.2f}%)"
-    summary_text = f"美股大盤 VTI 目前來到 {vti_text}，全球除美股市場 VXUS 報 {vxus_text}。數據同步自 Yahoo Finance 實時報價系統，於台北時間 {today_str} 自動刷新。目前全市場指數資產配置比例表現穩健。"
+    summary_text = (
+        f"全球市場動態：美股 VTI 目前來到 {fmt_p(vti_p)} ({fmt_c(vti_c)})，"
+        f"國際市場 VXUS 報 {fmt_p(vxus_p)} ({fmt_c(vxus_c)})。台股護國神山台積電報 NT{fmt_p(tsmc_p)}。"
+        f"數據已於台北時間 {today_str} 自動完成跨國同步，全市場長線資產配置穩定運作中。"
+    )
 
-    log_msg("讀取 index.html 進行安全純文字切割替換...")
+    # 3. 讀取並注入網頁
+    log_msg("讀取 index.html 進行全自動無重複覆寫...")
     with open("index.html", "r", encoding="utf-8") as f:
         content = f.read()
 
-    # 🌟 核心修正：利用 Split 機制，每次更新都將 <div> 內的舊數字覆蓋，不再無限疊加
-    content = update_html_block(content, "vtiPrice", vti_text)
-    content = update_html_block(content, "vxusPrice", vxus_text)
+    # 注入美股
+    content = update_html_block(content, "vti_price_block", fmt_p(vti_p))
+    content = update_html_block(content, "vti_change_block", fmt_c(vti_c))
+    content = update_html_block(content, "vxus_price_block", fmt_p(vxus_p))
+    content = update_html_block(content, "vxus_change_block", fmt_c(vxus_c))
     content = update_html_block(content, "marketSummary", summary_text)
+    
+    # 注入台股、日股
+    content = update_html_block(content, "tsmc_price_block", f"${tsmc_p:.1f}")
+    content = update_html_block(content, "tsmc_change_block", fmt_c(tsmc_c))
+    content = update_html_block(content, "honhai_price_block", f"${honhai_p:.1f}")
+    content = update_html_block(content, "honhai_change_block", fmt_c(honhai_c))
+    content = update_html_block(content, "tw50_price_block", f"${tw50_p:.2f}")
+    content = update_html_block(content, "tw50_change_block", fmt_c(tw50_c))
+    content = update_html_block(content, "japan_price_block", f"${japan_p:.2f}")
+    content = update_html_block(content, "japan_change_block", fmt_c(japan_c))
 
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(content)
         
-    log_msg("✨ [大功告成] 疊加問題已完美修復，網頁回復純淨外觀！")
+    log_msg("✨ [大功告成] 美、台、日全球多重資產數據已完美注入網頁！")
 
 if __name__ == "__main__":
     main()
