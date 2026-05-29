@@ -15,15 +15,27 @@ jobs:
     - name: 設定 Python 環境
       uses: actions/setup-python@v5
       with:
-        python-version: '3.12' # 🚀 明確指定使用較新的 Python 3.12 版本，會自動避開舊版 Node 依賴
+        python-version: '3.x'
 
     - name: 執行更新腳本
       run: python update_prices.py
 
-    - name: 將最新價格自動提交並推送到 GitHub Pages
+    - name: 自動安全檢查與無感提交
       run: |
+        # 解決潛在的安全路徑卡頓問題
+        git config --global --add safe.directory /github/workspace
+        
+        # 設定機器人身分
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        
+        # 檢查是否有檔案變更
         git add index.html
-        git diff-index --quiet HEAD || git commit -m "Automated hourly financial data update [skip ci]"
-        git push
+        
+        # 聰明的防禦性提交：如果有變更才 Commit & Push，沒變更就優雅地印出訊息並結束
+        if git diff-index --quiet HEAD --; then
+          echo "市場數據與上一小時相同，網頁內容無需更新，完美結束！"
+        else
+          git commit -m "Automated hourly financial data update [skip ci]"
+          git push
+        fi
