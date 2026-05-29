@@ -2,8 +2,8 @@ name: Hourly Financial Data Auto Updater
 
 on:
   schedule:
-    - cron: '0 * * * *' # 每小時整點自動執行一次 (UTC 時間)
-  workflow_dispatch: # 允許你在 GitHub 介面上手動點擊執行
+    - cron: '0 * * * *' # 每小時整點自動執行
+  workflow_dispatch: # 允許手動點擊執行
 
 jobs:
   update-data:
@@ -15,7 +15,12 @@ jobs:
     - name: 強制設定標準穩定 Python 3.10 環境
       uses: actions/setup-python@v5
       with:
-        python-version: '3.10' # 🚀 放棄前衛的 3.14，改用最成熟、絕對不會發生底層衝突的 3.10
+        python-version: '3.10'
+
+    - name: 安裝高階網路連線套件
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests # 🚀 安裝強大的 requests 套件來應付 Yahoo
 
     - name: 執行更新腳本
       run: python update_prices.py
