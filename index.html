@@ -38,7 +38,7 @@
             border-radius: 20px;
             background-image: url('截圖 2026-05-30 下午4.55.55.jpg');
             background-size: cover;
-            background-position: center 45%; /* 自動擷取最適合且構圖最優美的畫面中央範圍 */
+            background-position: center 45%;
             box-shadow: 0 10px 30px rgba(95, 116, 96, 0.06);
             position: relative;
             overflow: hidden;
@@ -76,14 +76,14 @@
         }
         header h1 { 
             font-size: 3rem; 
-            font-weight: 200; /* 極簡纖細感 */
+            font-weight: 200; 
             letter-spacing: 5px; 
             margin: 0; 
             color: #2F3B30; 
             text-shadow: 0 1px 3px rgba(255,255,255,0.9); 
         }
         header h1 strong {
-            font-weight: 600; /* 粗細對比的時尚簡約感 */
+            font-weight: 600; 
             color: var(--accent);
         }
         header p { color: var(--text-sub); font-size: 1.05rem; letter-spacing: 4px; margin: 6px 0 0 0; font-weight: 400; }
@@ -118,7 +118,7 @@
         .price-large { font-size: 2.2rem; font-weight: 300; margin-bottom: 5px; font-family: "Helvetica Neue", Arial, sans-serif; }
         .change-row { display: flex; justify-content: space-between; font-size: 0.88rem; font-weight: 500; }
 
-        /* 新聞專區與展開機制樣式 */
+        /* 新聞與資源專區樣式 */
         .stock-news-box { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; }
         .stock-news-box h3 { margin-top: 0; font-size: 1.05rem; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; color: var(--accent); display: flex; justify-content: space-between; }
         .stock-news-box h3 span { font-size: 0.8rem; color: var(--text-sub); font-weight: normal; }
@@ -129,13 +129,13 @@
         .news-item a:hover { color: var(--accent); text-decoration: underline; }
         .news-meta { font-size: 0.75rem; color: var(--text-sub); display: flex; justify-content: space-between; margin-top: 5px; }
         
-        /* 隱藏第四則以後的新聞項目 */
-        .news-item.hidden-news { display: none !important; }
+        /* 隱藏第四則以後的動態項目 */
+        .news-item.hidden-news, .res-item.hidden-res { display: none !important; }
         
-        /* 展開按鈕 */
+        /* 展開/收合按鈕 */
         .expand-news-btn {
             background: none; border: none; color: var(--accent); font-size: 0.82rem;
-            letter-spacing: 1px; padding: 8px 0; margin-top: auto; cursor: pointer;
+            letter-spacing: 1px; padding: 10px 0 2px 0; margin-top: auto; cursor: pointer;
             text-align: center; width: 100%; border-top: 1px solid #F0EFEA;
             transition: all 0.2s ease; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 4px;
         }
@@ -144,7 +144,7 @@
         /* 指數化思維資源專區分類佈局 */
         .resource-box { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 25px; }
         .res-authors-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
-        .res-author-column { background: rgba(250, 249, 246, 0.6); border: 1px solid #F0EFEA; border-radius: 12px; padding: 18px; }
+        .res-author-column { background: rgba(250, 249, 246, 0.6); border: 1px solid #F0EFEA; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; }
         .res-author-column h4 { margin: 0 0 12px 0; font-size: 1.05rem; color: var(--accent); border-bottom: 2px solid var(--border-color); padding-bottom: 6px; display: flex; align-items: center; gap: 6px; }
         .res-list-container { display: flex; flex-direction: column; gap: 10px; list-style: none; padding: 0; margin: 0; }
         .res-item { font-size: 0.88rem; line-height: 1.45; padding: 10px 12px; background: #FFFFFF; border: 1px solid #EAE5DD; border-radius: 8px; transition: all 0.2s ease; }
@@ -260,43 +260,43 @@
         <div class="news-grid">
             <div class="stock-news-box">
                 <h3>VTI <span>整體美股市場</span></h3>
-                <ul class="news-list" id="news_VTI"><li class='news-item'><a href='http://www.etf.com/sections/news/most-compared-etfs-right-now-and-what-they-reveal?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss' target='_blank'>The Most-Compared ETFs Right Now — And What They Reveal</a><div class='news-meta'><span>來源: Yahoo Finance</span><span>05-29 07:00</span></div></li><li class='news-item'><a href='https://247wallst.com/investing/2026/05/28/wall-streets-laziest-fund-is-outperforming-against-spy-time-to-switch-to-vti/?.tsrc=rss' target='_blank'>Wall Street’s Laziest Fund Is Outperforming Against SPY – Time to Switch to VTI?</a><div class='news-meta'><span>來源: Yahoo Finance</span><span>05-29 00:13</span></div></li><li class='news-item'><a href='https://finance.yahoo.com/markets/articles/much-cash-too-much-cash-160021669.html?.tsrc=rss' target='_blank'>'How Much Cash Is Too Much Cash,' Asks A 27- Year-Old With $70K Sitting In A High-Yield Savings Account. He Wants To 'Stop Hoarding This Cash'</a><div class='news-meta'><span>來源: Yahoo Finance</span><span>05-26 00:00</span></div></li><li class='news-item hidden-news'><a href='https://247wallst.com/investing/2026/05/21/if-your-advisor-said-to-add-bonds-at-65-they-were-right-in-1995-heres-what-that-advice-should-sound-like-today/?.tsrc=rss' target='_blank'>If Your Advisor Said to Add Bonds at 65, They Were Right (in 1995). Here’s What That Advice Should Sound Like Today.</a><div class='news-meta'><span>來源: Yahoo Finance</span><span>05-21 21:30</span></div></li><li class='news-item hidden-news'><a href='https://finance.yahoo.com/markets/stocks/articles/vanguard-total-stock-market-index-195026096.html?.tsrc=rss' target='_blank'>Vanguard Total Stock Market Index Fund ETF Shares (VTI): Graham Stephan Remains Bullish</a><div class='news-meta'><span>來源: Yahoo Finance</span><span>05-21 03:50</span></div></li><li class='news-item hidden-news'><a href='https://www.fool.com/investing/2026/05/19/vti-vs-voo-which-one-is-the-smarter-buy-today/?.tsrc=rss' target='_blank'>VTI vs VOO: Which One Is the Smarter Buy Today?</a><div class='news-meta'><span>來源: Yahoo Finance</span><span>05-19 18:05</span></div></li></ul>
+                <ul class="news-list" id="news_VTI"><li class='news-item'>同步中...</li></ul>
                 <button class="expand-news-btn" onclick="toggleNews(this)">↓ 展開更多新聞</button>
             </div>
             
             <div class="stock-news-box">
                 <h3>VXUS <span>國際除美市場</span></h3>
-                <ul class="news-list" id="news_VXUS"><li class='news-item'><a href='https://247wallst.com/investing/2026/05/21/this-boring-international-etf-might-be-one-of-the-smartest-value-bets-right-now/?.tsrc=rss' target='_blank'>This Boring International ETF Might Be One Of The Smartest Value Bets Right Now</a><div class='news-meta'><span>來源: Yahoo Finance</span><span>05-21 20:53</span></div></li><li class='news-item'><a href='https://finance.yahoo.com/markets/stocks/articles/vanguard-total-international-stock-index-194851424.html?.tsrc=rss' target='_blank'>Vanguard Total International Stock Index Fund ETF Shares (VXUS): Stock Pick of Graham Stephan</a><div class='news-meta'><span>來源: Yahoo Finance</span><span>05-21 03:48</span></div></li><li class='news-item'><a href='https://247wallst.com/investing/2026/05/20/vanguards-0-05-international-stock-etf-just-outpaced-the-sp-500-for-the-first-time-in-five-years/?.tsrc=rss' target='_blank'>Vanguard’s 0.05% International Stock ETF Just Outpaced the S&P 500 for the First Time in Five Years</a><div class='news-meta'><span>來源: Yahoo Finance</span><span>05-21 01:41</span></div></li><li class='news-item hidden-news'><a href='https://www.fool.com/coverage/filings/2026/05/19/usaa-dumps-usd114-8-million-bond-etf-stake-what-bond-investors-should-know/?.tsrc=rss' target='_blank'>USAA Dumps $114.8 Million Bond ETF Stake -- What Bond Investors Should Know</a><div class='news-meta'><span>來源: Yahoo Finance</span><span>05-19 19:15</span></div></li><li class='news-item hidden-news'><a href='http://www.etf.com/sections/etf-basics/what-etf-everything-beginners-need-know-2026?utm_source=yahoo-finance&utm_medium=rss&utm_campaign=yahoo-finance-rss&.tsrc=rss' target='_blank'>What Is an ETF? Everything Beginners Need to Know in 2026</a><div class='news-meta'><span>來源: Yahoo Finance</span><span>05-19 03:15</span></div></li><li class='news-item hidden-news'><a href='https://www.marketbeat.com/stock-ideas/as-us-debt-surpasses-gdp-these-2-etfs-are-emerging-winners-in-the-sell-america-trade/?utm_source=yahoofinance&utm_medium=yahoofinance&.tsrc=rss' target='_blank'>As U.S. Debt Surpasses GDP, These 2 ETFs Are Emerging Winners in the “Sell America” Trade</a><div class='news-meta'><span>來源: Yahoo Finance</span><span>05-18 19:10</span></div></li></ul>
+                <ul class="news-list" id="news_VXUS"><li class='news-item'>同步中...</li></ul>
                 <button class="expand-news-btn" onclick="toggleNews(this)">↓ 展開更多新聞</button>
             </div>
             
             <div class="stock-news-box">
                 <h3>VT <span>全球全市場</span></h3>
-                <ul class="news-list" id="news_VT"><li class='news-item'><a href='https://www.marketwatch.com/story/5-money-moves-that-made-this-32-year-old-dad-a-millionaire-in-just-9-years-3725c0ed?.tsrc=rss' target='_blank'>5 money moves that made this 32-year-old dad a millionaire in just 9 years</a><div class='news-meta'><span>來源: Yahoo Finance</span><span>05-19 00:13</span></div></li><li class='news-item'><a href='https://247wallst.com/investing/2026/03/21/the-vt-etf-might-be-smarter-than-the-sp-500-right-now-voo-spy-vt/?.tsrc=rss' target='_blank'>The VT ETF Might Be Smarter Than the S&P 500 Right Now | VOO SPY VT</a><div class='news-meta'><span>來源: Yahoo Finance</span><span>03-21 18:14</span></div></li><li class='news-item'><a href='https://finance.yahoo.com/news/leverage-shares-themes-debuts-wldu-130000279.html?.tsrc=rss' target='_blank'>Leverage Shares by Themes Debuts WLDU, Delivering 2X Global Equity Exposure, and GLWG Single-Stock ETF</a><div class='news-meta'><span>來源: Yahoo Finance</span><span>03-10 21:00</span></div></li><li class='news-item hidden-news'><a href='https://finance.yahoo.com/m/fb78633f-c65c-3f0c-b597-7e80fc427313/stock-market-pro-says.html?.tsrc=rss' target='_blank'>Stock Market Pro Says 'Optimism Pays' In Today's Economy</a><div class='news-meta'><span>來源: Yahoo Finance</span><span>02-06 20:00</span></div></li><li class='news-item hidden-news'><a href='https://finance.yahoo.com/news/spacex-xai-etfs-packaging-private-140300301.html?.tsrc=rss' target='_blank'>From SpaceX to xAI: How ETFs Are Packaging Private Assets</a><div class='news-meta'><span>來源: Yahoo Finance</span><span>07-23 22:03</span></div></li><li class='news-item hidden-news'><a href='https://finance.yahoo.com/news/international-equity-etf-vt-hits-203500071.html?.tsrc=rss' target='_blank'>International Equity ETF (VT) Hits New 52-Week High</a><div class='news-meta'><span>來源: Yahoo Finance</span><span>06-10 04:35</span></div></li></ul>
+                <ul class="news-list" id="news_VT"><li class='news-item'>同步中...</li></ul>
                 <button class="expand-news-btn" onclick="toggleNews(this)">↓ 展開更多新聞</button>
             </div>
             
             <div class="stock-news-box">
                 <h3>元大台灣50 (0050) <span>台股大盤指標</span></h3>
-                <ul class="news-list" id="news_0050"><li class='news-item'><a href='https://tw.stock.yahoo.com/news/%E5%8F%B0%E8%82%A1%E9%9C%87%E5%87%BA1-66%E5%85%86%E5%85%83%E6%96%B0%E5%A4%A9%E9%87%8F-%E5%A4%96%E8%B3%87%E6%9C%9F%E8%B2%A8%E6%B7%A8%E7%A9%BA%E5%96%AE%E9%80%BE5-8%E8%90%AC%E5%8F%A3-094005519.html' target='_blank'>台股震出1.66兆元新天量　外資期貨淨空單逾5.8萬口</a><div class='news-meta'><span>來源: Yahoo奇摩股市</span><span>05-28 17:40</span></div></li><li class='news-item'><a href='https://tw.stock.yahoo.com/news/0050%E8%A1%9D%E7%A0%B4%E7%99%BE%E5%85%83%E5%89%B5%E5%88%86%E5%89%B2%E5%BE%8C%E6%96%B0%E5%A4%A9%E5%83%B9-%E4%B8%8D%E5%88%B01%E5%B9%B4%E8%82%A1%E5%83%B9%E7%BF%BB%E5%80%8D-033314147.html' target='_blank'>0050衝破百元創分割後新天價　不到1年股價翻倍</a><div class='news-meta'><span>來源: Yahoo奇摩股市</span><span>05-25 11:33</span></div></li><li class='news-item'><a href='https://tw.stock.yahoo.com/news/%E5%A4%96%E8%B3%87%E8%B3%A3%E8%B6%85%E9%80%BE632%E5%84%84-%E8%AA%BF%E7%AF%80%E4%B8%BB%E5%8B%95%E5%BC%8Fetf-%E5%8F%B0%E7%A9%8D%E9%9B%BB-120708616.html' target='_blank'>外資賣超逾632億　調節主動式ETF、台積電</a><div class='news-meta'><span>來源: Yahoo奇摩股市</span><span>05-19 20:07</span></div></li><li class='news-item hidden-news'><a href='https://tw.stock.yahoo.com/news/%E5%A4%96%E8%B3%87%E8%B3%A3%E8%B6%85%E5%8F%B0%E8%82%A1%E9%80%BE104%E5%84%84%E5%85%83-%E8%AA%BF%E7%AF%80%E4%B8%BB%E5%8B%95%E5%BC%8Fetf-121149256.html' target='_blank'>外資賣超台股逾104億元　調節主動式ETF</a><div class='news-meta'><span>來源: Yahoo奇摩股市</span><span>05-15 20:11</span></div></li><li class='news-item hidden-news'><a href='https://tw.stock.yahoo.com/news/0050%E5%AE%9A%E6%9C%9F%E5%AE%9A%E9%A1%8D%E6%88%B6%E6%95%B8%E7%A0%B4%E7%99%BE%E8%90%AC-%E9%A0%98%E5%85%88%E5%8F%B0%E7%A9%8D%E9%9B%BB%E7%9A%8420%E8%90%AC%E6%88%B6-051340104.html' target='_blank'>0050定期定額戶數破百萬　領先台積電的20萬戶</a><div class='news-meta'><span>來源: Yahoo奇摩股市</span><span>05-12 13:13</span></div></li><li class='news-item hidden-news'><a href='https://tw.stock.yahoo.com/news/%E7%9B%A4%E5%89%8D%E7%84%A6%E9%BB%9E-%E7%BE%8E%E8%82%A1%E7%BA%8C%E5%BC%B7%E5%8F%B0%E6%8C%87%E6%9C%9F%E5%A4%9C%E7%9B%A4%E6%BC%B2361%E9%BB%9E-%E6%8A%95%E9%A1%A7-%E5%8F%B0%E8%82%A1%E6%9C%89%E6%9C%9B%E6%8C%91%E6%88%B042000%E9%BB%9E-003209716.html' target='_blank'>【盤前焦點】美股續強台指期夜盤漲361點　投顧：台股有望挑戰42000點</a><div class='news-meta'><span>來源: Yahoo奇摩股市</span><span>05-11 08:32</span></div></li></ul>
+                <ul class="news-list" id="news_0050"><li class='news-item'>同步中...</li></ul>
                 <button class="expand-news-btn" onclick="toggleNews(this)">↓ 展開更多新聞</button>
             </div>
             
             <div class="stock-news-box">
                 <h3>台積電 (2330) <span>護國神山核心</span></h3>
-                <ul class="news-list" id="news_2330"><li class='news-item'><a href='https://tw.stock.yahoo.com/news/%E9%BB%83%E4%BB%81%E5%8B%B3%E5%97%A8%E8%AB%8B%E5%85%86%E5%85%83%E5%AE%B4-%E9%9F%93%E5%AA%92%E8%A6%8B-%E7%A5%A8%E5%85%A8%E7%90%83%E6%99%B6%E7%89%87%E5%A4%A7%E5%92%96%E5%88%B0%E5%8F%B0%E7%81%A3-%E6%80%A5%E8%AD%A6%E5%91%8A%E4%BA%86-071923786.html' target='_blank'>黃仁勳嗨請兆元宴！韓媒見「一票全球晶片大咖到台灣」急警告了</a><div class='news-meta'><span>來源: Yahoo奇摩股市</span><span>05-30 15:19</span></div></li><li class='news-item'><a href='https://tw.stock.yahoo.com/news/%E6%96%B0%E5%85%89%E9%8B%BC%E5%AD%90%E5%85%AC%E5%8F%B8114-10-21-115-5-042100573.html' target='_blank'>新光鋼子公司114/10/21~115/5/29處分台積電159張，獲利約1.32億元</a><div class='news-meta'><span>來源: Yahoo奇摩股市</span><span>05-30 12:21</span></div></li><li class='news-item'><a href='https://tw.stock.yahoo.com/news/%E5%8F%B0%E5%8C%97%E5%9C%8B%E9%9A%9B%E9%9B%BB%E8%85%A6%E5%B1%95%E8%8B%B1%E7%89%B9%E7%88%BEsk%E5%B7%A8%E9%A0%AD%E6%8A%B5%E5%8F%B0-%E5%8F%B0%E7%BE%8E%E9%9F%93ai%E7%AB%B6%E5%90%88%E8%81%AF%E7%9B%9F%E6%88%90%E5%BD%A2-040937543.html' target='_blank'>台北國際電腦展英特爾SK巨頭抵台　台美韓AI競合聯盟成形</a><div class='news-meta'><span>來源: Yahoo奇摩股市</span><span>05-30 12:09</span></div></li><li class='news-item hidden-news'><a href='https://tw.stock.yahoo.com/news/%E5%8F%B0%E7%A9%8D%E9%9B%BB%E8%A2%AB%E5%9B%A4%E8%B2%A8-%E6%8F%AD%E5%AF%86%E5%AF%8C%E8%B1%AA5%E5%A4%A7%E6%84%9B%E8%82%A1-%E9%80%99%E6%AA%94%E5%B4%A940-%E5%A4%A7%E6%88%B6%E7%8B%82%E6%8A%84%E5%BA%95-040344158.html' target='_blank'>台積電被囤貨！揭密富豪5大愛股 這檔崩40％大戶狂抄底</a><div class='news-meta'><span>來源: Yahoo奇摩股市</span><span>05-30 12:03</span></div></li><li class='news-item hidden-news'><a href='https://tw.stock.yahoo.com/news/%E5%8F%B0%E8%82%A15%E6%9C%88%E5%A4%A9%E6%89%93%E7%A0%B4%E9%AD%94%E5%92%92-%E9%BB%83%E4%BB%81%E5%8B%B3-msci%E9%9B%99%E7%A5%9E%E5%8A%A9%E6%94%BB%E7%8B%82%E5%88%B7-%E5%8D%81%E5%A4%A7%E9%A9%9A%E5%A5%87-033128509.html' target='_blank'>台股5月天打破魔咒 黃仁勳、MSCI雙神助攻狂刷「十大驚奇」</a><div class='news-meta'><span>來源: Yahoo奇摩股市</span><span>05-30 11:31</span></div></li><li class='news-item hidden-news'><a href='https://tw.stock.yahoo.com/news/%E3%80%90%E5%8D%81%E5%A4%A7%E6%AC%8A%E5%80%BC%E8%82%A1%E6%B4%97%E7%89%8C%E6%A8%821%E3%80%91%E6%B2%92%E6%9C%89ai%E5%B0%B1bi%EF%BC%81%E5%8F%B0%E8%82%A1%E5%89%8D%E5%8D%81%E5%BC%B7%E7%A7%91%E6%8A%80%E9%9C%B8%E6%A6%9C9%E5%B8%AD-%E5%B0%88%E5%AE%B6%E7%A4%BA%E8%AD%A6%E3%80%8C%E5%8F%B0%E8%82%A1k%E5%9E%8B%E5%8C%96%E3%80%8D-020000271.html' target='_blank'>【十大權值股洗牌樂1】沒有AI就BI！台股前十強科技霸榜9席 專家示警「台股K型化」</a><div class='news-meta'><span>來源: Yahoo奇摩股市</span><span>05-30 10:00</span></div></li></ul>
+                <ul class="news-list" id="news_2330"><li class='news-item'>同步中...</li></ul>
                 <button class="expand-news-btn" onclick="toggleNews(this)">↓ 展開更多新聞</button>
             </div>
             
             <div class="stock-news-box">
                 <h3>鴻海 (2317) <span>全球資產動能</span></h3>
-                <ul class="news-list" id="news_2317"><li class='news-item'><a href='https://tw.stock.yahoo.com/news/%E5%8F%B0%E8%82%A15%E6%9C%88%E5%A4%A9%E6%89%93%E7%A0%B4%E9%AD%94%E5%92%92-%E9%BB%83%E4%BB%81%E5%8B%B3-msci%E9%9B%99%E7%A5%9E%E5%8A%A9%E6%94%BB%E7%8B%82%E5%88%B7-%E5%8D%81%E5%A4%A7%E9%A9%9A%E5%A5%87-033128509.html' target='_blank'>台股5月天打破魔咒 黃仁勳、MSCI雙神助攻狂刷「十大驚奇」</a><div class='news-meta'><span>來源: Yahoo奇摩股市</span><span>05-30 11:31</span></div></li><li class='news-item'><a href='https://tw.stock.yahoo.com/news/%E3%80%90%E5%8D%81%E5%A4%A7%E6%AC%8A%E5%80%BC%E8%82%A1%E6%B4%97%E7%89%8C%E6%A8%822%E3%80%91%E8%AA%B0%E6%98%AF%E5%A4%A7%E9%BB%91%E9%A6%AC%EF%BC%9F%E5%B0%88%E5%AE%B6%E9%BB%9E%E5%90%8D%E5%8D%97%E4%BA%9E%E7%A7%91%E6%9C%89%E6%88%B2-020100720.html' target='_blank'>【十大權值股洗牌樂2】誰是大黑馬？專家點名南亞科有戲</a><div class='news-meta'><span>來源: Yahoo奇摩股市</span><span>05-30 10:01</span></div></li><li class='news-item'><a href='https://tw.stock.yahoo.com/news/%E3%80%90%E5%8D%81%E5%A4%A7%E6%AC%8A%E5%80%BC%E8%82%A1%E6%B4%97%E7%89%8C%E6%A8%821%E3%80%91%E6%B2%92%E6%9C%89ai%E5%B0%B1bi%EF%BC%81%E5%8F%B0%E8%82%A1%E5%89%8D%E5%8D%81%E5%BC%B7%E7%A7%91%E6%8A%80%E9%9C%B8%E6%A6%9C9%E5%B8%AD-%E5%B0%88%E5%AE%B6%E7%A4%BA%E8%AD%A6%E3%80%8C%E5%8F%B0%E8%82%A1k%E5%9E%8B%E5%8C%96%E3%80%8D-020000271.html' target='_blank'>【十大權值股洗牌樂1】沒有AI就BI！台股前十強科技霸榜9席 專家示警「台股K型化」</a><div class='news-meta'><span>來源: Yahoo奇摩股市</span><span>05-30 10:00</span></div></li><li class='news-item hidden-news'><a href='https://tw.stock.yahoo.com/news/%E8%B2%A1%E6%98%9F%E5%85%AC%E5%B8%83%E6%9C%80%E5%85%B7%E5%BD%B1%E9%9F%BF%E5%8A%9B%E5%95%86%E7%95%8C%E5%A5%B3%E6%80%A7-%E8%98%87%E5%A7%BF%E4%B8%B0-%E9%B4%BB%E6%B5%B7%E6%A5%8A%E7%A7%8B%E7%91%BE%E4%B8%8A%E6%A6%9C-125909544.html' target='_blank'>財星公布最具影響力商界女性　蘇姿丰、鴻海楊秋瑾上榜</a><div class='news-meta'><span>來源: Yahoo奇摩股市</span><span>05-29 20:59</span></div></li><li class='news-item hidden-news'><a href='https://tw.stock.yahoo.com/news/%E5%8F%B0%E8%82%A1%E7%88%86%E5%A4%A9%E9%87%8F1-81%E5%85%86%E5%85%83-%E5%A4%96%E8%B3%87%E8%B2%B7%E8%B6%85803%E5%84%84%E5%85%83-%E6%9C%80%E7%8B%82%E4%BA%94%E6%9C%88%E5%85%B1%E8%B2%B7%E8%B6%852360%E5%84%84%E5%85%83-121128610.html' target='_blank'>台股爆天量1.81兆元 外資買超803億元 最狂五月共買超2360億元</a><div class='news-meta'><span>來源: Yahoo奇摩股市</span><span>05-29 20:11</span></div></li><li class='news-item hidden-news'><a href='https://tw.stock.yahoo.com/news/%E9%B4%BB%E6%B5%B7%E5%8F%96%E5%BE%97%E9%B4%BB%E6%8F%9A%E5%89%B5%E6%A5%AD%E6%8A%95%E8%B3%879880%E8%90%AC%E8%82%A1-%E8%A8%889-88%E5%84%84%E5%85%83-104400270.html' target='_blank'>鴻海取得鴻揚創業投資9880萬股，計9.88億元</a><div class='news-meta'><span>來源: Yahoo奇摩股市</span><span>05-29 18:44</span></div></li></ul>
+                <ul class="news-list" id="news_2317"><li class='news-item'>同步中...</li></ul>
                 <button class="expand-news-btn" onclick="toggleNews(this)">↓ 展開更多新聞</button>
             </div>
             
             <div class="stock-news-box">
                 <h3>00981A <span>統一台股增長主動式</span></h3>
-                <ul class="news-list" id="news_00981A"><li class='news-item'><a href='https://tw.stock.yahoo.com/news/%E5%A4%96%E8%B3%87%E9%80%A32%E6%97%A5%E6%8F%90%E6%AC%BE%E7%A0%B4%E5%8D%83%E5%84%84-%E5%8F%B0%E8%82%A1%E4%B8%8B%E6%AE%BA330%E9%BB%9E%E8%B7%8C%E7%A0%B4%E6%9C%88%E7%B7%9Aspacex%E5%8F%B2%E8%A9%A9%E7%B4%9Aipo%E5%9C%A8%E5%8D%B3-%E6%9C%AC%E5%A4%A2%E6%AF%94%E5%86%8D%E6%8E%80%E8%AB%96%E6%88%B0%E5%A4%AA%E7%A9%BAai%E6%83%B3%E5%83%8F%E7%A9%BA%E9%96%93%E7%82%B8%E8%A3%82-%E6%A6%82%E5%BF%B5%E8%82%A1%E5%85%A8%E9%9D%A2%E9%BB%9E%E7%81%AB%EF%BD%9Cyahoo%E8%B2%A1%E7%B6%93%E6%8E%83%E6%8F%8F-094227673.html' target='_blank'>外資連2日提款破千億 台股下殺330點跌破月線/SpaceX史詩級IPO在即 本夢比再掀論戰/太空AI想像空間炸裂 概念股全面點火｜Yahoo財經掃描</a><div class='news-meta'><span>來源: Yahoo奇摩股市</span><span>12-16 17:42</span></div></li><li class='news-item'><a href='https://tw.stock.yahoo.com/news/%E6%B3%95%E4%BA%BA%E9%BD%8A%E6%8A%BD%E6%89%8B%E5%8F%B0%E7%A9%8D%E9%9B%BB%E9%A0%98%E8%B7%8C-%E5%8F%B0%E8%82%A1%E9%BB%91%E8%89%B2%E6%98%9F%E6%9C%9F%E4%B8%80%E8%B7%B3%E6%B0%B4331%E9%BB%9Egdp%E8%A1%9D%E9%AB%98%E9%BB%9E%E8%AA%BF%E8%96%AA%E5%8F%AA3%EF%BC%9F%E5%8B%9E%E5%B7%A5%E5%86%8D%E6%88%90%E7%8A%A7%E7%89%B2%E5%93%81%E5%A4%A7%E5%90%8C%E7%88%86%E9%9B%B7%E6%8B%96%E7%B4%AF-%E6%A9%9F%E5%99%A8%E4%BA%BA%E6%97%8F%E7%BE%A4%E6%88%90%E7%AE%AD%E9%9D%B6%EF%BD%9Cyahoo%E8%B2%A1%E7%B6%93%E6%8E%83%E6%8F%8F-094438192.html' target='_blank'>法人齊抽手台積電領跌 台股黑色星期一跳水331點/GDP衝高點調薪只3%？勞工再成犧牲品/大同爆雷拖累 機器人族群成箭靶｜Yahoo財經掃描</a><div class='news-meta'><span>來源: Yahoo奇摩股市</span><span>12-15 17:44</span></div></li><li class='news-item'><a href='https://tw.stock.yahoo.com/news/%E5%A1%AB%E6%81%AF%E5%BE%8C%E8%AE%8A%E8%B2%BC%E6%81%AF-%E5%8F%B0%E7%A9%8D%E9%9B%BB%E6%84%8F%E5%A4%96%E4%B8%8A%E6%BC%94%E3%80%8C%E5%80%92%E8%B3%A0%E5%8A%87%E6%9C%AC%E3%80%8Dfed%E9%99%8D%E6%81%AF%E4%B8%80%E7%A2%BC%E4%B8%8D%E5%A4%A0%E7%86%B1-%E5%A4%96%E8%B3%87%E5%80%92%E8%B2%A8%E5%8F%B0%E8%82%A1%E8%B7%8C%E5%9B%9E5%E6%97%A5%E7%B7%9A%E9%8C%B8%E5%BE%B7%E9%A0%86%E9%81%94%E5%BC%B7%E5%8B%A2%E9%BB%9E%E7%81%AB-bbu%E6%97%8F%E7%BE%A4%E6%88%90%E7%9B%A4%E9%9D%A2%E6%8A%97%E8%B7%8C%E4%B8%BB%E7%B7%9A%EF%BD%9Cyahoo%E8%B2%A1%E7%B6%93%E6%8E%83%E6%8F%8F-095212004.html' target='_blank'>填息後變貼息 台積電意外上演「倒賠劇本」/Fed降息一碼不夠熱 外資倒貨台股跌回5日線/錸德順達強勢點火 BBU族群成盤面抗跌主線｜Yahoo財經掃描</a><div class='news-meta'><span>來源: Yahoo奇摩股市</span><span>12-11 17:52</span></div></li><li class='news-item hidden-news'><a href='https://tw.stock.yahoo.com/news/%E5%BE%9E%E3%80%8C%E8%B3%A3%E6%97%A9%E4%BA%86%E3%80%8D%E5%88%B0%E3%80%8C%E5%90%AB%E6%B7%9A%E8%B3%A3%E3%80%8D%E5%AD%AB%E6%AD%A3%E7%BE%A9%E5%96%8A%E5%BE%8C%E6%82%94%E9%81%AD%E6%89%B9%E6%BC%94%E6%8A%80%E6%B3%95%E4%BA%BA%E5%9B%9E%E8%A3%9C%E9%80%BE%E7%99%BE%E5%84%84%E5%8F%B0%E7%A9%8D%E9%9B%BB%E9%A0%98%E6%BC%B2-%E5%8F%B0%E8%82%A1%E5%BC%B7%E5%BD%88221%E9%BB%9E%E6%94%B6%E9%AB%98%E5%8F%B0%E7%8E%BB%E4%BA%BA%E6%B0%A3%E7%88%86%E6%A3%9A%E5%A5%AA%E6%88%90%E4%BA%A4%E7%8E%8B-%E5%8D%97%E4%BA%9E%E9%9B%86%E5%9C%98%E4%BD%9C%E5%B8%B3%E5%8A%9B%E9%81%93%E5%BC%B7%E5%8B%A2%E6%B9%A7%E7%8F%BE%EF%BD%9Cyahoo%E8%B2%A1%E7%B6%93%E6%8E%83%E6%8F%8F-095153339.html' target='_blank'>從「賣早了」到「含淚賣」孫正義喊後悔遭批演技/法人回補逾百億台積電領漲 台股強彈221點收高/台玻人氣爆棚奪成交王 南亞集團作帳力道強勢湧現｜Yahoo財經掃描</a><div class='news-meta'><span>來源: Yahoo奇摩股市</span><span>12-02 17:51</span></div></li><li class='news-item hidden-news'><a href='https://tw.stock.yahoo.com/news/%E6%B3%95%E4%BA%BA%E7%BA%8C%E7%A0%8D%E5%8F%B0%E7%A9%8D%E9%9B%BB%E9%81%AD%E6%AE%BA%E5%B0%BE%E7%9B%A4-%E5%8F%B0%E8%82%A112%E6%9C%88%E9%96%8B%E5%B1%80%E9%87%8D%E6%91%94283%E9%BB%9E%E4%B8%BB%E5%8B%95etf%E7%AB%84%E7%B4%85%E5%8D%8A%E5%B9%B4%E5%90%B8800%E5%84%84-%E4%BD%8E%E8%96%AA%E6%97%8F%E6%8B%9A%E7%B8%BE%E6%95%88%E6%90%8F%E7%BF%BB%E8%BA%ABbbu%E6%97%8F%E7%BE%A4%E9%A2%A8%E5%8F%A3%E5%86%8D%E8%B5%B7-%E9%A0%86%E9%81%94%E4%BA%AE%E7%87%88%E6%96%B0%E7%9B%9B%E5%8A%9B%E8%A1%9D%E9%AB%98%E6%90%B6%E9%8F%A1%EF%BD%9Cyahoo%E8%B2%A1%E7%B6%93%E6%8E%83%E6%8F%8F-093931363.html' target='_blank'>法人續砍台積電遭殺尾盤 台股12月開局重摔283點/主動ETF竄紅半年吸800億 低薪族拚績效搏翻身/BBU族群風口再起 順達亮燈新盛力衝高搶鏡｜Yahoo財經掃描</a><div class='news-meta'><span>來源: Yahoo奇摩股市</span><span>12-01 17:39</span></div></li><li class='news-item hidden-news'><a href='https://tw.stock.yahoo.com/news/%E5%A4%96%E8%B3%87%E9%80%A3%E8%B2%B7%E5%A4%9A%E9%A0%AD%E5%9B%9E%E6%B5%81-%E5%8F%B0%E8%82%A1%E6%94%B6%E9%AB%98%E7%AB%99%E5%9B%9E%E6%9C%88%E7%B7%9A%E9%B4%BB%E5%8B%81%E8%9C%9C%E6%9C%88%E8%A1%8C%E6%83%85%E9%96%8B%E7%8D%8E-%E4%B8%AD%E7%B1%A4%E4%B8%80%E6%97%A5%E6%8A%B1%E8%B5%B0%E7%99%BE%E8%90%AC%E5%8D%97%E4%BA%9E%E4%BA%AE%E7%87%88%E4%BA%BA%E6%B0%A3%E6%97%BA-%E5%9B%9B%E5%AF%B6%E9%9B%86%E5%9C%98%E4%BD%9C%E5%B8%B3%E8%A1%8C%E6%83%85%E5%82%AC%E6%B2%B9%E9%96%80%EF%BD%9Cyahoo%E8%B2%A1%E7%B6%93%E6%8E%83%E6%8F%8F-094249503.html' target='_blank'>外資連買多頭回流 台股收高站回月線/鴻勁蜜月行情開獎 中籤一日抱走百萬/南亞亮燈人氣旺 四寶集團作帳行情催油門｜Yahoo財經掃描</a><div class='news-meta'><span>來源: Yahoo奇摩股市</span><span>11-27 17:42</span></div></li></ul>
+                <ul class="news-list" id="news_00981A"><li class='news-item'>同步中...</li></ul>
                 <button class="expand-news-btn" onclick="toggleNews(this)">↓ 展開更多新聞</button>
             </div>
         </div>
@@ -308,15 +308,18 @@
             <div class="res-authors-grid">
                 <div class="res-author-column">
                     <h4>👤 清流君</h4>
-                    <ul class="res-list-container" id="res_清流君"><li class='res-item' style='color: var(--text-sub);'>近期無更新。</li></ul>
+                    <ul class="res-list-container" id="res_清流君"><li class="res-item">思維調度中...</li></ul>
+                    <button class="expand-news-btn" onclick="toggleResources(this)">↓ 展開更多資源</button>
                 </div>
                 <div class="res-author-column">
                     <h4>👤 周冠男</h4>
-                    <ul class="res-list-container" id="res_周冠男"><li class='res-item'>  <a href='https://news.google.com/rss/articles/CBMiU0FVX3lxTFAyeGhtQUgydkNpN1RvMGJCeUlDc2lfeUZKNjRXbGF6M0FSSjRMdThKVjZfSGp6QUVPSHg3ejlCZlRidXp2aml2MFpNdFhuVENxTzhJ0gFYQVVfeXFMTnFZYlZVUnJpb3ZTMkF3WWFoVEM1QXAxdmdQUmlrc2tqeEs5REdJWU5vNzZGT0ZVM1lDV0VRaVY1Z2xzYzVERG4wWnFLMTRhQm5mWXVOaDVDNg?oc=5' target='_blank'>0050破103元還能買？周冠男一句話點醒散戶…網：聽他持續買進0050都賺爛了</a>  <div class='res-tags'>    <span class='tag-type'>📄 財經專欄</span>    <span class='tag-time'>05-28 10:03</span>  </div></li><li class='res-item'>  <a href='https://news.google.com/rss/articles/CBMiU0FVX3lxTE1raHpfeFctMzh0MUJyT1BITkcyM2tEdHh5TnRhTURFekZqU3JkcjVJZFhrSnpDdWs3OVBKYkl5MVB2Z08xWW1QRXZGaWNtREViVjlZ?oc=5' target='_blank'>進進出出只是在幫券商打工！周冠男教授：不如手腳綁起來定期定額買0050 | 存股族愛ETF | 股市</a>  <div class='res-tags'>    <span class='tag-type'>📄 財經專欄</span>    <span class='tag-time'>05-28 09:35</span>  </div></li><li class='res-item'>  <a href='https://news.google.com/rss/articles/CBMidkFVX3lxTE8yTHB0aVFGNmIyLUhFOFZ1S3M2VFlGaVNBVnpPbFdTektQTTZiTzAydEZFcGtfZDZoQnF6a3hKTnhVR2FTSkljQWJ1aVgyZ0RHSjczZkZjOEVwWEJ0Njk3Z0ZOam9Jck1OcHlVYW8xRVBnSG1pcHc?oc=5' target='_blank'>「科技高股息」是邏輯衝突！周冠男勸散戶遠離高股息：自行賣0050變現更划算| 存股族愛ETF | 股市</a>  <div class='res-tags'>    <span class='tag-type'>📄 財經專欄</span>    <span class='tag-time'>05-28 08:47</span>  </div></li></ul>
+                    <ul class="res-list-container" id="res_周冠男"><li class="res-item">思維調度中...</li></ul>
+                    <button class="expand-news-btn" onclick="toggleResources(this)">↓ 展開更多資源</button>
                 </div>
                 <div class="res-author-column">
                     <h4>👤 巴菲特</h4>
-                    <ul class="res-list-container" id="res_巴菲特"><li class='res-item'>  <a href='https://news.google.com/rss/articles/CBMid0FVX3lxTE1Wa3VzcHF3YjlGMHBKNmx5eVRYaU1RMl9IbDNMQk5TSVAzSlV5Q292dm11QUpBVFR2RlBqZVVQSzZwREFiampIWkFfVFBrR2kwcFRaa3BjQnpibklZS2FRRS1iU2V5ZUw5LXhhZE5LMXRXaTFzZjZN?oc=5' target='_blank'>老謝開講-巴菲特指標飆高 台灣股市真的過熱？0530</a>  <div class='res-tags'>    <span class='tag-type'>📄 財經專欄</span>    <span class='tag-time'>05-30 14:15</span>  </div></li><li class='res-item'>  <a href='https://news.google.com/rss/articles/CBMimAJBVV95cUxPWHJHU3lGM0NWb09vZGtKVlhQZEgtOUp2c2ItY3dVeWhYYkhZUUhTdEhGZ3JBSEQ5d2toeFdna2d6d0hRRVNFOUV3YUZVcTBfeHFqM1dvRG1UTGpXREgxQjFEY2Z1LTVXVy1sb1NmcW05SUhyNVVkYVZBa0ttdmxEM3VVcTFDMXBGQXNWUjFoMnd2dU05NUpqaFA1RldsY0hTbjkwQXZQOGtKb09vQ2twNUJ0TTY1UzNhVXpydWdrZ3FVRkdSODdqUjNpdi1KYVFJT3puZ3A5NkdNbGVYell3ZlExZHJaOFRDWEthS1pSWFlyOHR6anZtcW03d2M2ME5VQ0k3YnVVRUJlcS1TVkd2cC1mbWVXZTFW?oc=5' target='_blank'>Nebius暴漲8.62%，“AI界的巴菲特”入股引爆行情</a>  <div class='res-tags'>    <span class='tag-type'>📄 財經專欄</span>    <span class='tag-time'>05-29 15:50</span>  </div></li><li class='res-item'>  <a href='https://news.google.com/rss/articles/CBMiT0FVX3lxTE9FcFJDQkxkMlNTVHFyNDZOYzFUOVMybk1iR1dNbXFiSUVWVWVmZ0NYbzNYaDVHVHhodFBRX2pHdDFUQXg1U1FtRVhhemdXR2c?oc=5' target='_blank'>接班波克夏的關鍵十分鐘</a>  <div class='res-tags'>    <span class='tag-type'>📄 財經專欄</span>    <span class='tag-time'>05-29 07:48</span>  </div></li><li class='res-item'>  <a href='https://news.google.com/rss/articles/CBMijgFBVV95cUxPZ010dWNLNG52NEZ5NXNIRXZfSnJkSlhnbkZPTUJYNmtvaHg4endDTkJySkhHb3VBZ0lCRzZ5SC1TRmU1QlF0UmFPdXlHSkUwN21qdmFFYTQyVGdMQ0FtdDdGY296eXI0Q1NpNWpQNFdNUXdMYzlBRTVtaGhPdk9oSTd5SC1fN0tpSnlhZGR3?oc=5' target='_blank'>【美股動態】巴菲特被AI新創超越？Anthropic估值衝破新高逼近兆元</a>  <div class='res-tags'>    <span class='tag-type'>📄 財經專欄</span>    <span class='tag-time'>05-29 06:14</span>  </div></li><li class='res-item'>  <a href='https://news.google.com/rss/articles/CBMi5AJBVV95cUxORlJlTjJibkNwV2x4NmZFSm8yNk1YaDBWM2REVm5MM25xbnk3b2lKYzkzaDM1Yl82ZWcwMk11T2pnU3IwQ2FmLXpWZWp0M09tTVF0MWtHQzZXNnlUR2tEcHBIMFVzSk5MZmNkN1l1WWRjQlFJck9rQXFsbXZkWXBlSlNlYzRtckQ0SklZTmlTQnJpS24wSHVFUk1SeVhyQnNJVVRHN3VmeDdRMFI3UmJFTk4wT3BWQW1DSDE4b2RDQkxFZExkQWpWNU0yWjhad1ppVGpZQWxyNzN5RkJHN3pTM0VpWFJxUnpfVk5vOHMzSlhIZkpTang2NGpWSEZyRFlldE40T083cVB3OHlGWGk0TjJLbTNKdUlndHhXdmZoSjFFdTZjVzlycEttQ3B5RklKbkxsdlFVanlWR0ptdlB1UVlqczlEVnBqYjBkUElyRUFSTWpBdDMxdnZ0ZlpZUHRCbmE1VQ?oc=5' target='_blank'>丸紅超前市值目標 借鏡巴菲特日立強化投資精準度</a>  <div class='res-tags'>    <span class='tag-type'>📄 財經專欄</span>    <span class='tag-time'>05-29 00:28</span>  </div></li><li class='res-item'>  <a href='https://news.google.com/rss/articles/CBMicEFVX3lxTE1xSkQ4azBmTWZSdFNIandqUUkzUk9QMmpBMjZuOUR5VFpLaHUyUm8ydkR6UzRWQmY1WHdaMmQ4RHB3U091bFZ2ZkNoN1o4S2N6TThOVEM5SDVtdUMwRDl3TTBGVU41U2hHZjdXZFdaVnc?oc=5' target='_blank'>1999年正在重演？巴菲特手握4000億現金，「大空頭」11億空單已砸下：牛市「斷頭臺」已架好？ 作者 FX168</a>  <div class='res-tags'>    <span class='tag-type'>📄 財經專欄</span>    <span class='tag-time'>05-28 09:16</span>  </div></li><li class='res-item'>  <a href='https://news.google.com/rss/articles/CBMiZEFVX3lxTE1mWUhZNUhfZkFsN3lxcXM4d2NHSF9LTXdoVGlwUGppSmhnZUlraTNDaVhmeFpwci1qcG95bEtyemRzdW9sV2FUXzljYlJkeTRMN1VVSnlsbjBqSkdfZkR6bWh0M2Q?oc=5' target='_blank'>1999年正在重演？巴菲特手握4000亿现金，“大空头”11亿空单已砸下：牛市“断头台”已架好？</a>  <div class='res-tags'>    <span class='tag-type'>📄 財經專欄</span>    <span class='tag-time'>05-28 09:00</span>  </div></li></ul>
+                    <ul class="res-list-container" id="res_巴菲特"><li class="res-item">思維調度中...</li></ul>
+                    <button class="expand-news-btn" onclick="toggleResources(this)">↓ 展開更多資源</button>
                 </div>
             </div>
         </div>
@@ -369,30 +372,39 @@
 </div>
 
 <footer>
-    💡 本專頁股價、理財新聞與大師思維串流最後更新時間：<span id="last_update_time">2026-05-30 10:04</span>
+    💡 本專頁股價、理財新聞與大師思維串流最後更新時間（台灣時間）：<span id="last_update_time">2026-05-30 18:00</span>
 </footer>
 
 <script>
     function toggleNews(btn) {
         const box = btn.parentElement;
         const hiddenItems = box.querySelectorAll('.news-list .news-item');
-        
         if (btn.innerText.includes('展開')) {
             hiddenItems.forEach((item, index) => {
-                if (index >= 3) {
-                    item.classList.remove('hidden-news');
-                    item.style.setProperty('display', 'block', 'important');
-                }
+                if (index >= 3) { item.classList.remove('hidden-news'); item.style.setProperty('display', 'block', 'important'); }
             });
             btn.innerHTML = '↑ 收合超額新聞';
         } else {
             hiddenItems.forEach((item, index) => {
-                if (index >= 3) {
-                    item.classList.add('hidden-news');
-                    item.style.removeProperty('display');
-                }
+                if (index >= 3) { item.classList.add('hidden-news'); item.style.removeProperty('display'); }
             });
             btn.innerHTML = '↓ 展開更多新聞';
+        }
+    }
+
+    function toggleResources(btn) {
+        const box = btn.parentElement;
+        const hiddenItems = box.querySelectorAll('.res-list-container .res-item');
+        if (btn.innerText.includes('展開')) {
+            hiddenItems.forEach((item, index) => {
+                if (index >= 3) { item.classList.remove('hidden-res'); item.style.setProperty('display', 'block', 'important'); }
+            });
+            btn.innerHTML = '↑ 收合超額資源';
+        } else {
+            hiddenItems.forEach((item, index) => {
+                if (index >= 3) { item.classList.add('hidden-res'); item.style.removeProperty('display'); }
+            });
+            btn.innerHTML = '↓ 展開更多資源';
         }
     }
 
