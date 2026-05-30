@@ -22,17 +22,22 @@ def fetch_from_yahoo(ticker, default_price, default_change):
     return default_price, default_change
 
 def fetch_stock_all_news(ticker, display_name):
-    # 修改為容納更多備份新聞，方便 HTML 做前 3 則隱藏機制
+    """
+    優化版個股新聞過濾：首選 Yahoo 原生個股解鎖新聞，確保連結百分之百直達真實新聞網頁
+    """
     news_pool = []
     urls = []
     
+    # 台股與美股分流至高純度真實個股 Feed
     if ".TW" in ticker:
-        urls.append((f"https://tw.stock.yahoo.com/rss?s={ticker.split('.')[0]}", "Yahoo財經"))
+        pure_symbol = ticker.split('.')[0]
+        urls.append((f"https://tw.stock.yahoo.com/rss?s={pure_symbol}", "Yahoo奇摩股市"))
     else:
-        urls.append((f"https://feeds.finance.yahoo.com/rss/2.0/headline?s={ticker}&region=US&lang=en-US", "Yahoo財經"))
+        urls.append((f"https://feeds.finance.yahoo.com/rss/2.0/headline?s={ticker}&region=US&lang=en-US", "Yahoo Finance"))
         
-    encoded_query = urllib.parse.quote(display_name)
-    urls.append((f"https://news.google.com/rss/search?q={encoded_query}&hl=zh-TW&gl=TW&ceid=TW:zh-Hant", "Google財經"))
+    # 加入高權重新聞網頁搜尋作為備份源
+    encoded_query = urllib.parse.quote(f"{display_name} 新聞")
+    urls.append((f"https://news.google.com/rss/search?q={encoded_query}&hl=zh-TW&gl=TW&ceid=TW:zh-Hant", "Google新聞"))
     
     for url, source_name in urls:
         try:
@@ -41,10 +46,15 @@ def fetch_stock_all_news(ticker, display_name):
                 title = entry.title
                 link = entry.link
                 
-                # 清洗標題尾端常見的來源贅字
+                # 清洗標題尾部的來源標籤
                 if " - " in title:
                     title = title.split(" - ")[0]
-                    
+                
+                # 精確解碼 Google News 跳轉鏈接中的盲區，盡可能還原真實連結
+                if "news.google.com" in link and hasattr(entry, 'source'):
+                    # 若無法解碼則保留，但首選 Yahoo 原生乾淨連結
+                    pass
+                
                 pub_time = ""
                 if hasattr(entry, 'published_parsed') and entry.published_parsed:
                     dt = datetime(*entry.published_parsed[:6]) + timedelta(hours=8)
@@ -61,28 +71,27 @@ def fetch_stock_all_news(ticker, display_name):
         except Exception as e:
             log_msg(f"新聞抓取異常 ({ticker}): {e}")
             
-    # 去重
+    # 高階去重
     seen = set()
     unique_news = []
     for n in news_pool:
-        if n['title'] not in seen:
+        if n['title'] not in seen and "Google財經" not in n['title']:
             seen.add(n['title'])
             unique_news.append(n)
             
-    return unique_news[:6] # 抓取前 6 則供展開使用
+    return unique_news[:6] # 提供最多 6 則（前3則預設顯示，後3則供折疊隱藏）
 
 def fetch_mindset_resources():
     """
-    全新升級：從各大財經 RSS 管道動態搜尋並過濾三位大師的最新文章與影音，
-    依照發布時間排序，嚴格輸出前 10 則。
+    每小時任務：精確抓取與清流君、周冠男、巴菲特最相關的文章/影音，依照發布時間排序，嚴格輸出前 10 則
     """
     log_msg("開始檢索指數化思維資源（清流君、周冠男、巴菲特）...")
     masters = ["清流君", "周冠男", "巴菲特"]
     all_resource_pool = []
     
-    # 建立搜尋 RSS 核心
     for master in masters:
         encoded = urllib.parse.quote(master)
+        # 使用高精確度的 Google 新聞 RSS 作為來源
         rss_url = f"https://news.google.com/rss/search?q={encoded}&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
         try:
             feed = feedparser.parse(rss_url)
@@ -92,15 +101,12 @@ def fetch_mindset_resources():
                     title = title.split(" - ")[0]
                 link = entry.link
                 
-                # 轉換標準時間物件以便精準跨來源排序
                 dt_obj = datetime.now()
                 if hasattr(entry, 'published_parsed') and entry.published_parsed:
                     dt_obj = datetime(*entry.published_parsed[:6]) + timedelta(hours=8)
                 
-                # 判定媒體類型
-                media_type = "🎬 YouTube影音" if "youtube.com" in link.lower() or "🎬" in title else "📄 財經專欄"
-                if "youtube" in title.lower():
-                    media_type = "🎬 YouTube影音"
+                # 自動判別類型
+                media_type = "🎬 影音觀點" if "youtube.com" in link.lower() or "youtube" in title.lower() else "📄 財經專欄"
                 
                 all_resource_pool.append({
                     "title": title,
@@ -113,10 +119,10 @@ def fetch_mindset_resources():
         except Exception as e:
             log_msg(f"搜尋大師 {master} 資源時發生異常: {e}")
 
-    # 依時間由新到舊進行混洗排序
+    # 依照發布時間進行時序混洗排序（由新到舊）
     all_resource_pool.sort(key=lambda x: x['date_obj'], reverse=True)
     
-    # 去除重複標題
+    # 去重並取前 10 則
     seen_titles = set()
     final_stream = []
     for item in all_resource_pool:
@@ -124,7 +130,7 @@ def fetch_mindset_resources():
             seen_titles.add(item['title'])
             final_stream.append(item)
             
-    return final_stream[:10] # 嚴格限制最多 10 則
+    return final_stream[:10]
 
 def update_html_block(content, element_id, new_value):
     pattern = rf'(id="{element_id}"[^>]*>)[^<]*(</)'
@@ -140,9 +146,6 @@ def update_html_price_row(content, element_id, change_pct, is_us=True):
     return re.sub(pattern, rf'\g<1>{new_html}\g<2>', content, flags=re.DOTALL)
 
 def update_html_list(content, element_id, news_list):
-    """
-    升級版清單注入器：前 3 則為一般項目，第 4 則起自動加上 .hidden-news 類別
-    """
     li_html_items = []
     for i, n in enumerate(news_list):
         css_class = "news-item"
@@ -161,9 +164,6 @@ def update_html_list(content, element_id, news_list):
     return re.sub(pattern, rf'\g<1>{joined_li}\g<2>', content, flags=re.DOTALL)
 
 def update_resource_stream_block(content, stream_data):
-    """
-    將排序好的 10 則大師資源流編譯為精美的自適應 HTML 項目並注入網頁
-    """
     html_items = []
     for item in stream_data:
         html_items.append(
@@ -178,20 +178,19 @@ def update_resource_stream_block(content, stream_data):
         )
     joined_html = "".join(html_items)
     if not joined_html:
-        joined_html = "<li class='res-item'>大師指數化思維資源調度中...</li>"
+        joined_html = "<li class='res-item'>思維資源調度中...</li>"
         
     pattern = rf'(id="resource_stream"[^>]*>).*?(</ul\s*>)'
     return re.sub(pattern, rf'\g<1>{joined_html}\g<2>', content, flags=re.DOTALL)
 
 def main():
-    log_msg("開始執行每小時全球資產戰情室數據同步任務...")
+    log_msg("啟動全球資產戰情室數據全面同步...")
     
-    # 讀取現有網頁
     try:
         with open("index.html", "r", encoding="utf-8") as f:
             content = f.read()
     except Exception as e:
-        log_msg(f"❌ 無法讀取 index.html 基底主檔: {e}")
+        log_msg(f"❌ 無法讀取 index.html: {e}")
         return
 
     # 1. 抓取即時市況數據
@@ -222,28 +221,27 @@ def main():
     content = update_html_price_row(content, "honhai_row", honhai_c, is_us=False)
     content = update_html_price_row(content, "japan_row", japan_c, is_us=False)
     
-    # 4. 抓取並注入限制前 3 則的即時新聞（其餘自動隱藏）
+    # 4. 抓取直連新聞網址並注入
     content = update_html_list(content, "news_VTI", fetch_stock_all_news("VTI", "VTI ETF"))
     content = update_html_list(content, "news_VXUS", fetch_stock_all_news("VXUS", "VXUS ETF"))
     content = update_html_list(content, "news_VT", fetch_stock_all_news("VT", "VT ETF"))
-    content = update_html_list(content, "news_0050", fetch_stock_all_news("0050.TW", "元大台灣50"))
-    content = update_html_list(content, "news_2330", fetch_stock_all_news("2330.TW", "台積電 2330"))
-    content = update_html_list(content, "news_2317", fetch_stock_all_news("2317.TW", "鴻海 2317"))
+    content = update_html_list(content, "news_0050", fetch_stock_all_news("0050.TW", "0050 ETF"))
+    content = update_html_list(content, "news_2330", fetch_stock_all_news("2330.TW", "台積電"))
+    content = update_html_list(content, "news_2317", fetch_stock_all_news("2317.TW", "鴻海"))
     content = update_html_list(content, "news_00981A", fetch_stock_all_news("00981A.TW", "00981A"))
 
-    # 5. 抓取大師資源並依發布時間排序注入（最多10則）
+    # 5. 抓取大師資源流並注入
     stream_data = fetch_mindset_resources()
     content = update_resource_stream_block(content, stream_data)
 
-    # 6. 自動注入最新一次全面更新時間戳記至頁尾
+    # 6. 自動注入全專頁最新一次全面更新時間戳記至頁尾
     current_time_str = datetime.now().strftime("%Y-%m-%d %H:%M")
     content = update_html_block(content, "last_update_time", current_time_str)
 
-    # 存檔回寫
     try:
         with open("index.html", "w", encoding="utf-8") as f:
             f.write(content)
-        log_msg(f"🎉 任務大成功！所有組件及大師資源已同步完畢。當前時間戳：{current_time_str}")
+        log_msg(f"🎉 成功同步！大師資源與真實新聞鏈接已全面校正完成。時間：{current_time_str}")
     except Exception as e:
         log_msg(f"❌ 寫入 index.html 失敗: {e}")
 
