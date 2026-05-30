@@ -109,9 +109,9 @@ def update_html_price_row(content, row_id, change_val, is_us=True):
     return content
 
 def main():
-    log_msg("===== 🌳 2026 旗艦配置：Ohmazing board 與 0050 大盤回歸自動化執行 =====")
+    log_msg("===== 🌳 旗艦版：全市場多因子與雙市場自適應色彩更新 =====")
     
-    # 價格數據抓取 (新增 0050.TW 監測線)
+    # 價格數據抓取 (含 0050)
     vti_p, vti_c = fetch_from_yahoo("VTI", 372.54, 0.17)
     vxus_p, vxus_c = fetch_from_yahoo("VXUS", 86.06, 0.07)
     vt_p, vt_c = fetch_from_yahoo("VT", 121.20, 0.11)
@@ -120,7 +120,7 @@ def main():
     honhai_p, honhai_c = fetch_from_yahoo("2317.TW", 189.0, -1.20)
     japan_p, japan_c = fetch_from_yahoo("00981A.TW", 15.42, 1.15)
     
-    # 雙源依個股精密新聞歸檔
+    # 雙源精密個股新聞抓取
     vti_news = fetch_stock_all_news("VTI", "VTI")
     vxus_news = fetch_stock_all_news("VXUS", "VXUS")
     vt_news = fetch_stock_all_news("VT", "VT")
@@ -141,7 +141,7 @@ def main():
     content = update_html_block(content, "honhai_p", f"${honhai_p:.1f}")
     content = update_html_block(content, "japan_p", f"${japan_p:.2f}")
     
-    # 2. 依「美股/台股」慣例，注入客製化漲跌顏色
+    # 2. 注入符合台美股自適應色彩
     content = update_html_price_row(content, "vti_row", vti_c, is_us=True)
     content = update_html_price_row(content, "vxus_row", vxus_c, is_us=True)
     content = update_html_price_row(content, "vt_row", vt_c, is_us=True)
@@ -151,7 +151,7 @@ def main():
     content = update_html_price_row(content, "honhai_row", honhai_c, is_us=False)
     content = update_html_price_row(content, "japan_row", japan_c, is_us=False)
     
-    # 3. 注入個股精密分類新聞
+    # 3. 注入個股新聞
     content = update_html_list(content, "news_VTI", vti_news)
     content = update_html_list(content, "news_VXUS", vxus_news)
     content = update_html_list(content, "news_VT", vt_news)
@@ -163,7 +163,7 @@ def main():
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(content)
         
-    log_msg("✨ 旗艦大盤完全體更新成功！")
+    print("✨ [SUCCESS] Ohmazing board 與自動化邏輯合流大成功！")
 
 if __name__ == "__main__":
     main()
