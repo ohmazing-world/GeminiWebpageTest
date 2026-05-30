@@ -3,7 +3,7 @@ name: Hourly Financial Data Auto Updater
 on:
   schedule:
     # 💡 修正策略：將 0 分改為 23 分，錯開全球整點排程塞車潮，大幅提升觸發穩定度
-    - cron: '23 * * * *' 
+    - cron: '11 * * * *' 
   workflow_dispatch: # 依然允許您隨時手動點擊執行
 
 jobs:
