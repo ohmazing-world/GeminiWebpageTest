@@ -2,8 +2,9 @@ name: Hourly Financial Data Auto Updater
 
 on:
   schedule:
-    - cron: '0 * * * *' # 每小時整點自動執行
-  workflow_dispatch: # 允許手動點擊執行
+    # 💡 修正策略：將 0 分改為 23 分，錯開全球整點排程塞車潮，大幅提升觸發穩定度
+    - cron: '23 * * * *' 
+  workflow_dispatch: # 依然允許您隨時手動點擊執行
 
 jobs:
   update-data:
@@ -20,7 +21,7 @@ jobs:
     - name: 安裝高階網路與網頁解析套件
       run: |
         python -m pip install --upgrade pip
-        pip install requests beautifulsoup4 yfinance feedparser # 🚀 這次多安裝了網頁解構利器 BeautifulSoup4 yfinance feedparser
+        pip install requests beautifulsoup4 yfinance feedparser
 
     - name: 執行更新腳本
       run: python update_prices.py
@@ -29,8 +30,7 @@ jobs:
       run: |
         git config --global --add safe.directory /github/workspace
         git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        git add index.html
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"\n        git add index.html
         if git diff-index --quiet HEAD --; then
           echo "數據無變動，完美結束！"
         else
