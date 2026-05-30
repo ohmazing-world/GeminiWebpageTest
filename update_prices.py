@@ -115,10 +115,8 @@ def fetch_stock_all_news(ticker, display_name):
     seen = set()
     unique_news = []
     
-    # 【核心修正】：實施雙重條件排序（穩定排序）
-    # 先按照時間從新到舊排序 (date_obj 由大到小)
+    # 雙重條件排序（穩定排序）
     news_pool.sort(key=lambda x: x['date_obj'], reverse=True)
-    # 再按中文優先度排序 (has_chinese True 排前面)，如此一來不論中英文內部都會是完美的倒序時間軸
     news_pool.sort(key=lambda x: x['has_chinese'], reverse=True)
         
     for n in news_pool:
@@ -241,7 +239,7 @@ def inject_split_resources_into_html(content, stream_data):
     return content
 
 def main():
-    log_msg("啟動雙重交叉條件排序演算法部署...")
+    log_msg("啟動動態更新與新增功能部署...")
     
     try:
         with open("index.html", "r", encoding="utf-8") as f:
@@ -297,7 +295,7 @@ def main():
     try:
         with open("index.html", "w", encoding="utf-8") as f:
             f.write(content)
-        log_msg(f"🎉 排序機制完美修正！中文、英文新聞各自完美依照時間新舊排序。時間：{taiwan_time_str}")
+        log_msg(f"🎉 介面按鈕文字與全新「費率成本侵蝕試算機」成功部署！更新時間：{taiwan_time_str}")
     except Exception as e:
         log_msg(f"❌ 寫入 index.html 失敗: {e}")
 
