@@ -18,8 +18,7 @@ def get_taiwan_now():
 
 def decode_google_news_url(source_url):
     """
-    精確逆向解碼 Google News RSS 加密連結，提取真正的原始正文 URL，
-    防止跳轉被攔截時退回來源網站首頁。
+    精確逆向解碼 Google News RSS 加密連結，提取真正的原始正文 URL。
     """
     if "news.google.com" not in source_url:
         return source_url
@@ -55,7 +54,7 @@ def fetch_from_yahoo(ticker, default_price, default_change):
 
 def fetch_stock_all_news(ticker, display_name):
     """
-    採用台灣在地化財經高頻矩陣關鍵字，徹底逼迫 RSS 吐出 VT/VXUS/VTI 的中文新聞。
+    採用台灣在地化財經高頻矩陣關鍵字，並實施『語系優先級別 ✕ 發布時間軸』雙重條件交叉排序演算法。
     """
     news_pool = []
     urls = []
@@ -67,20 +66,18 @@ def fetch_stock_all_news(ticker, display_name):
         "VTI": ["VTI ETF", "美股整體市場", "先鋒整體股市", "美股大盤 ETF"]
     }
     
-    # 1. 抓取台股原生管道
+    # 1. 建立配對管道
     if ".TW" in ticker:
         pure_symbol = ticker.split('.')[0]
         urls.append((f"https://tw.stock.yahoo.com/rss?s={pure_symbol}", "Yahoo奇摩股市"))
         encoded_query = urllib.parse.quote(f"{display_name} 新聞")
         urls.append((f"https://news.google.com/rss/search?q={encoded_query}&hl=zh-TW&gl=TW&ceid=TW:zh-Hant", "Google新聞"))
     else:
-        # 美股標的：混合中文權威資產對照矩陣，全面鎖定台灣繁體通訊協定
         target_keywords = chinese_keywords_mapping.get(ticker, [f"{ticker} ETF"])
         for kw in target_keywords:
             encoded_kw = urllib.parse.quote(kw)
             urls.append((f"https://news.google.com/rss/search?q={encoded_kw}&hl=zh-TW&gl=TW&ceid=TW:zh-Hant", "中文財經源"))
             
-        # 保留原廠 Yahoo Finance 做為備用（展開後可見）
         urls.append((f"https://feeds.finance.yahoo.com/rss/2.0/headline?s={ticker}&region=US&lang=en-US", "Yahoo Finance"))
 
     for url, source_name in urls:
@@ -96,21 +93,20 @@ def fetch_stock_all_news(ticker, display_name):
                 if "news.google.com" in link:
                     link = decode_google_news_url(link)
                 
-                pub_time = ""
+                # 精確計算 datetime 物件以利排序
+                dt_obj = get_taiwan_now()
                 if hasattr(entry, 'published_parsed') and entry.published_parsed:
-                    dt = datetime(*entry.published_parsed[:6]) + timedelta(hours=8)
-                    pub_time = dt.strftime("%m-%d %H:%M")
-                else:
-                    pub_time = get_taiwan_now().strftime("%m-%d %H:%M")
-                    
-                # 判斷是否包含中文字元
+                    dt_obj = datetime(*entry.published_parsed[:6]) + timedelta(hours=8)
+                
+                pub_time_str = dt_obj.strftime("%m-%d %H:%M")
                 has_chinese = bool(re.search(r'[\u4e00-\u9fff]', title))
                     
                 news_pool.append({
                     "title": title,
                     "link": link,
                     "source": source_name,
-                    "time": pub_time,
+                    "time": pub_time_str,
+                    "date_obj": dt_obj,
                     "has_chinese": has_chinese
                 })
         except Exception as e:
@@ -119,7 +115,10 @@ def fetch_stock_all_news(ticker, display_name):
     seen = set()
     unique_news = []
     
-    # 權重優化：強制讓含有中文標題的新聞排在最前方
+    # 【核心修正】：實施雙重條件排序（穩定排序）
+    # 先按照時間從新到舊排序 (date_obj 由大到小)
+    news_pool.sort(key=lambda x: x['date_obj'], reverse=True)
+    # 再按中文優先度排序 (has_chinese True 排前面)，如此一來不論中英文內部都會是完美的倒序時間軸
     news_pool.sort(key=lambda x: x['has_chinese'], reverse=True)
         
     for n in news_pool:
@@ -131,7 +130,7 @@ def fetch_stock_all_news(ticker, display_name):
 
 def fetch_mindset_resources():
     """
-    抓取清流君、周冠男、巴菲特的最新文章或影音，整合後按時間由新到舊排序，總數最多 10 則。
+    抓取大師資源，整合後按時間由新到舊排序，總數最多 10 則。
     """
     log_msg("檢索大師思維資源（清流君、周冠男、巴菲特）...")
     masters = ["清流君", "周冠男", "巴菲特"]
@@ -210,7 +209,7 @@ def update_html_list(content, element_id, news_list):
 
 def inject_split_resources_into_html(content, stream_data):
     """
-    將前 10 則大師數據按人物分流注入容器，並預設隱藏第 4 則之後的資源 (套用折疊機制)。
+    分流注入大師資源容器，並預設隱藏第 4 則之後的資源。
     """
     classified = {"清流君": [], "周冠男": [], "巴菲特": []}
     for item in stream_data:
@@ -242,7 +241,7 @@ def inject_split_resources_into_html(content, stream_data):
     return content
 
 def main():
-    log_msg("啟動全球資產數據同步與時區/中文化演算法全面校正...")
+    log_msg("啟動雙重交叉條件排序演算法部署...")
     
     try:
         with open("index.html", "r", encoding="utf-8") as f:
@@ -291,14 +290,14 @@ def main():
     stream_data = fetch_mindset_resources()
     content = inject_split_resources_into_html(content, stream_data)
 
-    # 5. 更新時間戳記（精確台灣標準時間）
+    # 5. 更新時間戳記
     taiwan_time_str = get_taiwan_now().strftime("%Y-%m-%d %H:%M")
     content = update_html_block(content, "last_update_time", taiwan_time_str)
 
     try:
         with open("index.html", "w", encoding="utf-8") as f:
             f.write(content)
-        log_msg(f"🎉 修正成功！台灣時間、新聞卡牌與大師專區雙折疊機制已全面部署完畢。時間：{taiwan_time_str}")
+        log_msg(f"🎉 排序機制完美修正！中文、英文新聞各自完美依照時間新舊排序。時間：{taiwan_time_str}")
     except Exception as e:
         log_msg(f"❌ 寫入 index.html 失敗: {e}")
 
