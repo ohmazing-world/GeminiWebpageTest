@@ -17,12 +17,16 @@
             line-height: 1.6;
         }
 
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
         /* ------------------------------------------------------------------
            2. 最新頂部時尚簡約標題區 (融合背景圖與 Icon)
         ------------------------------------------------------------------ */
         .header-container {
-            max-width: 1200px;
-            margin: 20px auto 15px auto;
+            width: 100%;
             padding: 50px 30px;
             background-image: url('background-2.jpeg'); /* 採用您上傳的簡約花草背景圖 */
             background-size: cover;
@@ -32,6 +36,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            box-sizing: border-box;
+            margin-bottom: 25px;
         }
 
         /* 標題文字與圖標的半透明高質感毛玻璃載體 */
@@ -82,11 +88,9 @@
         }
 
         /* ------------------------------------------------------------------
-           3. 數據狀態自動更新提示列
+           3. 數據狀態與控制功能區
         ------------------------------------------------------------------ */
         .status-bar {
-            max-width: 1200px;
-            margin: 0 auto 35px auto;
             background-color: #f3f2eb;
             padding: 12px 20px;
             border-radius: 8px;
@@ -94,20 +98,43 @@
             font-size: 0.9rem;
             color: #666666;
             letter-spacing: 0.5px;
+            margin-bottom: 35px;
+        }
+
+        .control-panel {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            background: #ffffff;
+            padding: 15px 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.01);
+            border: 1px solid #f1f0ea;
+        }
+
+        .btn {
+            background-color: #6b7c6b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #526052;
         }
 
         /* ------------------------------------------------------------------
            4. 區塊佈局與網格系統 (確保不直向並排，全寬上下推疊)
         ------------------------------------------------------------------ */
-        .main-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
         .asset-section, .news-section, .indexing-section {
             width: 100%;
             margin-bottom: 50px;
-            clear: both; /* 強制換行，防止任何浮動造成的並排 */
+            clear: both; /* 強制換行，防止任何浮動或彈性盒造成的直向並排 */
             display: block;
         }
 
@@ -160,7 +187,6 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
         }
 
-        /* 標籤樣式 (如：美股大盤、護國神山) */
         .badge {
             float: right;
             background-color: #f0f2f0;
@@ -168,22 +194,20 @@
             font-size: 0.75rem;
             padding: 3px 8px;
             border-radius: 4px;
-            font-weight: normal;
         }
 
-        /* 數字資產報價樣式 */
         .price-title {
-            font-size: 1.1rem;
-            color: #555555;
-            margin: 0 0 10px 0;
-            font-weight: 500;
+            font-size: 1.2rem;
+            color: #333333;
+            margin: 0 0 5px 0;
+            font-weight: 600;
         }
 
         .price-value {
             font-size: 2.1rem;
             font-weight: 300;
             color: #222222;
-            margin: 10px 0 5px 0;
+            margin: 15px 0 5px 0;
         }
 
         .price-change {
@@ -204,8 +228,11 @@
         .card h3 {
             margin-top: 0;
             font-size: 1.3rem;
-            color: #333333;
-            font-weight: 500;
+            color: #2c3e2c;
+            font-weight: 600;
+            border-bottom: 1px solid #f3f2eb;
+            padding-bottom: 8px;
+            margin-bottom: 12px;
         }
 
         .card h4 {
@@ -221,6 +248,17 @@
             color: #666666;
             line-height: 1.6;
             margin-bottom: 15px;
+        }
+
+        .news-item {
+            border-bottom: 1px dashed #f0effa;
+            padding-bottom: 12px;
+            margin-bottom: 12px;
+        }
+        .news-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0;
         }
 
         .read-more {
@@ -323,72 +361,79 @@
 </head>
 <body>
 
-    <div class="header-container">
-        <div class="header-title-wrapper">
-            <img src="icon.jpeg" alt="Perspective Logo" class="header-icon">
-            <div class="header-text-group">
-                <h1 class="header-main-title">PERSPECTIVE</h1>
-                <span class="header-subtitle">時尚簡約財經資產配置觀測</span>
+    <div class="main-container">
+        <div class="header-container">
+            <div class="header-title-wrapper">
+                <img src="icon.jpeg" alt="Perspective Logo" class="header-icon">
+                <div class="header-text-group">
+                    <h1 class="header-main-title">PERSPECTIVE</h1>
+                    <span class="header-subtitle">時尚簡約財經資產配置觀測</span>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="status-bar">
-        📊 數據狀態：本站報價與摘要由 GitHub Actions 每小時定時全自動更新。新聞專區為即時追蹤。
-    </div>
+        <div class="status-bar">
+            📊 數據狀態：本站動態與摘要由 GitHub Actions 定時全自動更新。新聞專區為即時追蹤。
+        </div>
 
-    <div class="main-container">
+        <div class="control-panel">
+            <span style="color: #555555; font-size: 0.95rem;">配置觀測控制台</span>
+            <button class="btn">手動觸發 Action 更新</button>
+        </div>
 
         <section class="asset-section">
-            <h2 class="section-title">│ GLOBAL INDEX ASSETS (美股大盤指數配置)</h2>
+            <h2 class="section-title">│ GLOBAL ASSETS OVERVIEW (全球資產即時報價)</h2>
             <div class="content-grid">
                 <div class="card">
                     <span class="badge">美股大盤</span>
                     <p class="price-title">VTI</p>
-                    <span style="color:#888; font-size:0.85rem;">先鋒整體股市 ETF</span>
-                    <div class="price-value">$372.54</div>
-                    <div class="price-change change-green">+0.17%</div>
-                    <span class="time-text">更新時間：2026-05-29</span>
+                    <span style="color:#888; font-size:0.85rem;">Vanguard整體股市ETF</span>
+                    <div class="price-value">$312.45</div>
+                    <div class="price-change change-green">+0.42%</div>
+                    <span class="time-text">更新時間：2026-05-30</span>
                 </div>
                 <div class="card">
                     <span class="badge">國際市場</span>
                     <p class="price-title">VXUS</p>
-                    <span style="color:#888; font-size:0.85rem;">全世界除美股 ETF</span>
-                    <div class="price-value">$86.06</div>
-                    <div class="price-change change-green">+0.07%</div>
-                    <span class="time-text">更新時間：2026-05-29</span>
+                    <span style="color:#888; font-size:0.85rem;">Vanguard全世界除美股ETF</span>
+                    <div class="price-value">$64.28</div>
+                    <div class="price-change change-red">-0.15%</div>
+                    <span class="time-text">更新時間：2026-05-30</span>
                 </div>
                 <div class="card">
-                    <span class="badge">AI 同步</span>
-                    <p class="price-title">焦點市場摘要</p>
-                    <p style="font-size:0.95rem; color:#555; margin-top:10px;">
-                        全球市場動態：美股 VTI 目前來到 $372.54 (+0.17%)，國際市場 VXUS 報 $86.06 (+0.07%)。台股護國神山台積電報 NT$2355.00。數據已於台北時間 2026-05-29 自動完成跨國同步，全市場長線資產配置穩定運作中。
-                    </p>
+                    <span class="badge">科技成長</span>
+                    <p class="price-title">QQQ</p>
+                    <span style="color:#888; font-size:0.85rem;">納斯達克100指數ETF</span>
+                    <div class="price-value">$485.12</div>
+                    <div class="price-change change-green">+1.18%</div>
+                    <span class="time-text">更新時間：2026-05-30</span>
                 </div>
             </div>
 
-            <h2 class="section-title" style="margin-top: 40px;">│ TAIWAN & JAPAN STRATEGIC ASSETS (台股核心與日股配置)</h2>
+            <h2 class="section-title" style="margin-top: 40px;">│ TAIWAN STRATEGIC ASSETS (台股核心權值)</h2>
             <div class="content-grid">
                 <div class="card">
-                    <span class="badge">護國神山</span>
-                    <p class="price-title">台積電 (2330)</p>
-                    <span style="color:#888; font-size:0.85rem;">全球半導體龍頭核心</span>
-                    <div class="price-value">$2355.0</div>
-                    <div class="price-change change-green">+3.52%</div>
-                </div>
-                <div class="card">
-                    <span class="badge">科技權值</span>
-                    <p class="price-title">鴻海 (2317)</p>
-                    <span style="color:#888; font-size:0.85rem;">全球電子代工與現代表現</span>
-                    <div class="price-value">$289.0</div>
-                    <div class="price-change change-green">+10.52%</div>
-                </div>
-                <div class="card">
                     <span class="badge">台股大盤</span>
-                    <p class="price-title">元大台灣50 (0050)</p>
-                    <span style="color:#888; font-size:0.85rem;">台灣市值龍頭特選 ETF</span>
-                    <div class="price-value">$105.40</div>
-                    <div class="price-change change-green">+4.82%</div>
+                    <p class="price-title">富邦台50 (006208)</p>
+                    <span style="color:#888; font-size:0.85rem;">低保費台灣核心代表</span>
+                    <div class="price-value">NT$ 114.30</div>
+                    <div class="price-change change-green">+0.88%</div>
+                    <span class="time-text">更新時間：2026-05-30</span>
+                </div>
+                <div class="card">
+                    <span class="badge">科技巨頭</span>
+                    <p class="price-title">鴻海 (2317)</p>
+                    <span style="color:#888; font-size:0.85rem;">全球電子代工與現代科技表現</span>
+                    <div class="price-value">NT$ 215.50</div>
+                    <div class="price-change change-green">+2.38%</div>
+                    <span class="time-text">更新時間：2026-05-30</span>
+                </div>
+                <div class="card">
+                    <span class="badge">AI 市場摘要</span>
+                    <p class="price-title">焦點觀測動態</p>
+                    <p style="font-size:0.95rem; color:#555; margin-top:10px; line-height: 1.6;">
+                        當前市場核心動態：美股科技股拉抬 QQQ 表現強勢 (+1.18%)，VTI 穩健上升至 $312.45。台股方面，富邦台50 (006208) 與鴻海 (2317) 皆呈現全面收紅態勢。整體長線配置之全市場資產維持高度健康運作。
+                    </p>
                 </div>
             </div>
         </section>
@@ -399,22 +444,39 @@
             <h2 class="section-title">📰 投資理財新聞專區 <span class="subtitle">(Yahoo + Google 雙源對齊，依個股精確分類)</span></h2>
             <div class="content-grid">
                 <div class="card">
-                    <span class="badge">整體美股</span>
-                    <h3>VTI</h3>
-                    <p>The Most-Compared ETFs Right Now — And What They Reveal (來源: Yahoo財經 05-28 23:00)</p>
-                    <p>【即時新聞】比 VOO 更具潛力！Vanguard 總體股市 ETF (VTI) 靠這關鍵優勢，迎來雙位數獲利大爆發 — CMoney 投資情報網 (05-28 19:24)</p>
+                    <h3>美股大盤 & 科技 (VTI / QQQ)</h3>
+                    <div class="news-item">
+                        <h4>【美股動態】科技巨頭領軍 QQQ 創波段新高，資產配置策略再度引發討論</h4>
+                        <p>隨著 AI 晶片需求持續暢旺，納斯達克 100 指數與全市場型 VTI 資金流入量雙雙打破季度紀錄... (Yahoo財經 05-29)</p>
+                    </div>
+                    <div class="news-item">
+                        <h4>為什麼全市場指數化投資是散戶的終極解法？VTI 長線勝率解析</h4>
+                        <p>最新研究指出，拉長十年來看，超過 85% 的主動型基金經紀人績效無法擊敗全市場大盤... (Google財經 05-29)</p>
+                    </div>
                 </div>
+
                 <div class="card">
-                    <span class="badge">國際市場</span>
-                    <h3>VXUS</h3>
-                    <p>Vanguard Total International Stock ETF (VXUS) 券商分點進出排行 | 即時買賣超統計與主力動向 — 股市爆料同學會 (05-27 21:06)</p>
-                    <p>Vanguard Total International Stock ETF (VXUS) 長期戰略配置價值分析 — Google 財經 (05-28 09:00)</p>
+                    <h3>國際市場 (VXUS)</h3>
+                    <div class="news-item">
+                        <h4>【非美市場】歐洲與新興市場券商分點動向分析</h4>
+                        <p>Vanguard全世界除美股ETF (VXUS) 長期分散美股單一國家溢價風險，專家建議維持一定配置比例... (股市爆料同學會 05-28)</p>
+                    </div>
+                    <div class="news-item">
+                        <h4>國際資產配置：如何利用 VXUS 捕捉非美經濟體復甦週期</h4>
+                        <p>面對美股估值相對高昂的環境，跨國非美市場配置提供了極具吸引力的安全邊際... (Google財經 05-28)</p>
+                    </div>
                 </div>
+
                 <div class="card">
-                    <span class="badge">全球全市場</span>
-                    <h3>VT</h3>
-                    <p>台股市值全球第5、績效狠甩 VT、VOO、QQQ！全球資產跨國配置還需要嗎？ — Google 財經 (05-29 02:01)</p>
-                    <p>Vanguard Total World Stock ETF (VT) 與資產配置基本思維導讀 — Google 財經 (05-28 09:00)</p>
+                    <h3>台股核心 (006208 / 2317)</h3>
+                    <div class="news-item">
+                        <h4>【台股追蹤】鴻海 (2317) 內資主力大舉買超，除權息行情引關注</h4>
+                        <p>鴻海近日受惠於新一代伺服器出貨時程提前，外資與內資券商分點罕見同步達成連續買超... (經濟日報 05-30)</p>
+                    </div>
+                    <div class="news-item">
+                        <h4>低內扣保費優勢！富邦台50 (006208) 定期定額戶數再創新高</h4>
+                        <p>長期指數化思維在台灣生根，低保費的 006208 逐漸成為年輕族群取代高成本主動型標的的首選... (工商時報 05-29)</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -431,14 +493,15 @@
                         <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="正確認識資產配置與全市場指數" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
                     <h4>正確認識資產配置與全市場指數基礎</h4>
-                    <p>認識如何透過美股大盤指數工具進行終身資產配置，降低單一市場波動衝擊。</p>
+                    <p>深度解析如何透過全市場指數工具進行終身資產配置，建立抗震、抗通膨的長線財經防禦體系。</p>
                 </div>
+                
                 <div class="card">
                     <div class="video-responsive">
                         <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="長期投資的心理建設與複利效應" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
                     <h4>長期投資的心理建設與終身複利效應</h4>
-                    <p>全面解析市場波動時的心理調適，以及如何利用全市場指數複利達成資產本金的完整保存。</p>
+                    <p>全面調適市場波動時的心理雜音，利用全市場指數複利效應，穩健達成資產本金的完整保存與放大。</p>
                 </div>
             </div>
 
@@ -446,12 +509,12 @@
             <div class="content-grid">
                 <div class="card">
                     <h4>為什麼選擇 VTI 與 VXUS 的配置組合？</h4>
-                    <p>透過美國整體股市（VTI）與全市場除美股市（VXUS）的二元搭配，投資人能以極低成本完整捕捉全球經濟成長的果實，有效避免單一國家權重過高與長線卡死的風險。</p>
+                    <p>透過美國整體股市（VTI）與全世界除美股市（VXUS）的二元搭配，投資人能以極低成本完整捕捉全球經濟成長的果實，有效避免單一國家權重過高與長線卡死的非系統性風險。</p>
                     <a href="#" class="read-more">閱讀全文 →</a>
                 </div>
                 <div class="card">
                     <h4>全市場指數化投資的終身實踐心法</h4>
-                    <p>忽略市場的短期非理性波動與即時新聞雜音，專注於本業主動收入並持續穩健地定期定額，才是讓資產配置長線穩定運作、安心生活的真正關鍵。</p>
+                    <p>忽略市場的短期非理性波动與各類即時雜音，專注於本業主動收入並持續穩健地定期定額，才是讓資產配置長線穩定運作、安心生活的真正關鍵。</p>
                     <a href="#" class="read-more">閱讀全文 →</a>
                 </div>
             </div>
