@@ -7,8 +7,14 @@ import re
 import base64
 
 def log_msg(msg):
-    print(f"[{datetime.now().strftime('%H:%M:%S')}] 📡 {msg}")
+    print(f"[{get_taiwan_now().strftime('%H:%M:%S')}] 📡 {msg}")
     sys.stdout.flush()
+
+def get_taiwan_now():
+    """
+    強制獲取精確的台灣標準時間 (UTC+8)，避免伺服器端發生時區錯亂。
+    """
+    return datetime.utcnow() + timedelta(hours=8)
 
 def decode_google_news_url(source_url):
     """
@@ -19,18 +25,15 @@ def decode_google_news_url(source_url):
         return source_url
     try:
         path = source_url.split("articles/")[-1].split("?")[0]
-        # 補齊 Base64 填充字元
         padding = len(path) % 4
         if padding != 0:
             path += "=" * (4 - padding)
         
         decoded_bytes = base64.urlsafe_b64decode(path)
-        # 嘗試從二進位字串中搜尋包含完整協定的網址
         decoded_str = decoded_bytes.decode('utf-8', errors='ignore')
         
         urls = re.findall(r'https?://[^\s\x00-\x1f\x7f-\xff"\'<>]+', decoded_str)
         if urls:
-            # 篩選掉指向 google 自身的無效連結
             for u in urls:
                 if "news.google.com" not in u and "googlevideo.com" not in u:
                     return u
@@ -50,29 +53,35 @@ def fetch_from_yahoo(ticker, default_price, default_change):
         log_msg(f"⚠️ {ticker} 價格接口使用預設防線: {e}")
     return default_price, default_change
 
-def fetch_stock_all_news(ticker, display_name, fetch_index_news=False):
+def fetch_stock_all_news(ticker, display_name):
     """
-    個股與指數新聞抓取：
-    如果是美股大盤 ETF (VT, VXUS, VTI)，除了代號外，還會額外連動檢索「指數化投資」中文權威新聞。
+    採用台灣在地化財經高頻矩陣關鍵字，徹底逼迫 RSS 吐出 VT/VXUS/VTI 的中文新聞。
     """
     news_pool = []
     urls = []
     
-    # 1. 抓取 Yahoo 財經原生管道
+    # 建立美股全市場標的的中文權威替代關鍵字矩陣
+    chinese_keywords_mapping = {
+        "VT": ["VT ETF", "全球股市 ETF", "全世界資產配置", "指數化投資"],
+        "VXUS": ["VXUS ETF", "國際股市 ETF", "非美股市 配置", "全球資產配置"],
+        "VTI": ["VTI ETF", "美股整體市場", "先鋒整體股市", "美股大盤 ETF"]
+    }
+    
+    # 1. 抓取台股原生管道
     if ".TW" in ticker:
         pure_symbol = ticker.split('.')[0]
         urls.append((f"https://tw.stock.yahoo.com/rss?s={pure_symbol}", "Yahoo奇摩股市"))
+        encoded_query = urllib.parse.quote(f"{display_name} 新聞")
+        urls.append((f"https://news.google.com/rss/search?q={encoded_query}&hl=zh-TW&gl=TW&ceid=TW:zh-Hant", "Google新聞"))
     else:
+        # 美股標的：混合中文權威資產對照矩陣，全面鎖定台灣繁體通訊協定
+        target_keywords = chinese_keywords_mapping.get(ticker, [f"{ticker} ETF"])
+        for kw in target_keywords:
+            encoded_kw = urllib.parse.quote(kw)
+            urls.append((f"https://news.google.com/rss/search?q={encoded_kw}&hl=zh-TW&gl=TW&ceid=TW:zh-Hant", "中文財經源"))
+            
+        # 保留原廠 Yahoo Finance 做為備用（展開後可見）
         urls.append((f"https://feeds.finance.yahoo.com/rss/2.0/headline?s={ticker}&region=US&lang=en-US", "Yahoo Finance"))
-        
-    # 2. 抓取 Google 新聞針對代號與名稱的搜尋
-    encoded_query = urllib.parse.quote(f"{display_name} 新聞")
-    urls.append((f"https://news.google.com/rss/search?q={encoded_query}&hl=zh-TW&gl=TW&ceid=TW:zh-Hant", "Google新聞"))
-    
-    # 3. 針對美股全市場 ETF 擴充：自動匯入台灣本地「指數化投資」中文即時市況報導
-    if fetch_index_news:
-        encoded_idx_query = urllib.parse.quote("指數化投資")
-        urls.append((f"https://news.google.com/rss/search?q={encoded_idx_query}&hl=zh-TW&gl=TW&ceid=TW:zh-Hant", "指數化思維"))
 
     for url, source_name in urls:
         try:
@@ -84,7 +93,6 @@ def fetch_stock_all_news(ticker, display_name, fetch_index_news=False):
                 if " - " in title:
                     title = title.split(" - ")[0]
                 
-                # 如果是 Google 新聞來源，進行解碼還原成真實網址
                 if "news.google.com" in link:
                     link = decode_google_news_url(link)
                 
@@ -93,14 +101,17 @@ def fetch_stock_all_news(ticker, display_name, fetch_index_news=False):
                     dt = datetime(*entry.published_parsed[:6]) + timedelta(hours=8)
                     pub_time = dt.strftime("%m-%d %H:%M")
                 else:
-                    pub_time = datetime.now().strftime("%m-%d %H:%M")
+                    pub_time = get_taiwan_now().strftime("%m-%d %H:%M")
+                    
+                # 判斷是否包含中文字元
+                has_chinese = bool(re.search(r'[\u4e00-\u9fff]', title))
                     
                 news_pool.append({
                     "title": title,
                     "link": link,
                     "source": source_name,
                     "time": pub_time,
-                    "is_chinese": not bool(re.search(r'[a-zA-Z]{15,}', title)) # 簡單判定是否主要為中文
+                    "has_chinese": has_chinese
                 })
         except Exception as e:
             log_msg(f"新聞抓取異常 ({ticker}): {e}")
@@ -108,16 +119,15 @@ def fetch_stock_all_news(ticker, display_name, fetch_index_news=False):
     seen = set()
     unique_news = []
     
-    # 為了最佳體驗，如果是有開啟中文擴充的標的，讓中文新聞排在前面，英文排後面
-    if fetch_index_news:
-        news_pool.sort(key=lambda x: x['is_chinese'], reverse=True)
+    # 權重優化：強制讓含有中文標題的新聞排在最前方
+    news_pool.sort(key=lambda x: x['has_chinese'], reverse=True)
         
     for n in news_pool:
         if n['title'] not in seen and "Google" not in n['title']:
             seen.add(n['title'])
             unique_news.append(n)
             
-    return unique_news[:6]
+    return unique_news[:8]
 
 def fetch_mindset_resources():
     """
@@ -139,7 +149,7 @@ def fetch_mindset_resources():
                 
                 link = decode_google_news_url(entry.link)
                 
-                dt_obj = datetime.now()
+                dt_obj = get_taiwan_now()
                 if hasattr(entry, 'published_parsed') and entry.published_parsed:
                     dt_obj = datetime(*entry.published_parsed[:6]) + timedelta(hours=8)
                 
@@ -156,7 +166,6 @@ def fetch_mindset_resources():
         except Exception as e:
             log_msg(f"搜尋大師 {master} 資源時發生異常: {e}")
 
-    # 按發布時間從新到舊進行全局排序
     all_resource_pool.sort(key=lambda x: x['date_obj'], reverse=True)
     
     seen_titles = set()
@@ -201,7 +210,7 @@ def update_html_list(content, element_id, news_list):
 
 def inject_split_resources_into_html(content, stream_data):
     """
-    將前 10 則數據按人物分流注入對應的 HTML 容器中
+    將前 10 則大師數據按人物分流注入容器，並預設隱藏第 4 則之後的資源 (套用折疊機制)。
     """
     classified = {"清流君": [], "周冠男": [], "巴菲特": []}
     for item in stream_data:
@@ -210,9 +219,12 @@ def inject_split_resources_into_html(content, stream_data):
             
     for author, items in classified.items():
         html_items = []
-        for item in items:
+        for i, item in enumerate(items):
+            css_class = "res-item"
+            if i >= 3:
+                css_class = "res-item hidden-res"
             html_items.append(
-                f"<li class='res-item'>"
+                f"<li class='{css_class}'>"
                 f"  <a href='{item['link']}' target='_blank'>{item['title']}</a>"
                 f"  <div class='res-tags'>"
                 f"    <span class='tag-type'>{item['type']}</span>"
@@ -230,7 +242,7 @@ def inject_split_resources_into_html(content, stream_data):
     return content
 
 def main():
-    log_msg("啟動全球資產數據與中文指數化投資新聞深度同步...")
+    log_msg("啟動全球資產數據同步與時區/中文化演算法全面校正...")
     
     try:
         with open("index.html", "r", encoding="utf-8") as f:
@@ -266,27 +278,27 @@ def main():
     content = update_html_price_row(content, "honhai_row", honhai_c, is_us=False)
     content = update_html_price_row(content, "japan_row", japan_c, is_us=False)
     
-    # 3. 解析真實連結新聞並注入 (針對美股大盤加入 fetch_index_news=True 以獲取中文指數化投資新聞)
-    content = update_html_list(content, "news_VTI", fetch_stock_all_news("VTI", "VTI ETF", fetch_index_news=True))
-    content = update_html_list(content, "news_VXUS", fetch_stock_all_news("VXUS", "VXUS ETF", fetch_index_news=True))
-    content = update_html_list(content, "news_VT", fetch_stock_all_news("VT", "VT ETF", fetch_index_news=True))
+    # 3. 解析真實連結新聞並注入
+    content = update_html_list(content, "news_VTI", fetch_stock_all_news("VTI", "VTI ETF"))
+    content = update_html_list(content, "news_VXUS", fetch_stock_all_news("VXUS", "VXUS ETF"))
+    content = update_html_list(content, "news_VT", fetch_stock_all_news("VT", "VT ETF"))
     content = update_html_list(content, "news_0050", fetch_stock_all_news("0050.TW", "0050"))
     content = update_html_list(content, "news_2330", fetch_stock_all_news("2330.TW", "台積電"))
     content = update_html_list(content, "news_2317", fetch_stock_all_news("2317.TW", "鴻海"))
     content = update_html_list(content, "news_00981A", fetch_stock_all_news("00981A.TW", "00981A"))
 
-    # 4. 抓取大師思維流
+    # 4. 抓取大師思維流並注入
     stream_data = fetch_mindset_resources()
     content = inject_split_resources_into_html(content, stream_data)
 
-    # 5. 更新時間戳記
-    current_time_str = datetime.now().strftime("%Y-%m-%d %H:%M")
-    content = update_html_block(content, "last_update_time", current_time_str)
+    # 5. 更新時間戳記（精確台灣標準時間）
+    taiwan_time_str = get_taiwan_now().strftime("%Y-%m-%d %H:%M")
+    content = update_html_block(content, "last_update_time", taiwan_time_str)
 
     try:
         with open("index.html", "w", encoding="utf-8") as f:
             f.write(content)
-        log_msg(f"🎉 修正成功！VTI/VXUS/VT 欄位已成功混入高相關的中文『指數化投資』市況動態。時間：{current_time_str}")
+        log_msg(f"🎉 修正成功！台灣時間、新聞卡牌與大師專區雙折疊機制已全面部署完畢。時間：{taiwan_time_str}")
     except Exception as e:
         log_msg(f"❌ 寫入 index.html 失敗: {e}")
 
