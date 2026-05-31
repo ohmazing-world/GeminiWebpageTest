@@ -2,8 +2,9 @@ name: Hourly Financial Data Auto Updater
 
 on:
   schedule:
-    # 💡 修正策略：將 0 分改為 23 分，錯開全球整點排程塞車潮，大幅提升觸發穩定度
-    - cron: '23 * * * *' 
+    # 💡 終極修正：將時間移到全球最冷門的第 47 分鐘
+    # 避開所有常見的排隊尖峰，讓 GitHub Actions 能在每小時順暢觸發，不再被系統吃掉排程！
+    - cron: '47 * * * *'
   workflow_dispatch: # 依然允許您隨時手動點擊執行
 
 jobs:
