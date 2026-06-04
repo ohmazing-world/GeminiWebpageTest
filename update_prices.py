@@ -1,3 +1,5 @@
+import os
+import requests
 import yfinance as yf
 from datetime import datetime, timedelta
 import sys
@@ -100,41 +102,20 @@ def fetch_stock_all_news(ticker, display_name):
     return unique_news[:8]
 
 def fetch_mindset_resources():
-    """
-    擴充大師陣容，並結合高級搜尋語法，精確打擊 Facebook、Threads、Dcard、Yahoo 新聞與 Google 新聞源。
-    實施強效的「指數化核心關鍵字過濾矩陣」，杜絕雜訊。
-    """
     log_msg("啟動指數化全市場大師思維全網多維度抓取...")
-    
-    # 定義大師群組與在 HTML 中對應的 ID 映射
     masters_mapping = {
-        "清流君": "清流君",
-        "周冠男": "周冠男",
-        "巴菲特": "巴菲特",
-        "約翰伯格": "約翰伯格",
-        "綠角": "綠角",
-        "竹軒": "竹軒",
-        "哆啦王": "哆啦王"
+        "清流君": "清流君", "周冠男": "周冠男", "巴菲特": "巴菲特",
+        "約翰伯格": "約翰伯格", "綠角": "綠角", "竹軒": "竹軒", "哆啦王": "哆啦王"
     }
-    
-    # 針對某些在社群上需要更精準代稱的大師進行關鍵字最佳化
     search_queries = {
-        "清流君": "清流君",
-        "周冠男": "周冠男",
-        "巴菲特": "巴菲特",
-        "約翰伯格": "約翰·伯格 OR John Bogle",
-        "綠角": "綠角 Greenhorn",
-        "竹軒": "竹軒的理財筆記 OR 竹軒 理財",
-        "哆啦王": "哆啦王 ffaarr"
+        "清流君": "清流君", "周冠男": "周冠男", "巴菲特": "巴菲特",
+        "約翰伯格": "約翰·伯格 OR John Bogle", "綠角": "綠角 Greenhorn",
+        "竹軒": "竹軒的理財筆記 OR 竹軒 理財", "哆啦王": "哆啦王 ffaarr"
     }
-
-    # 高純度指數化思維核心關鍵字過濾矩陣（防止社群雜訊）
     core_filters = ["etf", "指數", "配置", "美股", "全市場", "複利", "理財", "成本", "內扣", "伯格", "不看盤", "清流", "綠角", "台股", "大盤", "年化", "提領", "本金", "資產"]
-
     all_resource_pool = []
     
     for key_id, search_term in search_queries.items():
-        # 構造多路並聯語法：涵蓋各大平台來源
         platform_query = f"({search_term}) (site:facebook.com OR site:threads.net OR site:dcard.tw OR site:news.yahoo.com OR 新聞)"
         encoded_query = urllib.parse.quote(platform_query)
         rss_url = f"https://news.google.com/rss/search?q={encoded_query}&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
@@ -143,34 +124,22 @@ def fetch_mindset_resources():
             feed = feedparser.parse(rss_url)
             for entry in feed.entries:
                 title = entry.title
-                if " - " in title:
-                    title = title.split(" - ")[0]
-                
+                if " - " in title: title = title.split(" - ")[0]
                 link = decode_google_news_url(entry.link)
-                
-                # 高度相關性過濾安全機制
                 title_lower = title.lower()
                 is_highly_relevant = any(token in title_lower for token in core_filters) or (key_id in title)
-                if not is_highly_relevant:
-                    continue  # 雜訊阻擊成功，跳過此則
+                if not is_highly_relevant: continue
                 
                 dt_obj = get_taiwan_now()
                 if hasattr(entry, 'published_parsed') and entry.published_parsed:
                     dt_obj = datetime(*entry.published_parsed[:6]) + timedelta(hours=8)
                 
-                # 自動載體識別標籤
-                if "facebook.com" in link.lower():
-                    media_type = "👥 FB 專頁動態"
-                elif "threads.net" in link.lower():
-                    media_type = "🧵 Threads 觀點"
-                elif "dcard.tw" in link.lower():
-                    media_type = "💬 Dcard 討論流"
-                elif "youtube.com" in link.lower() or "youtube" in title_lower:
-                    media_type = "🎬 影音觀點"
-                elif "yahoo.com" in link.lower():
-                    media_type = "📰 Yahoo 新聞"
-                else:
-                    media_type = "📄 財經專欄"
+                if "facebook.com" in link.lower(): media_type = "👥 FB 專頁動態"
+                elif "threads.net" in link.lower(): media_type = "🧵 Threads 觀點"
+                elif "dcard.tw" in link.lower(): media_type = "💬 Dcard 討論流"
+                elif "youtube.com" in link.lower() or "youtube" in title_lower: media_type = "🎬 影音觀點"
+                elif "yahoo.com" in link.lower(): media_type = "📰 Yahoo 新聞"
+                else: media_type = "📄 財經專欄"
                 
                 all_resource_pool.append({
                     "title": title, "link": link, "author_key": key_id,
@@ -179,49 +148,35 @@ def fetch_mindset_resources():
                 })
         except Exception as e:
             log_msg(f"搜尋大師 {key_id} 資源時發生異常: {e}")
-
     all_resource_pool.sort(key=lambda x: x['date_obj'], reverse=True)
     return all_resource_pool
 
 def inject_split_resources_into_html(content, stream_data):
     classified = {"清流君": [], "周冠男": [], "巴菲特": [], "約翰伯格": [], "綠角": [], "竹軒": [], "哆啦王": []}
     for item in stream_data:
-        if item['author_key'] in classified:
-            classified[item['author_key']].append(item)
-            
+        if item['author_key'] in classified: classified[item['author_key']].append(item)
     seen_links = set()
     for author_key, items in classified.items():
         html_items = []
         visible_count = 0
         for item in items:
-            if item['link'] in seen_links:
-                continue
+            if item['link'] in seen_links: continue
             seen_links.add(item['link'])
-            
             css_class = "res-item"
-            if visible_count >= 3:
-                css_class = "res-item hidden-res"
-            
+            if visible_count >= 3: css_class = "res-item hidden-res"
             html_items.append(
                 f"<li class='{css_class}'>"
                 f"  <a href='{item['link']}' target='_blank'>{item['title']}</a>"
-                f"  <div class='res-tags'>"
-                f"    <span class='tag-type'>{item['type']}</span>"
-                f"    <span class='tag-time'>{item['time_str']}</span>"
-                f"  </div>"
+                f"  <div class='res-tags'><span class='tag-type'>{item['type']}</span>"
+                f"  <span class='tag-time'>{item['time_str']}</span></div>"
                 f"</li>"
             )
             visible_count += 1
-            if visible_count >= 10:  # 每個大師上限 10 則
-                break
-                
+            if visible_count >= 10: break
         joined_html = "".join(html_items)
-        if not joined_html:
-            joined_html = "<li class='res-item' style='color: var(--text-sub);'>近期暫無高度相關思維資產更新。</li>"
-            
+        if not joined_html: joined_html = "<li class='res-item' style='color: var(--text-sub);'>近期暫無高度相關思維資產更新。</li>"
         pattern = rf'(id="res_{author_key}"[^>]*>).*?(</ul\s*>)'
         content = re.sub(pattern, rf'\g<1>{joined_html}\g<2>', content, flags=re.DOTALL)
-        
     return content
 
 def update_html_block(content, element_id, new_value):
@@ -230,8 +185,7 @@ def update_html_block(content, element_id, new_value):
 
 def update_html_price_row(content, element_id, change_pct, is_us=True):
     color = "#2E7D32" if change_pct >= 0 else "#C62828"
-    if not is_us:
-        color = "#C62828" if change_pct >= 0 else "#2E7D32"
+    if not is_us: color = "#C62828" if change_pct >= 0 else "#2E7D32"
     sign = "+" if change_pct >= 0 else ""
     new_html = f"<span>漲跌幅</span><span style='color: {color};'>{sign}{change_pct:.2f}%</span>"
     pattern = rf'(id="{element_id}"[^>]*>).*?(</div\s*>)'
@@ -241,23 +195,35 @@ def update_html_list(content, element_id, news_list):
     li_html_items = []
     for i, n in enumerate(news_list):
         css_class = "news-item"
-        if i >= 3:
-            css_class = "news-item hidden-news"
+        if i >= 3: css_class = "news-item hidden-news"
         li_html_items.append(
             f"<li class='{css_class}'><a href='{n['link']}' target='_blank'>{n['title']}</a>"
             f"<div class='news-meta'><span>來源: {n['source']}</span><span>{n['time']}</span></div></li>"
         )
     joined_li = "".join(li_html_items)
-    if not joined_li:
-        joined_li = "<li class='news-item'>暫無即時相關市況新聞。</li>"
+    if not joined_li: joined_li = "<li class='news-item'>暫無即時相關市況新聞。</li>"
     pattern = rf'(id="{element_id}"[^>]*>).*?(</ul\s*>)'
     return re.sub(pattern, rf'\g<1>{joined_li}\g<2>', content, flags=re.DOTALL)
+
+def ping_google_sitemap():
+    """通知 Google 爬蟲 Sitemap 已更新"""
+    # ⚠️ 這裡請修改成您網站實際的 sitemap 網址
+    SITEMAP_URL = "https://ohmazing-world.github.io/GeminiWebpageTest/sitemap.xml"
+    ping_url = f"https://www.google.com/ping?sitemap={SITEMAP_URL}"
+    try:
+        log_msg(f"正在主動向 Google 提交 Sitemap...")
+        resp = requests.get(ping_url, timeout=10)
+        if resp.status_code == 200:
+            log_msg("✨ Google Sitemap 提交成功！")
+        else:
+            log_msg(f"⚠️ Google Ping 回傳狀態異常: {resp.status_code}")
+    except Exception as e:
+        log_msg(f"❌ 無法提交 Sitemap 給 Google: {e}")
 
 def main():
     log_msg("啟動大師陣容全球全管道思維多維度同步...")
     try:
-        with open("index.html", "r", encoding="utf-8") as f:
-            content = f.read()
+        with open("index.html", "r", encoding="utf-8") as f: content = f.read()
     except Exception as e:
         log_msg(f"❌ 無法讀取 index.html: {e}")
         return
@@ -305,9 +271,10 @@ def main():
     content = update_html_block(content, "last_update_time", taiwan_time_str)
 
     try:
-        with open("index.html", "w", encoding="utf-8") as f:
-            f.write(content)
-        log_msg(f"🎉 成功擴充 Ohmazing Garden - 7 大師資產配置小花園！最新更新時間：{taiwan_time_str}")
+        with open("index.html", "w", encoding="utf-8") as f: f.write(content)
+        log_msg(f"🎉 網頁同步完成！")
+        # 網頁寫入成功後，立刻通知 Google
+        ping_google_sitemap()
     except Exception as e:
         log_msg(f"❌ 寫入 index.html 失敗: {e}")
 
