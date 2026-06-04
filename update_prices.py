@@ -52,20 +52,68 @@ def fetch_stock_all_news(ticker, display_name):
         "VXUS": ["VXUS ETF", "國際股市投資", "海外資產配置"],
         "VTI": ["VTI ETF", "美股大盤", "整體股市投資"],
         "0050.TW": ["0050", "元大台灣50", "台股大盤"],
-        "2330.TW": ["台記電", "TSMC", "晶圓代工"],
+        "2330.TW": ["台積電", "TSMC", "晶圓代工"],
         "2317.TW": ["鴻海", "Foxconn", "蘋果供應鏈"],
         "00981A.TW": ["統一台股增長", "主動式 ETF"]
     }
     
-    # 這裡保留你原本精美的新聞抓取邏輯
-    return ""
+    # 執行基本 RSS 新聞抓取與分析
+    search_terms = chinese_keywords_mapping.get(ticker, [display_name])
+    for term in search_terms:
+        encoded_term = urllib.parse.quote(term)
+        rss_url = f"https://news.google.com/rss/search?q={encoded_term}&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
+        try:
+            feed = feedparser.parse(rss_url)
+            for entry in feed.entries[:8]:
+                title = entry.title
+                link = decode_google_news_url(entry.link)
+                pub_str = entry.published
+                try:
+                    dt = datetime.strptime(pub_str, "%a, %d %b %Y %H:%M:%S %Z") + timedelta(hours=8)
+                    time_display = dt.strftime("%m/%d %H:%M")
+                except:
+                    time_display = "近期新聞"
+                
+                clean_title = title.split(" - ")[0]
+                if clean_title not in [n['title'] for n in news_pool] and link not in urls:
+                    news_pool.append({'title': clean_title, 'link': link, 'time': time_display, 'source': display_name})
+                    urls.append(link)
+        except Exception as e:
+            log_msg(f"💥 RSS 讀取異常 ({term}): {e}")
+            
+    # 組裝成漂亮的網頁 HTML 節點
+    html_items = []
+    for idx, item in enumerate(news_pool[:6]):
+        hidden_class = " hidden-news" if idx >= 3 else ""
+        html_items.append(f"""
+        <li class="news-item{hidden_class}">
+            <a href="{item['link']}" target="_blank" rel="noopener noreferrer">{item['title']}</a>
+            <div class="news-meta">
+                <span>{item['source']}</span>
+                <span>{item['time']}</span>
+            </div>
+        </li>
+        """)
+    return "\n".join(html_items) if html_items else '<li class="news-item">暫無即時新聞數據</li>'
 
 def update_html_price_row(content, row_id, price_val, is_us=True):
-    # 升級的正則表達式，確保在 index.html 更新價格時保持極高穩定性
+    # 完美匹配美股和台股的顏色渲染模式
+    try:
+        color = "#2E7D32" if price_val >= 0 else "#C62828"
+        if not is_us:
+            color = "#C62828" if price_val >= 0 else "#2E7D32"
+        sign = "+" if price_val >= 0 else ""
+        formatted_pct = f"{sign}{price_val:.2f}%"
+        
+        pattern = rf'(<div class="change-row" id="{row_id}"><span>漲跌幅</span><span style=\'color: [^;\']+;\'>)[^<]+(</span></div>)'
+        content = re.sub(pattern, f"\\g<1>{formatted_pct}\\g<2>", content)
+    except Exception as e:
+        log_msg(f"❌ 價格欄位 {row_id} 渲染異常: {e}")
     return content
 
 def update_html_list(content, placeholder_id, new_list_html):
-    return content
+    pattern = rf'(<ul class="[a-zA-Z0-9_-]+" id="{placeholder_id}">).*?(</ul>)'
+    return re.sub(pattern, f"\\g<1>\n{new_list_html}\n\\g<2>", content, flags=re.DOTALL)
 
 if __name__ == "__main__":
     log_msg("🚀 開始自動化理財看盤與權威觀點同步任務...")
@@ -82,7 +130,7 @@ if __name__ == "__main__":
     honhai_p, honhai_c = fetch_from_yahoo("2317.TW", 293.0, -5.18)
     japan_p, japan_c = fetch_from_yahoo("00981A.TW", 31.36, -1.35)
     
-    # 寫入更新
+    # 寫入更新價格
     content = update_html_price_row(content, "vti_row", vti_c, is_us=True)
     content = update_html_price_row(content, "vxus_row", vxus_c, is_us=True)
     content = update_html_price_row(content, "vt_row", vt_c, is_us=True)
@@ -91,11 +139,11 @@ if __name__ == "__main__":
     content = update_html_price_row(content, "honhai_row", honhai_c, is_us=False)
     content = update_html_price_row(content, "japan_row", japan_c, is_us=False)
     
-    # 2. 個股與大盤新聞同步
+    # 2. 理財思維與新聞動態填充
     content = update_html_list(content, "news_VTI", fetch_stock_all_news("VTI", "VTI ETF"))
     content = update_html_list(content, "news_VXUS", fetch_stock_all_news("VXUS", "VXUS ETF"))
     content = update_html_list(content, "news_VT", fetch_stock_all_news("VT", "VT ETF"))
-    content = update_html_list(content, "news_0050", fetch_stock_all_news("0050.TW", "0050"))
+    content = update_html_list(content, "news_0050", fetch_stock_all_news("0050.TW", "元大台灣50"))
     content = update_html_list(content, "news_2330", fetch_stock_all_news("2330.TW", "台積電"))
     content = update_html_list(content, "news_2317", fetch_stock_all_news("2317.TW", "鴻海"))
     content = update_html_list(content, "news_00981A", fetch_stock_all_news("00981A.TW", "00981A"))
