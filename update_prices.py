@@ -207,8 +207,8 @@ def update_html_list(content, element_id, news_list):
 
 def ping_google_sitemap():
     """通知 Google 爬蟲 Sitemap 已更新"""
-    # ⚠️ 這裡請修改成您網站實際的 sitemap 網址
-    SITEMAP_URL = "https://ohmazing-world.github.io/GeminiWebpageTest/sitemap.xml"
+    # 💡 完美同步修正為新的 Repository 名稱 IndexETFGarden
+    SITEMAP_URL = "https://ohmazing-world.github.io/IndexETFGarden/sitemap.xml"
     ping_url = f"https://www.google.com/ping?sitemap={SITEMAP_URL}"
     try:
         log_msg(f"正在主動向 Google 提交 Sitemap...")
@@ -273,7 +273,6 @@ def main():
     try:
         with open("index.html", "w", encoding="utf-8") as f: f.write(content)
         log_msg(f"🎉 網頁同步完成！")
-        # 網頁寫入成功後，立刻通知 Google
         ping_google_sitemap()
     except Exception as e:
         log_msg(f"❌ 寫入 index.html 失敗: {e}")
