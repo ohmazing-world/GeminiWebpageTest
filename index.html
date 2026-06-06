@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ohmazing Garden - 指數化投資小花園</title>
     
-    <meta name="description" content=\"Ohmazing Garden - 指數化投資小花園分享大盤指數型ETF資訊並整理指數化投資專家最新意見。帶你透過資產配置享受長期複利果實。\">
-    <meta name=\"keywords\" content=\"美股, VTI, VXUS, VT, 台積電, 鴻海, 0050, 006208, 指數化投資, 被動投資, 資產配置, 全球全市場, 長期複利, 清流君, 周冠男, 綠角\">
+    <meta name="description" content="Ohmazing Garden - 指數化投資小花園分享大盤指數型ETF資訊並整理指數化投資專家最新意見。帶你透過資產配置享受長期複利果實。">
+    <meta name="keywords" content="美股, VTI, VXUS, VT, 台積電, 鴻海, 0050, 006208, 指數化投資, 被動投資, 資產配置, 全球全市場, 長期複利, 清流君, 周冠男, 綠角">
     <meta name="author" content="Ohmazing Garden">
     
     <meta property="og:title" content="Ohmazing Garden - 指數化投資小花園">
@@ -321,16 +321,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr id="vti_row"><td>VTI (美股整體市場)</td><td>VTI</td><td>$300.00</td><td class="price-up">+0.50%</td></tr>
-                        <tr id="vxus_row"><td>VXUS (國際不含美)</td><td>VXUS</td><td>$65.00</td><td class="price-down">-0.20%</td></tr>
-                        <tr id="vt_row"><td>VT (全世界股票)</td><td>VT</td><td>$115.00</td><td class="price-up">+0.15%</td></tr>
-                        <tr id="0050_row"><td>元大台灣50</td><td>0050.TW</td><td>NT$180.00</td><td class="price-up">+1.20%</td></tr>
-                        <tr id="tsmc_row"><td>台積電</td><td>2330.TW</td><td>NT$900.00</td><td class="price-up">+1.50%</td></tr>
-                        <tr id="honhai_row"><td>鴻海</td><td>2317.TW</td><td>NT$180.00</td><td class="price-down">-0.50%</td></tr>
-                        <tr id="japan_row"><td>iShares安碩日本大型股ETF</td><td>00981A.TW</td><td>NT$15.00</td><td class="price-up">+0.30%</td></tr>
+                        <tr id="vti_row"><td>VTI (美股整體市場)</td><td>VTI</td><td>$285.50</td><td class="price-up">+0.45%</td></tr>
+                        <tr id="vxus_row"><td>VXUS (國際不含美)</td><td>VXUS</td><td>$63.20</td><td class="price-down">-0.12%</td></tr>
+                        <tr id="vt_row"><td>VT (全世界股票)</td><td>VT</td><td>$112.80</td><td class="price-up">+0.22%</td></tr>
+                        <tr id="0050_row"><td>元大台灣50</td><td>0050.TW</td><td>NT$175.30</td><td class="price-up">+0.85%</td></tr>
+                        <tr id="tsmc_row"><td>台積電</td><td>2330.TW</td><td>NT$870.00</td><td class="price-up">+1.15%</td></tr>
+                        <tr id="honhai_row"><td>鴻海</td><td>2317.TW</td><td>NT$172.00</td><td class="price-down">-0.58%</td></tr>
+                        <tr id="japan_row"><td>iShares安碩日本大型股ETF</td><td>00981A.TW</td><td>NT$14.85</td><td class="price-up">+0.20%</td></tr>
                     </tbody>
                 </table>
-                <div class="update-time" id="price_update_time">最後更新：2026-06-06 13:51:37</div>
+                <div class="update-time" id="price_update_time">最後更新：2026-06-06 00:00:00</div>
             </div>
         </div>
 
@@ -416,7 +416,7 @@
                         <h4><i class="fas fa-line-chart"></i> 📈 單次複利投資計算機</h4>
                         <div class="input-group">
                             <label for="comp_pv">現有單筆本金 (元)：</label>
-                            <input type="number" id="comp_pv" value="100000" placeholder="請輸入本金">
+                            <input type="number" id="comp_pv" value="100000" placeholder="請輸入投資本金">
                         </div>
                         <div class="input-group">
                             <label for="comp_rate">預期年化報酬率 (%)：</label>
@@ -469,7 +469,6 @@
     </footer>
 
     <script>
-        // 摺疊控制邏輯
         function toggleCard(cardId) {
             const card = document.getElementById(cardId);
             card.classList.toggle('collapsed');
@@ -497,21 +496,18 @@
             document.getElementById('result-compound').innerHTML = report;
         }
 
-        // 4% 提領率退休金計算
         function calcRetire() {
-            let monthly = parseFloat(document.getElementById('calc_monthly').value);
-            if (!monthly || monthly <= 0) {
-                document.getElementById('result-retire').innerHTML = `❌ 請輸入有效的生活費。`;
+            let monthlyExpense = parseFloat(document.getElementById('calc_monthly').value);
+            if (isNaN(monthlyExpense) || monthlyExpense <= 0) {
+                document.getElementById('result-retire').innerHTML = `❌ 請輸入正確的每月生活費數字。`;
                 return;
             }
-            let annual = monthly * 12;
-            let totalRequired = annual * 25; // 4% 提領率即為年支出的 25 倍
-            let monthlyRequired = totalRequired * 0.05 / 12; // 假設保守常態回報
+            let annualExpense = monthlyExpense * 12;
+            let fireTarget = annualExpense * 25;
             
-            document.getElementById('result-retire').innerHTML = `🎯 <strong>每年預估支出：</strong>$${annual.toLocaleString()} 元<br>🚀 <strong>25倍 FIRE 財務自由目標數字：</strong><strong>$${totalRequired.toLocaleString()}</strong> 元。<br>💡 達標後若維持 4%~5% 年化回報，平均每月可提領約 <strong>$${Math.round(monthlyRequired).toLocaleString()}</strong> 元。`;
+            document.getElementById('result-retire').innerHTML = `🎯 <strong>4% 提領率自由目標：</strong>$${Math.round(fireTarget).toLocaleString()} 元<br>💡 達標後，您每年可安全提領約 $${Math.round(annualExpense).toLocaleString()} 元。`;
         }
 
-        // 資產再平衡試算
         function calcRebalance() {
             let us = parseFloat(document.getElementById('rb_us').value);
             let tw = parseFloat(document.getElementById('rb_tw').value);
