@@ -286,7 +286,7 @@
                 <h3>VTI <span>整體美股市場</span></h3>
                 <ul class="news-list" id="news_VTI">
                     <li class="news-item"><a href="#">美股大盤VTI創歷史新高，科技與能源板塊齊揚</a><div class="news-meta"><span>來源: 財經快訊</span><span>06-06 10:30</span></div></li>
-                    <li class="news-item"><a href="#">通膨數據降溫，聯準會降息預期升溫推升股市</a><div class="news-meta"><span>來源: 全球經濟網</span><span>06-06 09:15</span></div></li>
+                    <li class="news-item"><a href="#">通膨數據降溫，聯準會降息預期升溫推推升股市</a><div class="news-meta"><span>來源: 全球經濟網</span><span>06-06 09:15</span></div></li>
                     <li class="news-item"><a href="#">先鋒整體股市ETF資金持續淨流入，長期投資人青睞</a><div class="news-meta"><span>來源: ETF導航</span><span>06-05 16:45</span></div></li>
                 </ul>
                 <button class="expand-news-btn" onclick="toggleNews('news_VTI', this)">🔍 繼續閱讀</button>
@@ -489,12 +489,12 @@
         let ul = document.getElementById(id);
         if(!ul) return;
         let hiddenItems = ul.querySelectorAll('.hidden-news');
-        if (hiddenItems.length > 0 && hiddenItems[0].style.display !== 'list-item') {
-            hiddenItems.forEach(item => item.style.display = 'list-item');
-            btn.innerHTML = '🔍 下次再看';
-        } else {
+        if (hiddenItems.length > 0 && hiddenItems[0].style.display !== 'none' && hiddenItems[0].style.display !== '') {
             hiddenItems.forEach(item => item.style.display = 'none');
             btn.innerHTML = '🔍 繼續閱讀';
+        } else {
+            hiddenItems.forEach(item => item.style.display = 'list-item');
+            btn.innerHTML = '🔍 下次再看';
         }
     }
 
@@ -502,12 +502,12 @@
         let ul = document.getElementById(id);
         if(!ul) return;
         let hiddenItems = ul.querySelectorAll('.hidden-res');
-        if (hiddenItems.length > 0 && hiddenItems[0].style.display !== 'list-item') {
-            hiddenItems.forEach(item => item.style.display = 'list-item');
-            btn.innerHTML = '✨ 下次再看';
-        } else {
+        if (hiddenItems.length > 0 && hiddenItems[0].style.display !== 'none' && hiddenItems[0].style.display !== '') {
             hiddenItems.forEach(item => item.style.display = 'none');
             btn.innerHTML = '✨ 繼續閱讀';
+        } else {
+            hiddenItems.forEach(item => item.style.display = 'list-item');
+            btn.innerHTML = '✨ 下次再看';
         }
     }
 
