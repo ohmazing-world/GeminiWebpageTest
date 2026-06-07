@@ -16,623 +16,416 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='44' stroke='%235F7460' stroke-width='6' fill='none'/><path d='M30,65 L45,52 L60,58 L75,40' stroke='%235F7460' stroke-width='6' stroke-linecap='round' stroke-linejoin='round' fill='none'/><path d='M70,40 L75,40 L75,45' stroke='%235F7460' stroke-width='6' fill='none'/><path d='M55,42 Q62,32 72,35 Q68,48 55,42 Z' fill='%235F7460'/><path d='M42,48 Q47,38 57,40 Q53,52 42,48 Z' fill='%235F7460'/></svg>\">
     
     <style>
         :root {
-            --primary-color: #2e7d32;
-            --primary-light: #e8f5e9;
-            --secondary-color: #37474f;
-            --text-color: #263238;
-            --bg-color: #fafafa;
-            --card-bg: #ffffff;
-            --border-color: #cfd8dc;
-            --up-color: #d32f2f;
-            --down-color: #388e3c;
+            --bg-color: #F8F6F2;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --text-main: #2C2A29;
+            --text-sub: #7A7571;
+            --accent: #5F7460;
+            --border-color: #E6E1DA;
+            
+            /* 專業台美股色彩慣例 */
+            --us-up: #2E7D32;    /* 美股漲：綠 */
+            --us-down: #C62828;  /* 美股跌：紅 */
+            --tw-up: #C62828;    /* 台股漲：紅 */
+            --tw-down: #2E7D32;  /* 台股跌：綠 */
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color); color: var(--text-main);
+            margin: 0; padding: 40px 20px 60px 20px;
+            display: flex; flex-direction: column; align-items: center;
         }
-
-        header {
-            text-align: center;
-            padding: 40px 20px;
-            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
-            border-radius: 16px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-
-        header h1 {
-            color: var(--primary-color);
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-        }
-
-        header p {
-            color: var(--secondary-color);
-            font-size: 1.1rem;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
-            margin-bottom: 30px;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            border-radius: 14px;
-            border: 1px solid var(--border-color);
-            padding: 24px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.06);
-        }
-
-        .card-title {
-            font-size: 1.3rem;
-            color: var(--primary-color);
-            margin-bottom: 18px;
-            border-bottom: 2px solid var(--primary-light);
-            padding-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .card-title-toggle {
-            cursor: pointer;
-            user-select: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-        }
-
-        .card-title-toggle .toggle-icon {
-            font-size: 1rem;
-            color: var(--secondary-color);
-            transition: transform 0.3s;
-        }
-
-        .card.collapsed .card-content {
-            display: none;
-        }
-
-        .card.collapsed .toggle-icon {
-            transform: rotate(-90deg);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        th {
-            background-color: var(--primary-light);
-            color: var(--primary-color);
-            font-weight: 600;
-        }
-
-        .price-up {
-            color: var(--up-color);
-            font-weight: bold;
-        }
-
-        .price-down {
-            color: var(--down-color);
-            font-weight: bold;
-        }
-
-        .news-list {
-            list-style: none;
-        }
-
-        .news-list li {
-            margin-bottom: 14px;
-            padding-left: 14px;
+        .container { max-width: 1140px; width: 100%; }
+        
+        /* 網頁標題與浮雕底圖核心範圍完美融合 */
+        header { 
+            text-align: center; 
+            margin-bottom: 50px; 
+            padding: 65px 30px;
+            border-radius: 20px;
+            background-image: url('截圖 2026-05-30 下午4.55.55.jpg');
+            background-size: cover;
+            background-position: center 45%;
+            box-shadow: 0 10px 30px rgba(95, 116, 96, 0.06);
             position: relative;
-        }
-
-        .news-list li::before {
-            content: "•";
-            color: var(--primary-color);
-            font-weight: bold;
-            position: absolute;
-            left: 0;
-        }
-
-        .news-list a {
-            color: var(--text-color);
-            text-decoration: none;
-            transition: color 0.2s;
-            font-size: 0.95rem;
-        }
-
-        .news-list a:hover {
-            color: var(--primary-color);
-            text-decoration: underline;
-        }
-
-        .news-date {
-            font-size: 0.8rem;
-            color: #78909c;
-            margin-left: 8px;
-            white-space: nowrap;
-        }
-
-        .quote-block {
-            background-color: var(--primary-light);
-            border-left: 4px solid var(--primary-color);
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 0 8px 8px 0;
-            font-style: italic;
-        }
-
-        .quote-author {
-            text-align: right;
-            font-weight: bold;
-            color: var(--primary-color);
-            margin-top: 5px;
-            font-style: normal;
-        }
-
-        .calculator-section {
-            margin-top: 20px;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
+            overflow: hidden;
             border: 1px solid var(--border-color);
         }
-
-        .calculator-section h4 {
-            color: var(--secondary-color);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+        header::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255, 255, 255, 0.55); backdrop-filter: blur(4px); z-index: 1;
         }
-
-        .input-group {
-            margin-bottom: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .input-group label {
-            font-size: 0.9rem;
-            color: var(--secondary-color);
-            font-weight: 500;
-        }
-
-        .input-group input {
-            padding: 10px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 1rem;
-        }
-
-        /* 加強版多元資產配置輸入行樣式 */
-        .allocation-row {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 10px;
-            align-items: center;
+        header .header-content { 
+            position: relative; 
+            z-index: 2; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
         }
         
-        @media (max-width: 500px) {
-            .allocation-row {
-                grid-template-columns: 1fr;
-                gap: 5px;
-                border-bottom: 1px dashed var(--border-color);
-                padding-bottom: 10px;
-            }
+        /* 時尚簡約標題與精緻左側 Icon 組合 */
+        .header-title-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 6px;
         }
+        .header-icon {
+            width: 42px;
+            height: 42px;
+            fill: none;
+            stroke: var(--accent);
+            stroke-width: 5.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
+        }
+        header h1 { 
+            font-size: 3rem; 
+            font-weight: 200; 
+            letter-spacing: 5px; 
+            margin: 0; 
+            color: #2F3B30; 
+            text-shadow: 0 1px 3px rgba(255,255,255,0.9); 
+        }
+        header h1 strong {
+            font-weight: 600; 
+            color: var(--accent);
+        }
+        header p { color: var(--text-sub); font-size: 1.05rem; letter-spacing: 4px; margin: 6px 0 0 0; font-weight: 400; }
+        
+        .section-title {
+            font-size: 1.3rem; font-weight: 400; letter-spacing: 1px;
+            margin: 50px 0 20px 0; padding-left: 12px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        /* 主要排版架構 */
+        .news-section-layout { width: 100%; margin-bottom: 20px; }
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+        
+        .resource-section-layout { width: 100%; margin-bottom: 20px; }
+        
+        .price-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 20px; }
+        @media (max-width: 1100px) { .price-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { .price-grid { grid-template-columns: 1fr; } }
 
-        .calc-btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 1rem;
-            width: 100%;
-            transition: background-color 0.2s;
-            font-weight: bold;
+        /* 股票卡牌 */
+        .card {
+            background: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 16px; padding: 22px; box-shadow: 0 4px 12px rgba(0,0,0,0.01);
+            transition: all 0.3s ease;
         }
+        .card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.03); }
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+        .ticker-title { font-size: 1.15rem; font-weight: 600; }
+        .ticker-name { font-size: 0.8rem; color: var(--text-sub); margin-top: 3px; line-height: 1.3; }
+        .badge { font-size: 0.72rem; padding: 3px 8px; border-radius: 6px; background: #EAE5DD; color: var(--text-sub); white-space: nowrap; }
+        .price-large { font-size: 2.2rem; font-weight: 300; margin-bottom: 5px; font-family: "Helvetica Neue", Arial, sans-serif; }
+        .change-row { display: flex; justify-content: space-between; font-size: 0.88rem; font-weight: 500; }
 
-        .calc-btn:hover {
-            background-color: #1b5e20;
+        /* 新聞與資源專區樣式 */
+        .stock-news-box { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; }
+        .stock-news-box h3 { margin-top: 0; font-size: 1.05rem; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; color: var(--accent); display: flex; justify-content: space-between; }
+        .stock-news-box h3 span { font-size: 0.8rem; color: var(--text-sub); font-weight: normal; }
+        .news-list { list-style: none; padding: 0; margin: 0; }
+        .news-item { margin-top: 12px; font-size: 0.9rem; line-height: 1.45; border-bottom: 1px dashed #F0EFEA; padding-bottom: 10px; transition: all 0.3s ease; }
+        .news-item:last-child { border-bottom: none; }
+        .news-item a { color: var(--text-main); text-decoration: none; transition: color 0.2s; word-break: break-all; }
+        .news-item a:hover { color: var(--accent); text-decoration: underline; }
+        .news-meta { font-size: 0.75rem; color: var(--text-sub); display: flex; justify-content: space-between; margin-top: 5px; }
+        
+        /* 隱藏第四則以後的動態項目 */
+        .news-item.hidden-news, .res-item.hidden-res { display: none !important; }
+        
+        /* 展開/收合按鈕 */
+        .expand-news-btn {
+            background: none; border: none; color: var(--accent); font-size: 0.82rem;
+            letter-spacing: 1px; padding: 10px 0 2px 0; margin-top: auto; cursor: pointer;
+            text-align: center; width: 100%; border-top: 1px solid #F0EFEA;
+            transition: all 0.2s ease; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 4px;
         }
+        .expand-news-btn:hover { color: #3E473F; background-color: rgba(95, 116, 96, 0.04); border-radius: 0 0 12px 12px; }
 
-        .calc-result {
-            margin-top: 12px;
-            padding: 12px;
-            background-color: #f1f8e9;
-            border-radius: 6px;
-            font-size: 0.95rem;
-            border-left: 4px solid #7cb342;
-            line-height: 1.5;
+        /* 指數化思維資源專區分類佈局 */
+        .resource-box { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 25px; }
+        .res-authors-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+        .res-author-column { background: rgba(250, 249, 246, 0.6); border: 1px solid #F0EFEA; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; }
+        .res-author-column h4 { margin: 0 0 12px 0; font-size: 1.05rem; color: var(--accent); border-bottom: 2px solid var(--border-color); padding-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+        .res-list-container { display: flex; flex-direction: column; gap: 10px; list-style: none; padding: 0; margin: 0; }
+        
+        .res-item { font-size: 0.88rem; line-height: 1.45; padding: 10px 12px; background: #FFFFFF; border: 1px solid #EAE5DD; border-radius: 8px; transition: all 0.2s ease; }
+        .res-item:hover { transform: translateX(2px); border-color: var(--accent); }
+        
+        .res-item a { 
+            text-decoration: none; 
+            font-weight: 500; 
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 4px; 
+            color: var(--text-main); 
+            word-break: break-all; 
         }
+        .res-item a:hover { color: var(--accent); text-decoration: underline; }
+        .res-tags { display: flex; gap: 6px; align-items: center; justify-content: space-between; width: 100%; border-top: 1px solid #F5F4F0; padding-top: 6px; margin-top: 4px; }
+        .tag-type { font-size: 0.72rem; padding: 2px 6px; background: #F0EFEA; color: var(--text-sub); border-radius: 4px; }
+        .tag-time { font-size: 0.7rem; color: #A09A95; font-family: monospace; }
 
-        .allocation-table {
-            width: 100%;
-            font-size: 0.85rem;
-            margin-top: 10px;
-        }
+        /* 計算配置小工具 */
+        .calculator-box { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 25px; margin-top: 20px; }
+        .calc-tabs { display: flex; gap: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 20px; }
+        .calc-tab-btn { background: none; border: none; font-size: 0.95rem; color: var(--text-sub); padding: 6px 16px; cursor: pointer; transition: all 0.2s; border-radius: 6px; letter-spacing: 1px; }
+        .calc-tab-btn.active { background: var(--accent); color: #FFFFFF; font-weight: 500; }
+        .calc-panel { display: none; }
+        .calc-panel.active { display: block; }
+        .input-group { margin-bottom: 15px; display: flex; flex-direction: column; gap: 6px; }
+        .input-group label { font-size: 0.9rem; color: var(--text-main); font-weight: 500; }
+        .input-group input { padding: 10px 14px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 1rem; background: #FAFAFA; transition: border-color 0.2s; color: var(--text-main); }
+        .input-group input:focus { border-color: var(--accent); outline: none; background: #FFFFFF; }
+        .calc-btn { background: #4A594B; color: #FFFFFF; border: none; padding: 12px 20px; font-size: 1rem; font-weight: 500; border-radius: 8px; cursor: pointer; width: 100%; transition: background 0.2s; letter-spacing: 1px; margin-top: 5px; }
+        .calc-btn:hover { background: var(--accent); }
+        .calc-result { margin-top: 18px; padding: 15px; background: #F4F6F4; border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; font-size: 0.92rem; line-height: 1.6; color: #333; }
 
-        .allocation-table th, .allocation-table td {
-            padding: 6px 8px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: #78909c;
-            font-size: 0.9rem;
-            border-top: 1px solid var(--border-color);
-            margin-top: 40px;
-        }
-
-        .update-time {
-            font-size: 0.85rem;
-            color: #90a4ae;
-            margin-top: 5px;
-        }
-
-        @media (max-width: 600px) {
-            body { padding: 10px; }
-            header h1 { font-size: 1.8rem; }
-            .grid { grid-template-columns: 1fr; }
-        }
+        footer { text-align: center; margin-top: 60px; font-size: 0.8rem; color: var(--text-sub); border-top: 1px solid var(--border-color); padding-top: 20px; width: 100%; }
+        .time-badge { background: #EAE5DD; color: var(--text-main); padding: 4px 10px; border-radius: 20px; font-weight: 600; font-family: monospace; }
     </style>
 </head>
 <body>
 
+<div class="container">
     <header>
-        <h1><i class="fas fa-seedling"></i> Ohmazing Garden</h1>
-        <p>歡迎來到指數化投資小花園，在這裡我們攜手與大盤一同穩健成長</p>
+        <div class="header-content">
+            <div class="header-title-wrapper">
+                <svg class="header-icon" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="42" stroke="#5F7460" fill="none"/>
+                    <path d="M28 62 L45 47 L60 53 L74 36" stroke="#5F7460" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M64 36 H74 V46" stroke="#5F7460" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <h1>Ohmazing <strong>Garden</strong></h1>
+            </div>
+            <p>指數化投資小花園</p>
+        </div>
     </header>
 
-    <div class="container">
+    <h2 class="section-title">📊 全球全市場與台股戰略資產</h2>
+    <div style="font-size: 0.9rem; color: var(--text-sub); margin-bottom: 10px;">🌟 全球全市場資產配置核心 (美股慣例：綠漲紅跌)</div>
+    <div class="price-grid">
+        <div class="card">
+            <div class="card-header">
+                <div><div class="ticker-title">VTI</div><div class="ticker-name">先鋒整體股市 ETF</div></div>
+                <span class="badge">美股大盤</span>
+            </div>
+            <div class="price-large" id="vti_p">$363.38</div>
+            <div class="change-row" id="vti_row"><span>漲跌幅</span><span style='color: #C62828;'>-2.34%</span></div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <div><div class="ticker-title">VXUS</div><div class="ticker-name">先鋒全世界非美股市 ETF</div></div>
+                <span class="badge">非美全市場</span>
+            </div>
+            <div class="price-large" id="vxus_p">$83.03</div>
+            <div class="change-row" id="vxus_row"><span>漲跌幅</span><span style='color: #C62828;'>-4.20%</span></div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <div><div class="ticker-title">VT</div><div class="ticker-name">先鋒全世界股票 ETF</div></div>
+                <span class="badge">全球全市場</span>
+            </div>
+            <div class="price-large" id="vt_p">$153.68</div>
+            <div class="change-row" id="vt_row"><span>漲跌幅</span><span style='color: #C62828;'>-3.07%</span></div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <div><div class="ticker-title">0050</div><div class="ticker-name">元大台灣卓越50 ETF</div></div>
+                <span class="badge">台股大盤藍籌</span>
+            </div>
+            <div class="price-large" id="0050_p">$104.15</div>
+            <div class="change-row" id="0050_row"><span>漲跌幅</span><span style='color: #2E7D32;'>-1.84%</span></div>
+        </div>
+    </div>
+
+    <div style="font-size: 0.9rem; color: var(--text-sub); margin-bottom: 10px;">🌟 關鍵衛星資產與科技風向球 (台股慣例：紅漲綠跌)</div>
+    <div class="price-grid">
+        <div class="card">
+            <div class="card-header">
+                <div><div class="ticker-title">2330</div><div class="ticker-name">台積電 (TSMC)</div></div>
+                <span class="badge">護國神山</span>
+            </div>
+            <div class="price-large" id="tsmc_p">$2365.0</div>
+            <div class="change-row" id="tsmc_row"><span>漲跌幅</span><span style='color: #2E7D32;'>-1.25%</span></div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <div><div class="ticker-title">2317</div><div class="ticker-name">鴻海精密 (Foxconn)</div></div>
+                <span class="badge">AI伺服器巨頭</span>
+            </div>
+            <div class="price-large" id="honhai_p">$284.5</div>
+            <div class="change-row" id="honhai_row"><span>漲跌幅</span><span style='color: #2E7D32;'>-3.07%</span></div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <div><div class="ticker-title">00981A</div><div class="ticker-name">復華日本護城河 ETF</div></div>
+                <span class="badge">日本製造業核心</span>
+            </div>
+            <div class="price-large" id="japan_p">$30.81</div>
+            <div class="change-row" id="japan_row"><span>漲跌幅</span><span style='color: #2E7D32;'>-1.66%</span></div>
+        </div>
+    </div>
+
+    <h2 class="section-title">📰 投資理財新聞專區</h2>
+    <div class="news-section-layout">
+        <div class="news-grid">
+            <div class="stock-news-box">
+                <h3>VTI <span>整體美股市場</span></h3>
+                <ul class="news-list" id="news_VTI"><li class='news-item'><a href='https://news.google.com/rss/articles/CBMijAFBVV95cUxQaXJaNXdvcHpxSzZMVThNdTJ0aENDOVdVQmZnaFZiOXU4RE45SnE0Tm9Fa0xWMV9meXZZclBsck9oVExwOEFiRUZSSFFaZUgtMVRGX1RvUnlVcFl3TFlFNjVuaXRHbW1SaTJxMHFNV3prakpKT0o2TDJkblNrZWdoM2xTX2dxalE0QldOQg?oc=5' target='_blank'>美股受債息上漲拖累下跌 中國經濟數據放緩影響全球市場</a><div class='news-meta'><span>來源: 中文財經源</span><span>06-03 09:18</span></div></li><li class='news-item'><a href='https://news.google.com/rss/articles/CBMi1ANBVV95cUxNbnRDVzg3czNidGRMNlJVTW9jTkhIOW1MWVRmMVl6RGJuNjFsT1Q3SGZhb2NDYjYwdEE1NDM4MDRucFVhTjc2d1I2NXl2OWNIcW5DRmRvN2FfX1c4NlM0clh4a2Q4cnctSGlVLVhuVzdiVWs0bk9OekxfOW5vbFFOREw5RjhwTFdXakN6Rk56dDBCSS1BRndYSS1mS05CT3hUTTFqVHZNcFJEdVNwZTFlMVIxeS0ySnI1RldKOTBvTTFSSEt3STNuMWJaYXpwMk9RVGt6TzQxYy1aeGpnWG5KTEVzcENnT19pNWtBMmRQYUxwdFAzbTJmNEF4WndWN1V4VmotUXZjVWQzVHJsTnMzenBkYTF1WXU2MWVLQWs4VWxlM3dXVDRIbGtkZVh2Z2hTHU5hNktpSWFfZnViYWo1SGxHeGVqYkVwbl8wMHAwWFU2WjRRdVlKSUpweElWYzQtOEtRVGs5dTZRNzktT0hfRmZVZVV2QzNwMFFqQ1lKbjM5c3IwUjBYTEhZVDdVc1VZUVMtcWh3TGZXZEUwYVZWRmduMk9oUGhqRGN1akdoeTRwR2xqeUNDOWVsc0p4MnSaZ0diaUR6ZGtRU2NxQkVPaVVsSWU?oc=5' target='_blank'>6 月不是終點！歷史數據揭密：美股強漲後，行情可能還沒走完｜美股評析｜豐雲學堂2026 年 06 月</a><div class='news-meta'><span>來源: 中文財經源</span><span>06-01 16:30</span></div></li><li class='news-item'><a href='https://news.google.com/rss/articles/CBMikAFBVV95cUxNRF9NWFNfaEhJZGpiVVlmWkRWVWE4ZGFsWGpoMFVhZUJjdmtRbGNCMmlBUUlBWEo5amoxMmxPcmFHY3VORk5zaUpsZFdYUjR0ZTNDd3ZhUmEtSmV4eXJvYVhlaWU1eXZJTWpDVXpRbnB5bGFPNnRSTTM3dmM5djFjRExKMy05eThUNTNnNExQb00?oc=5' target='_blank'>【即時新聞】無腦卡位先鋒標普500 ETF(VOO)！美股盈餘狂飆27%，這3檔強勢標的迎爆發</a><div class='news-meta'><span>來源: 中文財經源</span><span>06-01 02:43</span></div></li><li class='news-item hidden-news'><a href='https://news.google.com/rss/articles/CBMikAFBVV95cUxNQ0hXX0Nhd1pQYUV1b1l1V1pTaWw3MURuUjk4ZW1QYV9CaWgwTkNCR0JhZDdHT1c5OXlDd3IyRFRZNzNfby1pTUV3dkIteFFuSkdXZExUdnI5d2llUzR6T1BtV01QbTlhVUkteHZpeVhIT2x4SlZCUi1Ld2lUdmx1cHQ4TGsxcndMWjhvRkpmUks?oc=5' target='_blank'>【即時新聞】比VOO更具潛力！Vanguard總體股市ETF(VTI)靠這關鍵優勢，迎來雙位數獲利大爆發</a><div class='news-meta'><span>來源: 中文財經源</span><span>05-29 03:24</span></div></li><li class='news-item hidden-news'><a href='https://news.google.com/rss/articles/CBMiVEFVX3lxTE9nREt5SlQ3UVpobllpRWstMlJSZkd0RFVwcXNXeUJkTW5ibmNQZGFJU05Ldy1ycDJNRm9fQTBKLXRZbXY2YzgtVFJ2dmFNaE94UVZxbw?oc=5' target='_blank'>Vanguard Total Stock Market ETF(VTI)本益比查詢｜PE估值與河流圖合理區間解析-股市爆料同學會</a><div class='news-meta'><span>來源: 中文財經源</span><span>05-28 13:10</span></div></li><li class='news-item hidden-news'><a href='https://news.google.com/rss/articles/CBMiZEFVX3lxTE4zRVNOVmNYYlJTYnFFOXVkaGR5UklTWWhkQ1hpY1VHU1JsSEFjakFHWFFMRWk3WHQzcXJIXzBvaS1ZbG5kWlVwVUlGb1EycEFSZEtUVVotYVp4b0lUMk5YdXBCblU?oc=5' target='_blank'>Vanguard 整體股市ETF</a><div class='news-meta'><span>來源: 中文財經源</span><span>05-27 17:00</span></div></li><li class='news-item hidden-news'><a href='https://news.google.com/rss/articles/CBMiT0FVX3lxTE1nVlBRZV9sWUhYeFhWRVI3SVZPelVDanB6bVBtbk5Vbzc2RDV2eVM4NjYtTkE5NTNOMUFIdmdiNU01NlRoVGtHODF0TkRsOUk?oc=5' target='_blank'>SpaceX IPO點燃太空股狂潮！美股太空板塊表現已遠超大盤、ETF飆升近70％</a><div class='news-meta'><span>來源: 中文財經源</span><span>05-27 15:00</span></div></li><li class='news-item hidden-news'><a href='https://news.google.com/rss/articles/CBMiZEFVX3lxTFBnWDR3VHRmYVk3ckRjREVkSGozWjBXeXByM3dpNU0tbE9KRHVTbGRWbGxFU1l1Mjh5MkpMdUM0ZkVzYVJDUC1KaXlwMHZqU1dDM0ppZkNic2NjY3NaTWoyaTNrUU8?oc=5' target='_blank'>Vanguard Total Stock Market ETF(VTI)主要產品與營收占比-股市爆料同學會</a><div class='news-meta'><span>來源: 中文財經源</span><span>05-27 12:19</span></div></li></ul>
+                <button class="expand-news-btn" onclick="toggleNews('news_VTI', this)">↓ 繼續閱讀</button>
+            </div>
+            <div class="stock-news-box">
+                <h3>VXUS <span>全世界非美股市</span></h3>
+                <ul class="news-list" id="news_VXUS"><li class='news-item'><a href='https://news.google.com/rss/articles/CBMigwNBVV95cUxPZ0I4UjFtSFdCNXROd0c5NjUxMUZnSndIWmZKM0xRMjZDZkItRGd1TnZsVW80RExZNEk0TnFzNHV1MUZxS0NBVG5nU19EUnEzNXhZZlVvRTNOaWxLR2hoMzVDd29RcE5tWkE4TTJrUmN4VVpFNW9YZ2M2RWgxNWFBc0RLZnBxbUdKc0dLRGZTcWl4QVdZbW5RMTJkMTg3WlV1dFhGNFU2Zkd1RlFCa1ZHR1B6cGIxc1gzYzJudm4wS1U1d2ZPd1hZeGx0UHBaVExyRjNndDBON2hyMC1IQzRCYXZwZWgxN1dGYTJBZjV5UDh6aFlfMUtfQjN0TGNmcWFpNkFZWUR3MzZkNUtKVlI1X2VobmxGZzNlUVhXN1dfTFVQQTI3a1hYR2JxaFYtb3lDUjV3NzJ1bTRtQmlFOXZmbl9ZZVdfa1owcVk1d2VSYkFtWF_oT25Kd3ZDeWFWdUZLSDNQMllQUkEwejJXZkNsNkhQbHZfNTJzYlJ5VENKVVd6VXM?oc=5' target='_blank'>百年市場研究：美股長期報酬驚人，專家示警非投資保證</a><div class='news-meta'><span>來源: 中文財經源</span><span>06-06 06:52</span></div></li><li class='news-item'><a href='https://news.google.com/rss/articles/CBMiWkFVX3lxTE9YSkFUT1NPZHFmUkZlRjhGMHUzYVJQMjR1MzlKNE15WkZiV0FhT2Y5SEZGVTdrS2xpbDFJVk9Pb3llX09oMXU2UExBZm5xSkJPU2RZV1Jvcmgydw?oc=5' target='_blank'>全球移民政策收緊 臣邑移民:台灣企業主將「第二身份」列為長期資產配置策略 | 熱門亮點 | 商情</a><div class='news-meta'><span>來源: 中文財經源</span><span>06-05 16:02</span></div></li><li class='news-item'><a href='https://news.google.com/rss/articles/CBMiU0FVX3lxTFBmdTdOSlBVLU9LdUIwdUtGMmtXMk5wd3RQTFI2Mk9jcmpzWlRYakNTZmlEUmF1M2VtY0lQbHJCWVgxdHc5M2twUFlWbVVyWkRUS0lz0gFYQVVfeXFMTnJWTlFZYVdSblNXX2RKaHlHZmcxazIzcy1rb01sYTdKWnJNQkpvUXVoVHBrdWdLVGNuZGlsOXJjTTBjdXNPMlN4NjdKY1FpaGwzVkRaZTE4Sg?oc=5' target='_blank'>海外股票 ETF 規模連四高 AI 浪潮推動美股 ETF 成長居冠</a><div class='news-meta'><span>來源: 中文財經源</span><span>06-05 07:29</span></div></li></ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title">🌿 指數化思維資源專區</h2>
+    <div class="resource-section-layout">
+        <div class="resource-box">
+            <div class="res-authors-grid">
+                <div class="res-author-column">
+                    <h4>清流君</h4>
+                    <ul class="res-list-container" id="news_清流君"></ul>
+                </div>
+                <div class="res-author-column">
+                    <h4>周冠男</h4>
+                    <ul class="res-list-container" id="news_周冠男"></ul>
+                </div>
+                <div class="res-author-column">
+                    <h4>綠角</h4>
+                    <ul class="res-list-container" id="news_綠角"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title">🧮 投資組合與再平衡工具</h2>
+    <div class="calculator-box">
+        <div class="calc-tabs">
+            <button class="calc-tab-btn active" onclick="switchTab('fire')">🔥 退休財務規劃 (FIRE)</button>
+            <button class="calc-tab-btn" onclick="switchTab('rebalance')">⚖️ 資產再平衡計算</button>
+        </div>
         
-        <div class="card" id="card_prices">
-            <h2 class="card-title card-title-toggle" onclick="toggleCard('card_prices')">
-                <span><i class="fas fa-chart-line"></i> 觀測清單行情（自動同步）</span>
-                <i class="fas fa-chevron-down toggle-icon"></i>
-            </h2>
-            <div class="card-content">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>資產名稱</th>
-                            <th>代號</th>
-                            <th>最新價格</th>
-                            <th>漲跌幅</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr id="vti_row"><td>VTI (美股整體市場)</td><td>VTI</td><td>$363.38</td><td class="price-down">-2.34%</td></tr>
-                        <tr id="vxus_row"><td>VXUS (國際不含美)</td><td>VXUS</td><td>$83.03</td><td class="price-down">-4.20%</td></tr>
-                        <tr id="vt_row"><td>VT (全世界股票)</td><td>VT</td><td>$153.68</td><td class="price-down">-3.07%</td></tr>
-                        <tr id="0050_row"><td>元大台灣50</td><td>0050.TW</td><td>NT$104.15</td><td class="price-down">-1.84%</td></tr>
-                        <tr id="tsmc_row"><td>台積電</td><td>2330.TW</td><td>NT$2365.00</td><td class="price-down">-1.25%</td></tr>
-                        <tr id="honhai_row"><td>鴻海</td><td>2317.TW</td><td>NT$284.50</td><td class="price-down">-3.07%</td></tr>
-                        <tr id="japan_row"><td>iShares安碩日本大型股ETF</td><td>00981A.TW</td><td>NT$30.81</td><td class="price-down">-1.66%</td></tr>
-                    </tbody>
-                </table>
-                <div class="update-time" id="price_update_time">最後更新：2026-06-07 10:28:10</div>
+        <div id="panel-fire" class="calc-panel active">
+            <div class="input-group">
+                <label for="fire_expense">預估未來「每個月」的理想生活開銷 (元)</label>
+                <input type="number" id="fire_expense" value="50000" placeholder="例如: 50000">
             </div>
+            <button class="calc-btn" onclick="calcFire()">計算我的 4% 原則 FIRE 數字</button>
+            <div class="calc-result" id="result-fire">💡 輸入您的預期月開銷，這裡將為您精算對應的指數化自由資產目標。</div>
         </div>
-
-        <div class="grid">
-            <div class="card" id="card_core_news">
-                <h2 class="card-title card-title-toggle" onclick="toggleCard('card_core_news')">
-                    <span><i class="fas fa-newspaper"></i> 核心全球資產觀點</span>
-                    <i class="fas fa-chevron-down toggle-icon"></i>
-                </h2>
-                <div class="card-content">
-                    <h3>VTI 相關新聞</h3>
-                    <ul class="news-list" id="news_VTI">
-                        <li><a href="https://news.google.com/rss/articles/CBMiWEFVX3lxTFBnYl9DdGZCSkNWaXF1Z0lCbElRVG0wb1hVOUlwcHhOVUJnTlNqWHNjeWRjLXYtTkp2S1hJM3lOQUlRM3ZsWHZPWXNmbm9YbEJtbzNpNjFtbEI?oc=5" target="_blank">VTI Vanguard Total Stock Market ETF</a><span class="news-date">06-04</span></li>
-                        <li><a href="https://news.google.com/rss/articles/CBMiqgJBVV95cUxQT3otLWd3czF4eGQ4NlBJekgyOF9uLVFXNG4wZ0VZWWdmeUMzcEZ0Znd5YlJtc0lLRm0yaEZOY2VBb2lXVFBJR2tlc3p0TkVHY0trQkQwMFMtSlpqWXBOZ1V2cmNpQ2F3OWhUdjRBWWtvT2tmWndlWXpMcmkyTnY4UFMtTUtzNExhVHp1ZFRSWmJvTFRkSTA1OEIzUGwxb2dMOTdSN3lLazJ6U1VhalQ0MzdtQ3RWYXIyR05vVVd6aDIxVE5MS3RKcGJoM2l0T19tazRYQVFRcWJWLUxIM2hISmpXcnhIOXFUbXlJN01iSzlSbHhMNWpycU1RUTQ2NEtiUUZ1WTMwSmp2Sm9EbWhNLXk1aVAwMG9aelVCZ25KT0RxZHIxUlEzMU5R?oc=5" target="_blank">Vanguard Total Stock Market ETF (VTI) Latest Announcement & Press Release</a><span class="news-date">06-05</span></li>
-                        <li><a href="https://news.google.com/rss/articles/CBMirAJBVV95cUxPcjl6NThfdE0yLUpBLWVvOVB1TlFrWnFkdUxFRHNydTY0SHlCTGk2cEpDLXFjQUxtVEdpQktvdFJ2LWtHRFpFTC1zYmxfanBWQjdTYnE3Tktfa0RSdGJlbzAxNS1yVU5uOUNxaFVfMVpIY3ZPcGt4MXI3SEpiaXpaZGZrQlczTzRaVkdJN2ZweXhwMFV0WUYwNGJCUWdNbEZKRHRpMUQ4MXBzVVc5Wnprblg3c0IzLW1PY29TeVVaX25KeE5GMXVZNFNWdVdGRVpGczQ4dzJnODVjQVdOc1dsOGVRWGRlNlFJTXY0X2NnbmlvUklOSnpaWW5kS0k1NlNXcTJLYWIzcnNVWU5FVUpTV1pGSFYzSHE3YS12RVl6VUhmeFhXT2xQc2o2RTI?oc=5" target="_blank">VTI ETF十年報酬率達14.25% 分析師籲關注估值風險</a><span class="news-date">03-04</span></li>
-                    </ul>
-                    <br>
-                    <h3>VXUS 相關新聞</h3>
-                    <ul class="news-list" id="news_VXUS">
-                        <li><a href="https://news.google.com/rss/articles/CBMiaEFVX3lxTE5jbGFpOE9TTm1SaW5sUlZ2MEx6ZUdnb0NkWjVHUWZrQVNaNVhxc3M2aWVNVVg4d1NMcGZRRjA5SVRkTTV2eERQSVBtaW55cGFiZkhSeXdFUFlxekZpcmo4MHg3U1NJRWJu?oc=5" target="_blank">Vanguard Total International Stock ETF(VXUS)</a><span class="news-date">05-31</span></li>
-                        <li><a href="https://news.google.com/rss/articles/CBMid0FVX3lxTE42WG9qQ3BpMFgxSnA1RWJFS1JvMzZtUUhQYlhGZFpJclhVVmNXeU5Ma05KNE1uQ2hONXBWYlVJaWd0YTdyNmFCenN0UzBKNFk1N3RucFBjZTltQlFFbmV6cl9ycmo0dEJ3bWNpeUVSdnhNVlZwNERn?oc=5" target="_blank">Vanguard總體國際股票ETF-VXUS-ETF基本資料</a><span class="news-date">05-16</span></li>
-                        <li><a href="https://news.google.com/rss/articles/CBMia0FVX3lxTE9kTm1kUkQ0UFJDZUF5XzV2MGRWTmJrWDFsdUtfbXNKZTd4d2FBcGlCRXI4ejFlRnFCS2lzOEpJTWxUTkd3LV9vVUJGZ1VSbnViMHFlc1B3ZHkzY0g4U3UzSWxNbEpHc3hVVlF3?oc=5" target="_blank">VXUS ETF Gains 0.8%</a><span class="news-date">06-03</span></li>
-                    </ul>
-                    <br>
-                    <h3>VT 相關新聞</h3>
-                    <ul class="news-list" id="news_VT">
-                        <li><a href="https://news.google.com/rss/articles/CBMiWEFVX3lxTFBnYl9DdGZCSkNWaXF1Z0lCbElRVG0wb1hVOUlwcHhOVUJnTlNqWHNjeWRjLXYtTkp2S1hJM3lOQUlRM3ZsWHZPWXNmbm9YbEJtbzNpNjFtbEI?oc=5" target="_blank">VTI Vanguard Total Stock Market ETF</a><span class="news-date">06-04</span></li>
-                        <li><a href="https://news.google.com/rss/articles/CBMihwNBVV95cUxPTVVaS1JtZGVfTFNsWm1GOWZtQzJIeTNaUVhwWnozSUhtTzB1U05jVElrWm55bVdLQklDNGI4Y1VMb01id1pWeFVERHBKdXk2UjVWOHgwRFVoMnJISVNuVjBDVkUwWHo4blV1Y0NvNDB3ZTA4N0ZGcmxWRGp0U242WDRwZE9tVmpVSkVGRFdMTU13WGlUOEd1VjBZT2xRdDBGSU1DYnZidmF6Q3diZkh0YXJUWVpDdEYyYmdHUHNCblBWcXNyUlUzQkRLSGdaTnVLd0VudWhIa3doR0pfY3BHUmh5cXRQM0JiVGZLVnUwclViYkJidy1NSHNnY1lhZG5DcUhZcE1EbmUxc0E5QktPLXZWZUdVTlBxNWxUd29KOFRGSEdfU2RsVjlZQWxpSFFvdFdISkhKbDFqQk81czRiU2ZHc0tHRHZtSFgwV3VQWVM1X25sSENVWWtpeF9uaWcyN1R1amVud0duSHJ5Rk1pQkFlbGxyOGZmTW5DdExtOEhtNGEwY0pN?oc=5" target="_blank">貝萊德新ETF降臨！他驚呼「台股版VT要來了」？ 網直言：先看費率再說</a><span class="news-date">05-17</span></li>
-                        <li><a href="https://news.google.com/rss/articles/CBMiU0FVX3lxTE1FRWpNaVNqZWlCd0Fxc0pLMkxVaWNtcVFkYjhjeUF6cFktWUMxZVBXMFJOTUZ6ZTdJVFdlMkRHNENBbEhqUm1NWWsxb1ZtU1RfSDRj?oc=5" target="_blank">台灣版VT費率恐逼近0.78％不便宜！清流君拆解利弊：但能省去30％非美股息稅成最大亮點| 存股族愛ETF | 股市</a><span class="news-date">05-26</span></li>
-                    </ul>
-                </div>
+        
+        <div id="panel-rebalance" class="calc-panel">
+            <div class="input-group">
+                <label for="rb_us">目前「美股資產」總市值 (元)</label>
+                <input type="number" id="rb_us" value="600000" placeholder="例如: 600000">
             </div>
-
-            <div class="card" id="card_satellite_news">
-                <h2 class="card-title card-title-toggle" onclick="toggleCard('card_satellite_news')">
-                    <span><i class="fas fa-satellite"></i> 衛星與特定資產動態</span>
-                    <i class="fas fa-chevron-down toggle-icon"></i>
-                </h2>
-                <div class="card-content">
-                    <h3>台灣市場 (0050 / 台積電 / 鴻海)</h3>
-                    <ul class="news-list" id="news_0050">
-                        <li><a href="https://news.google.com/rss/articles/CBMigAFBVV95cUxQSUhQMWltMHkxMkZydDB1bUN4SGZxZXFwQ3RlejdRbHBSci0teUEyQWhVa1dWcHZTRzBjQ0dKT1pBcGxycXFjbURJd21lX0xmQzFaSDJKSUVKbEx3eXFLYmlZNGU4M0FDOWtwZDdON3UtUW41MThHbmZEY1pOVTdoaQ?oc=5" target="_blank">0050成分股4進4出「踢掉康霈」，0056新納5檔南亞科華邦電入列！外資賣超826億，這6檔高息ETF為何能收紅</a><span class="news-date">06-05</span></li>
-                        <li><a href="https://news.google.com/rss/articles/CBMiX0FVX3lxTE1QVTY2SFpWTzhHRGMzVWhBOERWM0VXTzhwQU5FbFZVVEliRG9zR005ek5SN3JHN0NoUUZpdnJDS1RyUVhpWVJqckxDdFMwZkVrOTB2X21QcGR3U3QxZHRB?oc=5" target="_blank">無懼台股回檔0050、00631L零股夯- 日報</a><span class="news-date">06-06</span></li>
-                        <li><a href="https://news.google.com/rss/articles/CBMiUkFVX3lxTE9XUHQzVmFTOUMydFBJQ21BRnhfQS1tT04tdGY2WHRZV2Q3Y1R2aUloQ0N4TVJQbS1DSFBaOFR3OWtmUmRMTUtpblhHOG8tTE1zU2fSAVdBVV95cUxNd2lDTTFrTjdZMzlPaEJhUW1Xek9SRC1yMF9VTGF1UmdnUWxCX3RRbTVUWFVlbUI0VTlmLWlQMnNjRURER21Db0FKN1RrbmxKU0pwWVFuMUE?oc=5" target="_blank">長期投資0050何時能獲利了結？網曝最佳時機</a><span class="news-date">06-06</span></li>
-                    </ul>
-                    <ul class="news-list" id="news_2330">
-                        <li><a href="https://news.google.com/rss/articles/CBMiX0FVX3lxTFB1S1B0OWlnVkUtWVZ4UkxLeHpqTHdKWW05djF0SE9jT2l4UWZIZzdJdk5fX2Z2NFBkdXhzU2ZpXzNnWGtDNl9Eb0RUVzdWVEh2ZEEwRmc0Rkhpc2NEMUxj0gFkQVVfeXFMTmo5WWhWQXpWQlVuRkplajd5MHVUdVhIWkljQ2JkcmQ5V011dDJ4RXhVQzBWVFdfTmswN2hXVVZJRmNoU19sTlJ1QVBjVU9QbkkzdmNSRlRjSmh2bWtwX3ZmRndxYQ?oc=5" target="_blank">台積電分紅爭議沒吵完！內部瘋傳未來75％員工「爛考績」</a><span class="news-date">06-06</span></li>
-                        <li><a href="https://news.google.com/rss/articles/CBMiiwJBVV95cUxQaWEyUEhmX0c5eFVQejdOOEc0SHNFcHNZbC1wcXpxcDAxbWd3RWFCdFdHZ2NGVWdfUV9zekczemdFbTROTkp6czRURTFrZThsYlZRNlR0V1VxTlg0Y1ZkLVZOdDlUZUU2S1J0aWRMQzNBTDJpV08xNVFfM3R4Mmk1cUVwTEt4eE5lbm1lblA2SHpnc002aUYxTGtTdVRZZHdUMWljSkdtbXJFNUN6a3NETDh4NUtVa2xOTFlZOEFNaFFuNXRVUnA4b3lXOXhNVG1qUVJVdXR2R0p2ZE50ZmJ2LXlYTDBnWlVrQ3E4NDhUMDNZVGxTcHdPMmxhZWZiSUxqUnM2ZHpraWNXT1E?oc=5" target="_blank">現在能買台積電？外媒：理由「非常充分」</a><span class="news-date">06-06</span></li>
-                        <li><a href="https://news.google.com/rss/articles/CBMi1gJBVV95cUxOamtqd19TcGJDMUZvNzV3Vlh2RU85d3FHbDNPR1RwSzlBbTdCblQ5Q21HRjIyN3g2T2lISjhibWVkQzVGMjFGdXZfVWJveG9JTmJNdkxTRHJlenZ1LUFmclRqa0pZVS14UFpsczltNTZLVGpwdUw5Q3pxdmNGWllDS3NCUWhCSWNGcWVfdTdIdVI3Zk15alpuTTZ4cnZ0UnlLY29URU1lYVhXbWI1cTdCQlVtQ191eS1sUFRLTEVqUGZjS3NaSUFpbmxQcm1weTY1dUgtekpMWmJCQ2dLYjl2ZUsxak8tbFM1azNBR0pCLXI1aTRnRmdvSlNDdjBCbGlxYmY5cDNEQjRWNmh4WGFPZXVoOThlQjB3c0lHOHIxZWJXQjN3c3Vsb01nWk9yQnV0Ym9fWHVPTGwzazM4QXlDd2FoVjduNDNUQzEtZ3FHaW96ZWg3dXc?oc=5" target="_blank">台積電考績制度風波未平 內部傳75%員工恐列「後段班」</a><span class="news-date">06-07</span></li>
-                    </ul>
-                    <ul class="news-list" id="news_2317">
-                        <li><a href="https://news.google.com/rss/articles/CBMiX0FVX3lxTE00WGRvNE1pS1pjRmdudGdvV3pZRDJnd1FoSGVlSURaRVptNE9PREtQdW9ycW9zTHRUU0xzNG1OMlAwTjFKT0lzbHhfLWJ2RVVrQXFjbnhJY0UxTjBoWGlJ?oc=5" target="_blank">COMPUTEX上機器人發功！鴻海等業者揪知名大廠合作英特爾、SK集團都有份- 日報</a><span class="news-date">06-05</span></li>
-                        <li><a href="https://news.google.com/rss/articles/CBMirwJBVV95cUxNZGtNcnlWb0dydGVlakxlclNKa3VWWW5vX0NlWE9zcjQ4YlQzM01peFJycDZPUWEzX1hMUmpDRGloZnJnbk5WX3BqN2xhalBWT1pWUDQzNEJTMXo0YldfU3VvRmlFQ1RMMDl1bjRkUXlkcU51Z0xmZFIyVXNWVEE4MmltWTVKcXJOQkZZMHlXQWZiWGw5VmREdEtBbG1mazB3aXQzaWQ4dnhxM3dXUmJfZUhSMUFQY0tBY1h2akU1aUpRbURKYXk2MVRJSFd6eklzZzBtakhBVUcwWU5Tc0d6ajhMRnhMNHhkWHhNX1NFdUJGNXk3aXA5MEIyRmtmVFA5MXJicHphNzBfbjFXVFhXdGU3VEVzc29ZLVdGRl85b3NxQ19NZGdsaTctNTd2RTg?oc=5" target="_blank">鴻海宣布與英特爾合作 攜手加速AI應用落地</a><span class="news-date">06-05</span></li>
-                        <li><a href="https://news.google.com/rss/articles/CBMigAFBVV95cUxOMzdpYU1FbUwxVlh5ZWlwY1YxMC1fQ29qZHZISE9TQVJ5Qm8xa1QxVEdiYVBSTmNvWjE4bWF4NUZLZ0ZkdWlPY1JvN0kyOHBYZVA1d0RCQXhGejg1c2M3VElaMGpPUnBOeXJyMzd4MlBnOWdRamxqbnFpbVF2anM4Qg?oc=5" target="_blank">鴻海(2317)衝上300元又變牛皮股？500元何時到？聯發科(2454)4千元還能追？老手1理由點名金居(8358)：比發哥更值得買</a><span class="news-date">06-05</span></li>
-                    </ul>
-                    <br>
-                    <h3>日本市場 (00981A)</h3>
-                    <ul class="news-list" id="news_00981A">
-                        <li><a href="https://news.google.com/rss/articles/CBMihgNBVV95cUxNYi1hcnNYNG1mbUhoTDZqaGhrTFZUbVVDZnVYaHEyNzJKQ0ExajV6UmVmODJzN196TnlVLVRKOFZ3dnhNMlphSHdITEFJQnhrRzBfX2JlOEdqTUhCZXZURDBhU21VTlJPZnhSM2VCeGFDY2FQRnhWOE1USm40QVBlZVlkMnE5Nk1GV3MxNlhybDJKd3NhLVpPUlozWnZBOC1wOG1wNEltamxoX0RpcGJhZWx2UTR5dHZhWFI4V29CLWF5SnlFcnVMNzlxVTZ6c19lUmVZYlpLVV9QbUZhRy11Tlo3QWdKa0FFbEdfVlYwMlM2bGlvbGFESktsUHlFckw3UFFMMDZEV0UzSFJlYkwxYWNYa3VmU0NJOF8xYWhJdHBVWkhSSnhJNGZrem9hcTdJY1k2QUg1eUtmNV9iYzhDeFpFY1FYMk1tWEthRjFSUXZvZlhPNjlRbHV3RUNYV29CS2o2Ti1lbmxoMk5jYWM4VmpaUTM1QUJkcU1IMzl5bG1CZkZhb3c?oc=5" target="_blank">換股9檔踢走仁寶、京元電！「這檔高股息」卻遭國家隊捲走1.21億元00403A、00981A齊入調節名單</a><span class="news-date">06-04</span></li>
-                        <li><a href="https://news.google.com/rss/articles/CBMiU0FVX3lxTE1GT3RvVVgzLTZXV2Z2eWRBazI0QjkyVmxMYlhzWHVXQnk3T1BoU2VoaUNkZ3I3b1B3SnJFRW5QMmFIU0RsN3hDQldub0h5dVQ2U084?oc=5" target="_blank">00981A配息0.63免稅資本利得！規模往3000億衝…陳重銘：未來目標改鎖定打敗0050 | 存股族愛ETF | 股市</a><span class="news-date">06-04</span></li>
-                        <li><a href="https://news.google.com/rss/articles/CBMiakFVX3lxTE5zeVp3RkxmOUM1ZlBmejg3VDVQWjhiRTZ0NldVTS1id1dMSnVOaDVpRUJjeXdfUGtsZmtiT2x1RjJMTlNhRDdQZDlwMFFFcHI3eWc3QnNJei1RX2tzQWlCYTQ5cjhPUUJka2c?oc=5" target="_blank">1表看》台股今年很瘋漲54％ 有6檔ETF更瘋漲翻倍冠軍是00981A師妹</a><span class="news-date">06-05</span></li>
-                    </ul>
-                </div>
+            <div class="input-group">
+                <label for="rb_tw">目前「台日股/現金額」總市值 (元)</label>
+                <input type="number" id="rb_tw" value="400000" placeholder="例如: 400000">
             </div>
+            <div class="input-group">
+                <label for="rb_ratio_us">理想目標：美股資產分配比例 (%)</label>
+                <input type="number" id="rb_ratio_us" value="60" placeholder="例如: 60">
+            </div>
+            <button class="calc-btn" onclick="calcRebalance()">進行資產配置再平衡精算</button>
+            <div class="calc-result" id="result-rebalance">💡 輸入目前的資產分佈與預期權重，系統將為您自動產出動態調整策略。</div>
         </div>
-
-        <div class="grid">
-            <div class="card" id="card_masters">
-                <h2 class="card-title card-title-toggle" onclick="toggleCard('card_masters')">
-                    <span><i class="fas fa-quote-left"></i> 指數化投資大師思想精華</span>
-                    <i class="fas fa-chevron-down toggle-icon"></i>
-                </h2>
-                <div class="card-content" id="master_quotes">
-                    <div class="quote-block">
-                        <p>「不要在草堆裡找針，把整個草堆買下來就好。」</p>
-                        <div class="quote-author">— 約翰·伯格 (John Bogle)</div>
-                    </div>
-                    <div class="quote-block">
-                        <p>「投資的成功首要在於資產配置，而非擇時操作或挑選個股。」</p>
-                        <div class="quote-author">— 綠角</div>
-                    </div>
-                    <div class="quote-block">
-                        <p>「大盤指數型 ETF 或許無聊，但無聊的投資往往能帶給你最驚人的長期複利。」</p>
-                        <div class="quote-author">— 清流君</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" id="card_calculator">
-                <h2 class="card-title card-title-toggle" onclick="toggleCard('card_calculator')">
-                    <span><i class="fas fa-calculator"></i> 投資理財計算機</span>
-                    <i class="fas fa-chevron-down toggle-icon"></i>
-                </h2>
-                <div class="card-content">
-                    
-                    <div class="calculator-section">
-                        <h4><i class="fas fa-line-chart"></i> 📈 單次複利投資計算機</h4>
-                        <div class="input-group">
-                            <label for="comp_pv">現有單筆本金 (元)：</label>
-                            <input type="number" id="comp_pv" value="100000" placeholder="請輸入投資本金">
-                        </div>
-                        <div class="input-group">
-                            <label for="comp_rate">預期年化報酬率 (%)：</label>
-                            <input type="number" id="comp_rate" value="7" step="0.1" placeholder="例如：7">
-                        </div>
-                        <div class="input-group">
-                            <label for="comp_years">投資年期 (年)：</label>
-                            <input type="number" id="comp_years" value="10" placeholder="例如：10">
-                        </div>
-                        <button class="calc-btn" onclick="calcCompound()">計算複利終值</button>
-                        <div class="calc-result" id="result-compound">輸入數據後點擊計算...</div>
-                    </div>
-
-                    <div class="calculator-section" style="margin-top: 25px;">
-                        <h4><i class="fas fa-sliders-h"></i> 📊 資產配置輔助工具 (專業再平衡試算)</h4>
-                        <p style="font-size:0.85rem; color:#546e7a; margin-bottom:12px;">輸入各版塊目前「市值」與「理想配置比例」，系統將自動產生動態再平衡導航指南。</p>
-                        
-                        <div class="allocation-row" style="font-weight:bold; font-size:0.85rem; color:var(--secondary-color);">
-                            <div>資產區塊名稱</div>
-                            <div>目前市值(元)</div>
-                            <div>目標比例(%)</div>
-                        </div>
-                        
-                        <div class="allocation-row">
-                            <div style="font-size:0.9rem;">🌍 全球/美股大盤 (如 VTI / VT)</div>
-                            <input type="number" id="asset_val_1" value="500000">
-                            <input type="number" id="asset_pct_1" value="50">
-                        </div>
-                        <div class="allocation-row">
-                            <div style="font-size:0.9rem;">🗺️ 國際非美股票 (如 VXUS)</div>
-                            <input type="number" id="asset_val_2" value="200000">
-                            <input type="number" id="asset_pct_2" value="20">
-                        </div>
-                        <div class="allocation-row">
-                            <div style="font-size:0.9rem;">🇹🇼 臺灣核心權值 (如 0050 / 台積電)</div>
-                            <input type="number" id="asset_val_3" value="200000">
-                            <input type="number" id="asset_pct_3" value="20">
-                        </div>
-                        <div class="allocation-row">
-                            <div style="font-size:0.9rem;">🛡️ 全球債券 / 高活存避險現金</div>
-                            <input type="number" id="asset_val_4" value="100000">
-                            <input type="number" id="asset_pct_4" value="10">
-                        </div>
-                        
-                        <button class="calc-btn" style="margin-top:10px;" onclick="advancedRebalance()">執行多標的配置再平衡分析</button>
-                        <div class="calc-result" id="result-advanced-rebalance" style="background-color:#fafafa; border-left:4px solid #b0bec5;">請輸入上方數據並點擊分析按鈕...</div>
-                    </div>
-
-                    <div class="calculator-section" style="margin-top: 25px;">
-                        <h4><i class="fas fa-umbrella"></i> 4% 提領率退休金計算機</h4>
-                        <div class="input-group">
-                            <label for="calc_monthly">預估退休後每月生活費 (元)：</label>
-                            <input type="number" id="calc_monthly" value="50000">
-                        </div>
-                        <button class="calc-btn" onclick="calcRetire()">計算所需合理資產</button>
-                        <div class="calc-result" id="result-retire">輸入金額後點擊計算...</div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
     </div>
 
     <footer>
-        <p>&copy; 2026 Ohmazing Garden. All Rights Reserved. 指數化投資，專注大盤，擁抱長期複利。</p>
+        <span class="time-badge" id="update_time">最後數據同步時間：2026-06-06 23:47</span>
     </footer>
+</div>
 
-    <script>
-        function toggleCard(cardId) {
-            const card = document.getElementById(cardId);
-            card.classList.toggle('collapsed');
+<script>
+    function toggleNews(boxId, btn) {
+        const list = document.getElementById(boxId);
+        const hiddenItems = list.querySelectorAll('.hidden-news');
+        
+        if (btn.innerText.includes('繼續閱讀')) {
+            hiddenItems.forEach(item => item.classList.remove('hidden-news'));
+            btn.innerText = '↑ 收合新聞';
+        } else {
+            const allItems = list.querySelectorAll('.news-item');
+            allItems.forEach((item, index) => {
+                if (index >= 3) item.classList.add('hidden-news');
+            });
+            btn.innerText = '↓ 繼續閱讀';
         }
+    }
 
-        // 單次複利投資計算
-        function calcCompound() {
-            let pv = parseFloat(document.getElementById('comp_pv').value);
-            let rate = parseFloat(document.getElementById('comp_rate').value) / 100;
-            let years = parseFloat(document.getElementById('comp_years').value);
-
-            if (isNaN(pv) || isNaN(rate) || isNaN(years) || pv < 0 || years < 0) {
-                document.getElementById('result-compound').innerHTML = `❌ 請輸入正確的數字格式。`;
-                return;
-            }
-
-            let fv = pv * Math.pow((1 + rate), years);
-            let totalInterest = fv - pv;
-
-            let report = `💰 <strong>預期終值金額：</strong>$${Math.round(fv).toLocaleString()} 元<br>`;
-            report += `🌱 <strong>淨賺取的總利息：</strong>$${Math.round(totalInterest).toLocaleString()} 元<br>`;
-            report += `⏳ <strong>資產翻倍狀況：</strong>在 ${years} 年間，資產成長了 ${(fv / (pv || 1)).toFixed(2)} 倍。`;
-            
-            document.getElementById('result-compound').innerHTML = report;
+    function switchTab(tabName) {
+        document.querySelectorAll('.calc-tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.calc-panel').forEach(p => p.classList.remove('active'));
+        
+        if (tabName === 'fire') {
+            document.querySelectorAll('.calc-tab-btn')[0].classList.add('active');
+            document.getElementById('panel-fire').classList.add('active');
+        } else {
+            document.querySelectorAll('.calc-tab-btn')[1].classList.add('active');
+            document.getElementById('panel-rebalance').classList.add('active');
         }
+    }
 
-        // 專業加強版：多標的資產配置再平衡計算邏輯
-        function advancedRebalance() {
-            const names = ["全球/美股大盤", "國際非美股票", "臺灣核心權值", "全球債券/避險現金"];
-            let values = [];
-            let percents = [];
-            let totalValue = 0;
-            let totalPercent = 0;
-
-            for(let i=1; i<=4; i++) {
-                let val = parseFloat(document.getElementById(`asset_val_${i}`).value) || 0;
-                let pct = parseFloat(document.getElementById(`asset_pct_${i}`).value) || 0;
-                values.push(val);
-                percents.push(pct);
-                totalValue += val;
-                totalPercent += pct;
-            }
-
-            // 校驗百分比加總是否為 100
-            if (Math.abs(totalPercent - 100) > 0.01) {
-                document.getElementById('result-advanced-rebalance').innerHTML = `<span style="color:var(--up-color); font-weight:bold;">❌ 配置失敗：目標比例加總必須等於 100% (目前加總為 ${totalPercent}%)，請調整後再試。</span>`;
-                return;
-            }
-
-            if (totalValue <= 0) {
-                document.getElementById('result-advanced-rebalance').innerHTML = `❌ 請輸入各資產目前的實際市值。`;
-                return;
-            }
-
-            let htmlReport = `<div style="margin-bottom:8px;">⚖️ <strong>配置總資產規模：</strong>$${Math.round(totalValue).toLocaleString()} 元</div>`;
-            htmlReport += `<table class="allocation-table">
-                            <thead>
-                                <tr>
-                                    <th>資產類別</th>
-                                    <th>實際比重</th>
-                                    <th>目標比重</th>
-                                    <th>再平衡操作指南</th>
-                                </tr>
-                            </thead>
-                            <tbody>`;
-
-            for(let i=0; i<4; i++) {
-                let currentRatio = (values[i] / totalValue) * 100;
-                let targetValue = totalValue * (percents[i] / 100);
-                let diff = targetValue - values[i];
-                let actionText = "";
-
-                if (Math.abs(diff) < 100) {
-                    actionText = `<span style="color:#78909c;">👌 標準持平 (免調整)</span>`;
-                } else if (diff > 0) {
-                    actionText = `<span style="color:var(--up-color); font-weight:bold;">🛒 建議加碼 $${Math.round(diff).toLocaleString()} 元</span>`;
-                } else {
-                    actionText = `<span style="color:var(--down-color); font-weight:bold;">🧩 建議減碼 $${Math.round(Math.abs(diff)).toLocaleString()} 元</span>`;
-                }
-
-                htmlReport += `<tr>
-                                <td>${names[i]}</td>
-                                <td>${currentRatio.toFixed(1)}%</td>
-                                <td>${percents[i]}%</td>
-                                <td>${actionText}</td>
-                               </tr>`;
-            }
-
-            htmlReport += `</tbody></table>`;
-            htmlReport += `<p style="font-size:0.8rem; color:#78909c; margin-top:8px;">💡 提示：您可以透過「賣高買低」落實紀律再平衡，或者在未來投入新資金時，優先主動加碼需要「🛒 建議加碼」的落後區塊標的。</p>`;
-
-            document.getElementById('result-advanced-rebalance').innerHTML = htmlReport;
+    function calcFire() {
+        let monthExpense = parseFloat(document.getElementById('fire_expense').value);
+        if (isNaN(monthExpense) || monthExpense <= 0) {
+            document.getElementById('result-fire').innerHTML = `❌ 請輸入正確的月開銷數字。`;
+            return;
         }
+        let annualExpense = monthExpense * 12;
+        let fireTarget = annualExpense * 25;
+        
+        let report = `🎯 <strong>您的年度總開銷：</strong>$${Math.round(annualExpense).toLocaleString()} 元<br>`;
+        report += `🚀 <strong>4% 原則自由資產目標：</strong><span style="color:var(--accent); font-weight:bold; font-size:1.1rem;">$${Math.round(fireTarget).toLocaleString()}</span> 元<br>`;
+        report += `💡 <strong>核心心法：</strong>只要將此筆資產投入全球全市場指數化型 ETF (如 VT 或 VTI+VXUS)，每年提領 4% 變現，您的資產將有極高機率永續發揮複利效益，支應一輩子的生活。`;
+        document.getElementById('result-fire').innerHTML = report;
+    }
 
-        function calcRetire() {
-            let monthlyExpense = parseFloat(document.getElementById('calc_monthly').value);
-            if (isNaN(monthlyExpense) || monthlyExpense <= 0) {
-                document.getElementById('result-retire').innerHTML = `❌ 請輸入正確的每月生活費數字。`;
-                return;
-            }
-            let annualExpense = monthlyExpense * 12;
-            let fireTarget = annualExpense * 25;
-            
-            document.getElementById('result-retire').innerHTML = `🎯 <strong>4% 提領率自由目標：</strong>$${Math.round(fireTarget).toLocaleString()} 元<br>💡 達標後，您每年可安全提領約 $${Math.round(annualExpense).toLocaleString()} 元。`;
+    function calcRebalance() {
+        let us = parseFloat(document.getElementById('rb_us').value);
+        let tw = parseFloat(document.getElementById('rb_tw').value);
+        let targetUsRatio = parseFloat(document.getElementById('rb_ratio_us').value) / 100;
+        
+        if (isNaN(us) || isNaN(tw) || us < 0 || tw < 0 || (us + tw) <= 0) {
+            document.getElementById('result-rebalance').innerHTML = `❌ 請輸入正確的資產總額。`;
+            return;
         }
-    </script>
+        
+        let total = us + tw;
+        let currentUsRatio = us / total;
+        let idealUs = total * targetUsRatio;
+        let diffUs = idealUs - us;
+        
+        let report = `⚖️ <strong>目前總資產：</strong>$${Math.round(total).toLocaleString()} 元<br>`;
+        report += `📊 <strong>目前美股權重：</strong>${(currentUsRatio * 100).toFixed(1)}% (理想 ${document.getElementById('rb_ratio_us').value}%)<br>`;
+        
+        if (Math.abs(diffUs) < 100) {
+            report += `✨ <strong>再平衡偏離度極低：</strong>目前不需進行大幅度調整。`;
+        } else if (diffUs > 0) {
+            report += `🛒 <strong>調整策略 (美股偏低)：</strong>建議加碼美股 <strong>$${Math.round(diffUs).toLocaleString()}</strong> 元，或由台日股中換股調整。`;
+        } else {
+            report += `🛒 <strong>調整策略 (美股偏高)：</strong>建議暫停加碼美股，改將新資金加碼台日股 <strong>$${Math.round(Math.abs(diffUs)).toLocaleString()}</strong> 元，或進行部分美股獲利了結。`;
+        }
+        document.getElementById('result-rebalance').innerHTML = report;
+    }
+</script>
 </body>
 </html>
