@@ -16,7 +16,7 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='44' stroke='%235F7460' stroke-width='6' fill='none'/><path d='M30,65 L45,52 L60,58 L75,40' stroke='%235F7460' stroke-width='6' stroke-linecap='round' stroke-linejoin='round' fill='none'/><path d='M70,40 L75,40 L75,45' stroke='%235F7460' stroke-width='6' fill='none'/><path d='M55,42 Q62,32 72,35 Q68,48 55,42 Z' fill='%235F7460'/><path d='M42,48 Q47,38 57,40 Q53,52 42,48 Z' fill='%235F7460'/></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='44' stroke='%235F7460' stroke-width='6' fill='none'/><path d='M30,65 L45,52 L60,58 L75,40' stroke='%235F7460' stroke-width='6' stroke-linecap='round' stroke-linejoin='round' fill='none'/><path d='M70,40 L75,40 L75,45' stroke='%235F7460' stroke-width='6' fill='none'/><path d='M55,42 Q62,32 72,35 Q68,48 55,42 Z' fill='%235F7460'/><path d='M42,48 Q47,38 57,40 Q53,52 42,48 Z' fill='%235F7460'/></svg>\">
     
     <style>
         :root {
@@ -285,216 +285,174 @@
         <div class="news-grid">
             <div class="stock-news-box">
                 <h3>VTI <span>整體美股市場</span></h3>
-                <ul class="news-list" id="news_VTI">
-                        <li><a href="https://news.google.com/rss/articles/CBMiWEFVX3lxTFBnYl9DdGZCSkNWaXF1Z0lCbElRVG0wb1hVOUlwcHhOVUJnTlNqWHNjeWRjLXYtTkp2S1hJM3lOQUlRM3ZsWHZPWXNmbm9YbEJtbzNpNjFtbEI?oc=5" target="_blank">VTI Vanguard Total Stock Market ETF</a><span class="news-date">06-04</span></li>
-                        <li><a href="https://news.google.com/rss/articles/CBMiqgJBVV95cUxQT3otLWd3czF4eGQ4NlBJekgyOF9uLVFXNG4wZ0VZWWdmeUMzcEZ0Znd5YlJtc0lLRm0yaEZOY2VBb2lXVFBJR2tlc3p0TkVHY0trQkQwMFMtSlpqWXBOZ1V2cmNpQ2F3OWhUdjRBWWtvT2tmWndlWXpMcmkyTnY4UFMtTUtzNExhVHp1ZFRSWmJvTFRkSTA1OEIzUGwxb2dMOTdSN3lLazJ6U1VhalQ0MzdtQ3RWYXIyR05vVVd6aDIxVE5MS3RKcGJoM2l0T19tazRYQVFRcWJWLUxIM2hISmpXcnhIOXFUbXlJN01iSzlSbHhMNWpycU1RUTQ2NEtiUUZ1WTMwSmp2Sm9EbWhNLXk1aVAwMG9aelVCZ25KT0RxZHIxUlEzMU5R?oc=5" target="_blank">Vanguard Total Stock Market ETF (VTI) Latest Announcement & Press Release</a><span class="news-date">06-05</span></li>
-                        <li><a href="https://news.google.com/rss/articles/CBMirAJBVV95cUxPcjl6NThfdE0yLUpBLWVvOVB1TlFrWnFkdUxFRHNydTY0SHlCTGk2cEpDLXFjQUxtVEdpQktvdFJ2LWtHRFpFTC1zYmxfanBWQjdTYnE3Tktfa0RSdGJlbzAxNS1yVU5uOUNxaFVfMVpIY3ZPcGt4MXI3SEpiaXpaZGZrQlczTzRaVkdJN2ZweXhwMFV0WUYwNGJCUWdNbEZKRHRpMUQ4MXBzVVc5Wnprblg3c0IzLW1PY29TeVVaX25KeE5GMXVZNFNWdVdGRVpGczQ4dzJnODVjQVdOc1dsOGVRWGRlNlFJTXY0X2NnbmlvUklOSnpaWW5kS0k1NlNXcTJLYWIzcnNVWU5FVUpTV1pGSFYzSHE3YS12RVl6VUhmeFhXT2xQc2o2RTI?oc=5" target="_blank">VTI ETF十年報酬率達14.25% 分析師籲關注估值風險</a><span class="news-date">03-04</span></li>
-                    </ul>
+                <ul class="news-list" id="news_VTI"></ul>
                 <button class="expand-news-btn" onclick="toggleNews('news_VTI', this)">↓ 繼續閱讀</button>
             </div>
             <div class="stock-news-box">
                 <h3>VXUS <span>全世界非美股市</span></h3>
-                <ul class="news-list" id="news_VXUS">
-                        <li><a href="https://news.google.com/rss/articles/CBMi7wJBVV95cUxPV0RTNk9rdjcyZ3JBd180MXhpeDU1R0NZNHdFOXBWZ29NOEJfVWNfQldLMVdybVA3YUJ0b3VIRmo3NWYzNElURGdfdU5PSVRiX0lvS2IzNUNtOHBudzFvU3pxdi1DR2oxdThLZFU2c1pfUmJhYVpDdExTWXFfSlg5QUl6THV6d29vMGxySnhpZVNaWlZ6UmJJVzRPQk1HanlGREFmazM5VzNEc0F2Tm1HTVR6Yk9ZTHFxd1VIbkJ0d2ZuYkNkZkJNOFBOS0pxUHVNNGFQRjhNNF9xTkljY2gzeGtlVE9ndnBGcThwdUhhb1pGVWIxeS1nemk5cUhiU2hwc3FXblZ6M25tZmc5MVQ3TlZYYkNCVmpZYnhVWkpSc3BpLTAzanpfTHFTUjhlZzloQnZwWEVXdUdlTHpmVGZ6cnZLR3Y2NWNvNHdkTlFCaXpMb3FlMHQ4RWlyNlNaMHpBQWd3MHFibTBNeGF2MnY4?oc=5" target="_blank">兩檔ETF兼顧收益與成長 助投資人打造數十年被動收入</a><span class="news-date">06-07</span></li>
-                        <li><a href="https://news.google.com/rss/articles/CBMibkFVX3lxTE9PQ2xoNG5ISzNyRDFTLVptZjVoTVhFdHRaTFpPRDlzRGFWcVFYLTZUVkZLYmZTcURDOG9hMmFuVmxrQ2wtVnB5VmlIWURsWWZtcmFsMmVvSC10RXJVS2cwbHdaZC02b1hhcWttUzN3?oc=5" target="_blank">Vanguard Total International Stock ETF(VXUS)</a><span class="news-date">06-01</span></li>
-                        <li><a href="https://news.google.com/rss/articles/CBMid0FVX3lxTE42WG9qQ3BpMFgxSnA1RWJFS1JvMzZtUUhQYlhGZFpJclhVVmNXeU5Ma05KNE1uQ2hONXBWYlVJaWd0YTdyNmFCenN0UzBKNFk1N3RucFBjZTltQlFFbmV6cl9ycmo0dEJ3bWNpeUVSdnhNVlZwNERn?oc=5" target="_blank">Vanguard總體國際股票ETF-VXUS-ETF基本資料</a><span class="news-date">05-16</span></li>
-                    </ul>
+                <ul class="news-list" id="news_VXUS"></ul>
                 <button class="expand-news-btn" onclick="toggleNews('news_VXUS', this)">↓ 繼續閱讀</button>
             </div>
             <div class="stock-news-box">
-                <h3>VT <span>全球全世界股市</span></h3>
-                <ul class="news-list" id="news_VT">
-                        <li><a href="https://news.google.com/rss/articles/CBMiWEFVX3lxTFBnYl9DdGZCSkNWaXF1Z0lCbElRVG0wb1hVOUlwcHhOVUJnTlNqWHNjeWRjLXYtTkp2S1hJM3lOQUlRM3ZsWHZPWXNmbm9YbEJtbzNpNjFtbEI?oc=5" target="_blank">VTI Vanguard Total Stock Market ETF</a><span class="news-date">06-04</span></li>
-                        <li><a href="https://news.google.com/rss/articles/CBMihwNBVV95cUxPTVVaS1JtZGVfTFNsWm1GOWZtQzJIeTNaUVhwWnozSUhtTzB1U05jVElrWm55bVdLQklDNGI4Y1VMb01id1pWeFVERHBKdXk2UjVWOHgwRFVoMnJISVNuVjBDVkUwWHo4blV1Y0NvNDB3ZTA4N0ZGcmxWRGp0U242WDRwZE9tVmpVSkVGRFdMTU13WGlUOEd1VjBZT2xRdDBGSU1DYnZidmF6Q3diZkh0YXJUWVpDdEYyYmdHUHNCblBWcXNyUlUzQkRLSGdaTnVLd0VudWhIa3doR0pfY3BHUmh5cXRQM0JiVGZLVnUwclViYkJidy1NSHNnY1lhZG5DcUhZcE1EbmUxc0E5QktPLXZWZUdVTlBxNWxUd29KOFRGSEdfU2RsVjlZQWxpSFFvdFdISkhKbDFqQk81czRiU2ZHc0tHRHZtSFgwV3VQWVM1X25sSENVWWtpeF9uaWcyN1R1amVud0duSHJ5Rk1pQkFlbGxyOGZmTW5DdExtOEhtNGEwY0pN?oc=5" target="_blank">貝萊德新ETF降臨！他驚呼「台股版VT要來了」？ 網直言：先看費率再說</a><span class="news-date">05-17</span></li>
-                        <li><a href="https://news.google.com/rss/articles/CBMiU0FVX3lxTE1FRWpNaVNqZWlCd0Fxc0pLMkxVaWNtcVFkYjhjeUF6cFktWUMxZVBXMFJOTUZ6ZTdJVFdlMkRHNENBbEhqUm1NWWsxb1ZtU1RfSDRj?oc=5" target="_blank">台灣版VT費率恐逼近0.78％不便宜！清流君拆解利弊：但能省去30％非美股息稅成最大亮點| 存股族愛ETF | 股市</a><span class="news-date">05-26</span></li>
-                    </ul>
+                <h3>VT <span>全球全市場資產</span></h3>
+                <ul class="news-list" id="news_VT"></ul>
                 <button class="expand-news-btn" onclick="toggleNews('news_VT', this)">↓ 繼續閱讀</button>
             </div>
+        </div>
+        <div class="news-grid" style="margin-top: 20px;">
             <div class="stock-news-box">
-                <h3>0050 <span>台灣卓越50</span></h3>
-                <ul class="news-list" id="news_0050">
-                        <li><a href="https://news.google.com/rss/articles/CBMi2AJBVV95cUxQNEhXUlExWmRWOVYwV3VqY0p1YW44bWRGSm9laGF1MTQtRXVtRzlBT2ZlckNBcTN6VVA0RldoaDVKRXhSejlCNVVTeGYzcXB4bmxXOTUtTFBDVzdxWUlaenJmMjlWbkJoU2VEYm1lQXU4MWFvWHhoeDFUUWFNc3RkS0tkTEs0Nk5vTVVxSGQxb2NubGJvSDVBaUdlMm9NSEJBalRPTE1vUUxCbG9fN2pNREZRa2VuTGpyNmh3ZFhIbTgzOWdldzVzQnJTaEM5ZzNoejlwMTdfcVYzNFdIcFN1WGtSdlprd3k3U3ZtVzhEQkVuLVJFaUt3V0JOVGFKaEJyRTZ6aklPQWpPMnJXRFJuZk5qa0lUYlNXdzBUcW56dGctY1Z0aU5QenRlYU0zY3RsTWdzRFBHMlVvZHJqOUNXNFFXS0R3dmU5ZTN6cWZwZzdKSGxuWlh0Mw?oc=5" target="_blank">0050踢中鋼、台塑！最新換股「4進4出」 295萬股民關心</a><span class="news-date">06-05</span></li>
-                        <li><a href="https://news.google.com/rss/articles/CBMiT0FVX3lxTE9vU2YyM1lDMnN4TzJBcV9KZGZXRDdlUEllVWNQbUxrUGljUkp5ZmUySkhiWVF2TzJQbElvdVlVbTRSZVVNbU1JY012OE9vb1E?oc=5" target="_blank">〈ETF成分股調整〉AI含金量更高！0050新納南電、貿聯等4檔 剔除中鋼、台塑</a><span class="news-date">06-05</span></li>
-                        <li><a href="https://news.google.com/rss/articles/CBMiX0FVX3lxTFBmU3lYRHc0VzdYa2YyLWxENGdheUF2bE9neU5fZGk0T2pHYkJQc21WM3FVQmQ5U0FGT3dILWUyZWZLam93V1NkRk5uNERvWXRlRkVNcjhCTjZrOWp0MTBz0gFkQVVfeXFMTXlId3dwUE5GbmZWbXBQLU51bXI1MGczdFVxNXFfMnY5YUhtRnVJXzkweEl0cTJNRGU2a29uak5zVW1VZURzRlowNjIzRmhTTGp1dWl4eHFaTHF3RjE4TG02Vkt0aA?oc=5" target="_blank">台股明恐股災降臨！專家曝「撿便宜關鍵」 0050、0056這樣買</a><span class="news-date">06-07</span></li>
-                    </ul>
+                <h3>0050 <span>台股大盤藍籌</span></h3>
+                <ul class="news-list" id="news_0050"></ul>
                 <button class="expand-news-btn" onclick="toggleNews('news_0050', this)">↓ 繼續閱讀</button>
             </div>
             <div class="stock-news-box">
-                <h3>2330 <span>台積電</span></h3>
-                <ul class="news-list" id="news_2330">
-                        <li><a href="https://news.google.com/rss/articles/CBMiX0FVX3lxTFB1S1B0OWlnVkUtWVZ4UkxLeHpqTHdKWW05djF0SE9jT2l4UWZIZzdJdk5fX2Z2NFBkdXhzU2ZpXzNnWGtDNl9Eb0RUVzdWVEh2ZEEwRmc0Rkhpc2NEMUxj0gFkQVVfeXFMTmo5WWhWQXpWQlVuRkplajd5MHVUdVhIWkljQ2JkcmQ5V011dDJ4RXhVQzBWVFdfTmswN2hXVVZJRmNoU19sTlJ1QVBjVU9QbkkzdmNSRlRjSmh2bWtwX3ZmRndxYQ?oc=5" target="_blank">台積電分紅爭議沒吵完！內部瘋傳未來75％員工「爛考績」</a><span class="news-date">06-06</span></li>
-                        <li><a href="https://news.google.com/rss/articles/CBMiiwJBVV95cUxQaWEyUEhmX0c5eFVQejdOOEc0SHNFcHNZbC1wcXpxcDAxbWd3RWFCdFdHZ2NGVWdfUV9zekczemdFbTROTkp6czRURTFrZThsYlZRNlR0V1VxTlg0Y1ZkLVZOdDlUZUU2S1J0aWRMQzNBTDJpV08xNVFfM3R4Mmk1cUVwTEt4eE5lbm1lblA2SHpnc002aUYxTGtTdVRZZHdUMWljSkdtbXJFNUN6a3NETDh4NUtVa2xOTFlZOEFNaFFuNXRVUnA4b3lXOXhNVG1qUVJVdXR2R0p2ZE50ZmJ2LXlYTDBnWlVrQ3E4NDhUMDNZVGxTcHdPMmxhZWZiSUxqUnM2ZHpraWNXT1E?oc=5" target="_blank">現在能買台積電？外媒：理由「非常充分」</a><span class="news-date">06-06</span></li>
-                        <li><a href="https://news.google.com/rss/articles/CBMiX0FVX3lxTE5ac0xHLWxWVTlhV09sYmx4THluZ3lTbDFZdlJ6UzJHb1Zqdkg0cUpLZ0xZMzk5VFZBRHpSbng5UDZZQ0R6MTkxQ3BOMmd1c3FkbjFtV2JpUVNLcmdXUjJr?oc=5" target="_blank">高雄市議會組團訪布里斯本台積電成話題| 地方</a><span class="news-date">06-07</span></li>
-                    </ul>
+                <h3>2330 <span>台積電最新動態</span></h3>
+                <ul class="news-list" id="news_2330"></ul>
                 <button class="expand-news-btn" onclick="toggleNews('news_2330', this)">↓ 繼續閱讀</button>
             </div>
             <div class="stock-news-box">
-                <h3>2317 <span>鴻海</span></h3>
-                <ul class="news-list" id="news_2317">
-                        <li><a href="https://news.google.com/rss/articles/CBMirwJBVV95cUxNZGtNcnlWb0dydGVlakxlclNKa3VWWW5vX0NlWE9zcjQ4YlQzM01peFJycDZPUWEzX1hMUmpDRGloZnJnbk5WX3BqN2xhalBWT1pWUDQzNEJTMXo0YldfU3VvRmlFQ1RMMDl1bjRkUXlkcU51Z0xmZFIyVXNWVEE4MmltWTVKcXJOQkZZMHlXQWZiWGw5VmREdEtBbG1mazB3aXQzaWQ4dnhxM3dXUmJfZUhSMUFQY0tBY1h2akU1aUpRbURKYXk2MVRJSFd6eklzZzBtakhBVUcwWU5Tc0d6ajhMRnhMNHhkWHhNX1NFdUJGNXk3aXA5MEIyRmtmVFA5MXJicHphNzBfbjFXVFhXdGU3VEVzc29ZLVdGRl85b3NxQ19NZGdsaTctNTd2RTg?oc=5" target="_blank">鴻海宣布與英特爾合作 攜手加速AI應用落地</a><span class="news-date">06-05</span></li>
-                        <li><a href="https://news.google.com/rss/articles/CBMigAFBVV95cUxOMzdpYU1FbUwxVlh5ZWlwY1YxMC1fQ29qZHZISE9TQVJ5Qm8xa1QxVEdiYVBSTmNvWjE4bWF4NUZLZ0ZkdWlPY1JvN0kyOHBYZVA1d0RCQXhGejg1c2M3VElaMGpPUnBOeXJyMzd4MlBnOWdRamxqbnFpbVF2anM4Qg?oc=5" target="_blank">鴻海(2317)衝上300元又變牛皮股？500元何時到？聯發科(2454)4千元還能追？老手1理由點名金居(8358)：比發哥更值得買</a><span class="news-date">06-05</span></li>
-                        <li><a href="https://news.google.com/rss/articles/CBMiakFVX3lxTE9zd3cxWC1lMWRyZnBQLWtsREdrWmhPNkgwNm9JX1MtakEzbEh3bWI1X0tLb3llWXJoQnRXUG9yN21HNG5KRms3MHdmUzdWejNMT0UyWGM3eDlYNXRBbFRVQ09rM3RSN0RPSEE?oc=5" target="_blank">1表看》小股東狂問鴻海500元！蔡明翰：今年先看這價位- 上市櫃</a><span class="news-date">06-07</span></li>
-                    </ul>
+                <h3>2317 <span>鴻海產業風向</span></h3>
+                <ul class="news-list" id="news_2317"></ul>
                 <button class="expand-news-btn" onclick="toggleNews('news_2317', this)">↓ 繼續閱讀</button>
             </div>
-            <div class="stock-news-box">
-                <h3>00981A <span>日本護城河</span></h3>
-                <ul class="news-list" id="news_00981A">
-                        <li><a href="https://news.google.com/rss/articles/CBMihgNBVV95cUxNYi1hcnNYNG1mbUhoTDZqaGhrTFZUbVVDZnVYaHEyNzJKQ0ExajV6UmVmODJzN196TnlVLVRKOFZ3dnhNMlphSHdITEFJQnhrRzBfX2JlOEdqTUhCZXZURDBhU21VTlJPZnhSM2VCeGFDY2FQRnhWOE1USm40QVBlZVlkMnE5Nk1GV3MxNlhybDJKd3NhLVpPUlozWnZBOC1wOG1wNEltamxoX0RpcGJhZWx2UTR5dHZhWFI4V29CLWF5SnlFcnVMNzlxVTZ6c19lUmVZYlpLVV9QbUZhRy11Tlo3QWdKa0FFbEdfVlYwMlM2bGlvbGFESktsUHlFckw3UFFMMDZEV0UzSFJlYkwxYWNYa3VmU0NJOF8xYWhJdHBVWkhSSnhJNGZrem9hcTdJY1k2QUg1eUtmNV9iYzhDeFpFY1FYMk1tWEthRjFSUXZvZlhPNjlRbHV3RUNYV29CS2o2Ti1lbmxoMk5jYWM4VmpaUTM1QUJkcU1IMzl5bG1CZkZhb3c?oc=5" target="_blank">換股9檔踢走仁寶、京元電！「這檔高股息」卻遭國家隊捲走1.21億元00403A、00981A齊入調節名單</a><span class="news-date">06-04</span></li>
-                        <li><a href="https://news.google.com/rss/articles/CBMiakFVX3lxTE1nNng1UXB4VFFqM2ZEcTR3aS03Y2VIOGsxY0lRNUxSb1VnWVI0d0lXbXh6NmdzOEpGTTJNVnVBN3BUMEtmd20tczZhWW53UzRKLUhtVmtidWVsODJTY3BMQ195bW1oejVMZmc?oc=5" target="_blank">AI軍火庫大爆炸！下波人踩人死局已定？「00992A、00981A能扭轉戰局？」主動式ETF靠1招示範少跌就是贏</a><span class="news-date">06-07</span></li>
-                        <li><a href="https://news.google.com/rss/articles/CBMiU0FVX3lxTE1GT3RvVVgzLTZXV2Z2eWRBazI0QjkyVmxMYlhzWHVXQnk3T1BoU2VoaUNkZ3I3b1B3SnJFRW5QMmFIU0RsN3hDQldub0h5dVQ2U084?oc=5" target="_blank">00981A配息0.63免稅資本利得！規模往3000億衝…陳重銘：未來目標改鎖定打敗0050 | 存股族愛ETF | 股市</a><span class="news-date">06-04</span></li>
-                    </ul>
+        </div>
+        <div class="news-grid" style="margin-top: 20px;">
+            <div class="stock-news-box" style="grid-column: 1 / -1;">
+                <h3>00981A <span>復華日本護城河新聞</span></h3>
+                <ul class="news-list" id="news_00981A"></ul>
                 <button class="expand-news-btn" onclick="toggleNews('news_00981A', this)">↓ 繼續閱讀</button>
             </div>
         </div>
     </div>
 
-    <h2 class="section-title">💡 指數化思維專區</h2>
+    <h2 class="section-title">🧠 指數化思維專區</h2>
     <div class="resource-section-layout">
         <div class="resource-box">
             <div class="res-authors-grid">
                 <div class="res-author-column">
-                    <h4><span>清流君</span></h4>
-                    <ul class="res-list-container" id="res_清流君"></ul>
-                    <button class="expand-news-btn" onclick="toggleRes('res_清流君', this)">↓ 繼續閱讀</button>
+                    <h4>🎬 清流君 <span>(YouTube / 影片分析)</span></h4>
+                    <ul class="res-list-container" id="res_qingliu"></ul>
+                    <button class="expand-news-btn" onclick="toggleNews('res_qingliu', this)">↓ 展開更多意見</button>
                 </div>
                 <div class="res-author-column">
-                    <h4><span>周冠男</span></h4>
-                    <ul class="res-list-container" id="res_周冠男"><li class='res-item' class='res-item hidden-res'> <a href='https://news.google.com/rss/articles/CBMiUkFVX3lxTE9oZTkyWUotb0t2aW5HcVN0Tk12RW1maGN4OVZVTjlfMGdrMWM3ZHZsckdQUmpOdHVoRVFla1FoMC1YUk1pd1BFVkZmWjNhdmpUWHc?oc=5' target='_blank'>請益周冠男教授清流君不敗教主- 股票板</a> <div class='res-tags'><span class='tag-type'>📄 財經專欄</span> <span class='tag-time'>04-14 15:00</span></div></li><li class='res-item hidden-res'> <a href='https://news.google.com/rss/articles/CBMitghBVV95cUxNUXdnWmVGa3pGc19TbV9DaU5NaVowaWhKN3Q2a05wbUtjWk9wekU2MVlBUmUxajcyZ0kzaFFQTzVZSXRXRlVJRmxqTGZnRmNHeGFHZXR5RVhHQWpUUktfRG5zNTBUQnhNdHlKR0FMMXN4NlVuX3lMdVNXT2xhcGRrdG5FQlExdmxtaW1NQWFubGF3MFRnODQtVWFRVkRjdzhJYnlON0lFSVBkN2lyZmpZYS1FQlpaRXFXU1Y1WnhBTGdrWTZJUTRyZ04tRldJTkxtdGNQVUdkZW8tZnI0R0JVQUlKMjhnWnlSdVZFWmluVHlsdmN0dEVzM1pfcXpDYmR4d19IVW9oQTJ1eXE2QWtBNnVVMmZEdmRTYWJwek1hMm9tUzhZRkZPbDVRTHRWaVVobVUzVHFySURhYmZzZVJOM3hnUUt2LU9Mb0FHWlFFS0tXT0daVl9obUhubFZ0VmlPWU1yaTNYMjZHcjg1TE5qZWJqU0ZhR0h0aC1CaDJTRUZrSWhiN3QtNzlQZFctblBVX1loODhMOTZKaDBXNW1JVFZHNEJkMVNnM1U0dlRUakxWUTJaVzZKWS00NDZvY1BtRlF5TnNVSmIybjhEN2JIMWU4eHpnbHNKM3hDQWZtcU5ja0J0NFhZSkhHNUQyYVVwZURCclQ3ZXZmcHBHLXVVTm5Od3pDTWQ4dWc5dmVLWWkwQnhzNlpUU0lIdUh4WDFlMm1hMlBWVkw2QTYwYXhnUkV4QUh5dzRCNV9xSGM4YXNsaXdJaXJyOG1LRmVtRnRCc2l5X1M0U05hSnZHRnRHQzA1SjlfOC1FdWJfVkgwd1lmSGZ4eVhWNi1hS3N4cGxRdWQwQWxxMFQtWXRWMWFWSUtsQmFoelFCVEd2VHFXUEZFVFBKcUtKZll4MmlQc1pzZkJ3dGdsd1VBeTN1THQ3Ql9IQy1iaDd1bUxGeHY2bGNocnpwaVJhbTBUblBjS1piQkNkSU5Yb08tR20wZjRfTFZPQ0VuaWdKemxkWDhaVzNOUTk4RGJ1bElTZmlmdmNUblNrSFF5dGdaenVpcmFqQ3RaZkl6RURvakQzVWlOa0xVRWZpLUl5RW03ZUVGVG05elVSRjI2REJzbFFsY1F4d0VCZGxsMWpjalBLTkdFN1daa2pqMlE3aWphQ2VMU2hkRHRnNEhZUzc0MkVpUmJENVVaNXlVLV9BejVPZ1VSWnAzbTlTbU9MOTA5MWpmUjkzTEI1cndlQVpBTU1kOFk3a3B6aGQ4NVdsd3kwc3J0NFJSOWh3NHN6aW1wZUlGbzlEa2o4TjdfaDBtNmF3YzZTVkxHNTR0T1NSek05aS00U1YyTGxXYzBheXNZNXI1eEhOYl8tZUltblpCUTM5ejhGWFRBWVNsXzlZQzM0Z0JfTmNLVmJscHQ3SVBTZmhpd21zY3Rwbm1n?oc=5' target='_blank'>不只追求最優解，更要尋找可行解：我從《長期買進》中提煉的四個配置策略 . 本週再次翻閱周冠男教授的著作《長期買進》，引發我許多共鳴與思辨。周教授從財務行為學與數理邏輯出發，提供的是投資科學中的「理想最優解」；而我的觀點則是在此基礎上，加入了人性溫度</a> <div class='res-tags'><span class='tag-type'>📄 財經專欄</span> <span class='tag-time'>04-13 15:00</span></div></li><li class='res-item hidden-res'> <a href='https://news.google.com/rss/articles/CBMiqwNBVV95cUxQYUJ1dU9ZUXRIWWp4Q3VzQU5SZEw5cnJpWTBjVUtabnQ0aTVUeDFWZW1oWXZERGo0elc2bDg1VGx6ZllQNXBrUzRWenlqVWd2R0U3aEZoaklDd2VJZkJNc25Vb0FGSFNUZC1QWWJHaFZRdkNOMEhNV2lzNHEyeVhjc3c0ckg0WWhiZEY1bEhHdnRwVm9pdzRNNlB3VUFHa1MzbnB5QTJiRVlPUmZHSDU3UUZlNE9yV1dRWktxQlJhOFJ3ZWtfVURPSVJHbjZmNllPODlWNDhFUFdJWXhfNVZCbTItS0s4Mm1hNW9KSmVENzJINFhCdkRTb1ZdmxpUU5FWnZmTVh4WFY0ZXJtY2t4YWt1UjBXaFBaeHFFa0NOTzdEZ05Qb3FDc3ZZbE15UjFwclV4MlhkT2hyRWk1YTdHTk51QnNnbDNZZXE5Z0U5TUhpcGdaX0Q2NTlxUjI1MmNBTExoa3VCZDdTVUk0MzBBQlRmNUFQbjBJSEhFdklHYWtQU3hGZmE1R0Ezc1pSWnVHN1VvWXBtOEQwUHV0WGFURERzaHRnY1BYVHo4?oc=5' target='_blank'>配息要課稅！財金教授周冠男呼籲ETF應推「不配息級別」造福百萬投資人</a> <div class='res-tags'><span class='tag-type'>📄 財經專欄</span> <span class='tag-time'>04-06 15:00</span></div></li></ul>
-                    <button class="expand-news-btn" onclick="toggleRes('res_周冠男', this)">↓ 繼續閱讀</button>
+                    <h4>📖 周冠男 <span>(政大商學院 / 觀點文章)</span></h4>
+                    <ul class="res-list-container" id="res_chou"></ul>
+                    <button class="expand-news-btn" onclick="toggleNews('res_chou', this)">↓ 展開更多意見</button>
                 </div>
                 <div class="res-author-column">
-                    <h4><span>綠角</span></h4>
-                    <ul class="res-list-container" id="res_綠角"><li class='res-item' class='res-item hidden-res'> (Bogleheads) vs. 韭菜頭 ​這是一個幽默的對比： ​柏格頭 (Bogleheads)： 源自先鋒集團（Vanguard）創辦人約翰·柏格（John Bo</a> <div class='res-tags'><span class='tag-type'>📄 財經專欄</span> <span class='tag-time'>03-09 15:00</span></div></li><li class='res-item hidden-res'> <a href='https://news.google.com/rss/articles/CBMi6gZBVV95cUxPM2tIMGNSSHlYZ3h2RzhoNzZ4bXpmbnphMnhyMjVVd2Fnd2oyc2lCVTY4ODhZSnd0czE2Q1Flci1FUmRrUkJiX0ZMNUlQcmgenU0THFlWHA0MnQ0d05HZmpzRWNRUlZsUFlsNGFxamtOREFtX0lPdkZLWEFkX3d0dm16aGI0X1ZBUzJNQlhJOXJZbEJwbVhyX0M2WXVWLWNndEZudnFKelZDY3NOTmo5RUdRYklVckVMZTd4NFNPZGNTclZNYnpIZEVENWtMYlNVU2J4V0c4NjlKekhmQXpEOGIwNWFCQmpGNWoxRmdLa0p6VXR0akUyZjRLSkJiaTd5b28wOVdRV3dJeEZFLXBBQU9sWTF6TlY4UXhydU94X1dPbDJNMm1HdlJ4NlYyYUhweDJpQ2lVZ3N5WjJOUzZ4ZDBQYURqTWpPY1NpSVJsMTRkSllvQXg2MTRQUXlNMHozYXI0MHY4YkVhbjhnMXpSUDBDTjFEWC1yX0RGd2x4U3p1Tmt6ZW5feDctXzJtQVlkX19waF9jaW1Ba0l3b0lvcTdIbFliaWFlQlpZRElDVWZTbTRHbFJMVVBBcDc5OWRoSEkxT3VVZUpiXzBFczM2dXJ1dEc2S1pfNzQwUlhBZXkxNHVHTm9sYV9wc1EwbVVVZ01yN1JQd3RkVzJMVm9VN08xa2dCTXRuejJxNGw0dVc5WWF0UUdfcWVYUTJGWGJRcXQxVF91V0VpMmx3d2lOVng3bWJOWHliMXhvS3BVNDV3TGpCM2lRbURMUWtlcjk5bFdINnpoMWZhdXk2aGNZdVE1X1lfMW0zZ21JdkhVRGxYQ2VKd1R5S2lWcDdiLXFmQjg2b2lyT0hhNE5MWkYwRefK1TDk5alRoSFFySWlRUUVaSzNHZTBPdEk2UHBMS1VqYk5uMG9QZ3dfdUR6NUk0dG5odURland1OHQzYUdZaTFXRjVlaXVYTlczZVRoeVJOVXVxY1FLVFhfV08xOHZnTWJubWtqcC1ta3BHemJJcHY5MDI5YUhNeXFya0JyZVdsc0c3a3ZDdkUzRkxZLWF5VkI3dUh3M3k0NnZzb1NFNU1kLXdlQkNRZjRxckRfNEU0ZFl6T1M4OFVmZGZ4QmU2TTZfa2JoTnhIZXVXWlRxOGJvY0xaa1NNWklR?oc=5' target='_blank'>隨著清晨美股收盤，我從2016年執行被動投資到2025年為止，恰巧整整10年了。 👉這十年非常幸運遇到兩個下跌年度，分別是2018年與2022年，也就是單年上漲來看，這十年我單年上漲機率是80%，下跌20%。有十分之八年份是在上漲的。 👉但其中遇到的股災並不是這</a> <div class='res-tags'><span class='tag-type'>📄 財經專欄</span> <span class='tag-time'>12-31 16:00</span></div></li><li class='res-item hidden-res'> <a href='https://news.google.com/rss/articles/CBMifEFVX3lxTFA5aDRHV0pLbWhTbUNVUmhfcmg0cWp2Qkt2N1Bfdm9jdy1uNGt6ZURqUlJaeHlEdFF5aExUX1FuVUItM2hId0F1Z291ZVRiN1pDbEo4NVM1Q0U2cmR4aHNtNmUxeVc1SS1QM09IMlNfZGxUOGJ6NTZPTTMtN0c?oc=5' target='_blank'>投資不必是大海撈針，你可以直接買下整座海 今天分享一套華爾街公認，勝率極高且執行最簡單的「指數化投資」策略。 ​這可能是你今年看過最省力的投資教學。👇 ​🚀 什麼是「乾草堆策略」？ ​投資界傳奇約翰·柏格（John Bogle）曾有名言：「不要在乾草堆裡找針，把整</a> <div class='res-tags'><span class='tag-type'>📄 財經專欄</span> <span class='tag-time'>11-25 16:00</span></div></li><li class='res-item hidden-res'> <a href='https://news.google.com/rss/articles/CBMi_AdBVV95cUxPNHQ3M2Z4UnZDeDlYUHdYX1dsT1RqcVVNaVlQUzloZ3hIaVYzNVVxT2llQm05c2FyUG1wS3FhYzBDeGhGa0FLQjZvT3Q1cjVfTHNESXlXMVdONThlVVdrc2hCaHpVaVRLbTFFVGRvdWFOTG5nRDEzcTlyR3pDakU0Mk5tMFVpcjlCZEVPX0UybXdUQUZibFYxNERUN3pyb2l4M0FxX0ZBOXJDcEN1LW43Z0o5M2hQWGZMeXlGUkk1cmUwaWg4dXBsRE9GaGxEQlZWZEpLS1lqYnhjSTlpcEtydm9oWjQ4UVlhcEltRm9Qd0NDa21nWlhhSUZ2dktKWERpWnJIYVZxbzVwSndLNFhNWlVCcGtjNUNaTFFFZGtYQW01OFRWVGRuQk9JUUlLVzI2MURHTnNxM3FSR0FDSzBuN2M3ejlMWkV1LUIyM3ZqdTl3RFhr?oc=5' target='_blank'>指數化投資：不尋找草堆裡的針，而是買下整個草堆 指數化投資是一種基於「買下整個市場」邏輯的被動投資策略。它的核心概念非常簡單：與其花費大量時間、精力和手續費去挑選個股（試圖在乾草堆中找到那根珍貴的「針」），不如直接買下整個「乾草堆」——即透過追蹤大盤指數</a> <div class='res-tags'><span class='tag-type'>📄 財經專欄</span> <span class='tag-time'>11-20 16:00</span></div></li></ul>
-                    <button class="expand-news-btn" onclick="toggleRes('res_綠角', this)">↓ 繼續閱讀</button>
+                    <h4>✍️ 綠角 <span>(Greenhorn / 財經博客)</span></h4>
+                    <ul class="res-list-container" id="res_greenhorn"></ul>
+                    <button class="expand-news-btn" onclick="toggleNews('res_greenhorn', this)">↓ 展開更多意見</button>
+                </div>
+            </div>
+            <div class="res-authors-grid" style="margin-top: 20px;">
+                <div class="res-author-column">
+                    <h4>📝 竹軒隨筆 <span>(指數化推廣 / 專欄)</span></h4>
+                    <ul class="res-list-container" id="res_zhuxuan"></ul>
+                    <button class="expand-news-btn" onclick="toggleNews('res_zhuxuan', this)">↓ 展開更多意見</button>
                 </div>
                 <div class="res-author-column">
-                    <h4><span>竹軒</span></h4>
-                    <ul class="res-list-container" id="res_竹軒"><li class='res-item' class='res-item hidden-res'> <a href='https://news.google.com/rss/articles/CBMinwZBVV95cUxNUGxMdnlEYkxGV0xQRkszVUc1aUllLXNIV2hoTFZiYlNGZkRmNFVONWVjNzhacWJvRVd2VW11SThSaFB1eDhfcXNvWncxMHVEUE4yY0RsYUpWU0g1dXdHQ0tXUE1Bb0N2Ty1FMkk3RnE3VmZVcVlibDQ2MmYtY0VNTzdONWxjZkhydkpxdGtHOTh1NGNMWG01a2VVMnBnQ2gwVFItS1YzS3dsZzVWeDZoSVpTOFRkaExISEVHVDZoUlBUQWl6WWNSXzFKak9MLUZTQ2JJUDRQWFJvVzRiYUV2OEpIOTRCbkY5QzE0eUNjNk5rbEhBUFpRTnFNSjRPUGpNRE1DclVQYUx0dGRjd0J3OXdjcHZZWkM2TGlFd093cjU4S2txQkpRRHFETndpTkxhTGVpcGZVUFBhcHRLTlVSSDNWYTFJd2JkdHdwRkZRbTdlU2daRXctZmlqX3BGM1JXTkFPLUluNlQ5QTU4MUFOdGo5bDBVR0RHY2RSYk42SW15ZHdCMHE2RjREOFEzZUZpakZqTk1QMDhRLWlMaXVwdllWcWUtdlo3VDNudk14a1NVb3ViNVRwMTJ5V1hCYi01bXNYUjAwbFVpN1I2SVBHbWVHX2MybzFJNUVOVWdnZ1lmWkplQlFFbzBzcndPTUR4enF6VU81b1NmSTc0UWhOOS0tU2I2Rm9nYXVEQmhRUFhkcnZrR205X2o5RDUwc3gzQ0RkSXFudm8weUNXcU8wUjdWNTJsdGdxZ09qNWQ4ejE0cGJFWGZvUHA0X1BtdDVpQ1JuSHROUm5PMThWY0tYNExnTWVWb1JRcHV0M2NvdGVTVW9XWTBBelpoS0I1eldaVFVzalMzbjBUbnpXY1NPclo4dlo4bDdzSWFxVlBFcF9mZngzalh6UlBtdzhXXzVBczBsQ0dLRGpJcGhIZGV2TkNMZi1KUzFtUllrcVF0UmMz世紀DWTBSI2tvBb1RsR3VNNkpKN0FHRElGZlNxZl9jUk9ONWVYV2pWUkJfbG1VSURNZ2tQMGFBa3VKT0I0SldUaDFhN1pLZzdFMUJkLXR3?oc=5' target='_blank'>團購文喔🤣。 竹軒的親子理財筆記 x 台灣製IfIDO高效學習錯題本（nemonic AI 便條機）等等文具系列開團。 📍團購網址（4/7~4/16)： https://p3.groupbuyforms.tw/dex3d --------------------------------------------- #前陣子我發文詢問時有好幾名媽媽在詢問 #抱歉久等了 📍商品我</a> <div class='res-tags'><span class='tag-type'>📄 財經專欄</span> <span class='tag-time'>04-06 15:00</span></div></li></ul>
-                    <button class="expand-news-btn" onclick="toggleRes('res_竹軒', this)">↓ 繼續閱讀</button>
+                    <h4>🐱 哆啦王 <span>(FFaarr / 專案資產大師)</span></h4>
+                    <ul class="res-list-container" id="res_dora"></ul>
+                    <button class="expand-news-btn" onclick="toggleNews('res_dora', this)">↓ 展開更多意見</button>
+                </div>
+                <div class="res-author-column">
+                    <h4>🗽 伯格 & 巴菲特 <span>(Bogle & Buffett 投資哲學)</span></h4>
+                    <ul class="res-list-container" id="res_masters"></ul>
+                    <button class="expand-news-btn" onclick="toggleNews('res_masters', this)">↓ 展開更多意見</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <h2 class="section-title">🔧 資產配置輔助工具</h2>
+    <h2 class="section-title">⚙️ 資產配置輔助工具</h2>
     <div class="calculator-box">
         <div class="calc-tabs">
-            <button class="calc-tab-btn active" onclick="switchTab('rebalance')">⚖️ 再平衡策略計算</button>
-            <button class="calc-tab-btn" onclick="switchTab('fire')">🔥 FIRE 退休金模擬</button>
+            <button class="calc-tab-btn active" onclick="switchTab('calc_fi')">🔥 退休 FI 財務試算</button>
+            <button class="calc-tab-btn" onclick="switchTab('calc_rb')">⚖️ 股權再平衡重置計算</button>
         </div>
-
-        <div id="panel-rebalance" class="calc-panel active">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                <div class="input-group">
-                    <label>目前美股資產總額 (元)</label>
-                    <input type="number" id="rb_us" value="500000" placeholder="例如: 500000">
-                </div>
-                <div class="input-group">
-                    <label>目前台日股資產總額 (元)</label>
-                    <input type="number" id="rb_tw" value="500000" placeholder="例如: 500000">
-                </div>
+        
+        <div id="calc_fi" class="calc-panel active">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">
+                <div class="input-group"><label>預計每月生活開銷 (元)</label><input type="number" id="fi_expense" value="50000"></div>
+                <div class="input-group"><label>預期資產年報酬率 (%)</label><input type="number" id="fi_return" value="7" step="0.1"></div>
+                <div class="input-group"><label>安全提領率提撥 (4%原則)</label><input type="number" id="fi_swr" value="4" step="0.1"></div>
             </div>
-            <div class="input-group">
-                <label>目標美股資產權重 (%)</label>
-                <input type="number" id="rb_ratio_us" value="60" placeholder="例如: 60">
-            </div>
-            <button class="calc-btn" onclick="calcRebalance()">計算再平衡策略</button>
-            <div class="calc-result" id="result-rebalance">輸入目前的資產狀況，系統將自動計算偏離度並給予換股加碼建議。</div>
+            <button class="calc-btn" onclick="calcFi()">立即試算退休財務目標</button>
+            <div class="calc-result" id="result-fi">💡 輸入您的理想生活支出，我們將透過精確算法為您估算財務自主（Financial Independence）之核心目標資產。</div>
         </div>
-
-        <div id="panel-fire" class="calc-panel">
-            <div class="input-group">
-                <label>預計未來每月生活開銷 (元)</label>
-                <input type="number" id="fire_expense" value="50000" placeholder="例如: 50000">
+        
+        <div id="calc_rb" class="calc-panel">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">
+                <div class="input-group"><label>目前美股資產總額 (元)</label><input type="number" id="rb_us" value="600000"></div>
+                <div class="input-group"><label>目前台日股資產總額 (元)</label><input type="number" id="rb_tw" value="400000"></div>
+                <div class="input-group"><label>理想美股目標權重 (%)</label><input type="number" id="rb_ratio_us" value="60"></div>
             </div>
-            <div class="input-group">
-                <label>預估長期年化報酬率 (%)</label>
-                <input type="number" id="fire_roi" value="7" placeholder="例如: 7">
-            </div>
-            <button class="calc-btn" onclick="calcFIRE()">模擬退休安全資產規模</button>
-            <div class="calc-result" id="result-fire">透過 4% 原則（25倍安全邊際）自動推算您的安全退休金規模。</div>
+            <button class="calc-btn" onclick="calcRebalance()">立刻計算再平衡策略</button>
+            <div class="calc-result" id="result-rebalance">💡 輸入當前各大板塊的真實市值，系統將快速推算偏離程度，給予相應的加碼或換股比例建議。</div>
         </div>
     </div>
 
     <footer>
-        Ohmazing Garden 2026 🌿
+        <p>Ohmazing Garden 2026 🌿</p>
+        <p style="margin-top: 10px; font-size: 0.75rem; color: #A09A95;">數據每小時自動維護，最近更新時間：<span class="time-badge" id="update_time">等待排程更新...</span></p>
     </footer>
 </div>
 
 <script>
-    // 新聞區塊展開/收合控制邏輯
-    function toggleNews(id, btn) {
-        const ul = document.getElementById(id);
-        const items = ul.getElementsByClassName('news-item');
-        if (items.length <= 3) return;
+    function toggleNews(containerId, btn) {
+        let box = document.getElementById(containerId);
+        let items = box.querySelectorAll('.news-item, .res-item');
+        let isExpanded = btn.innerText.includes('收合') || btn.innerText.includes('鎖定');
         
-        let isExpand = btn.innerText.includes('展開') || btn.innerText.includes('繼續閱讀');
-        for (let i = 3; i < items.length; i++) {
-            if (isExpand) {
-                items[i].classList.remove('hidden-news');
-            } else {
-                items[i].classList.add('hidden-news');
-            }
-        }
-        btn.innerText = isExpand ? '↑ 收合新聞' : '↓ 繼續閱讀';
-    }
-
-    // 專欄資源區展開/收合控制邏輯
-    function toggleRes(id, btn) {
-        const ul = document.getElementById(id);
-        const items = ul.getElementsByClassName('res-item');
-        if (items.length <= 3) return;
-        
-        let isExpand = btn.innerText.includes('展開') || btn.innerText.includes('繼續閱讀');
-        for (let i = 3; i < items.length; i++) {
-            if (isExpand) {
-                items[i].classList.remove('hidden-res');
-            } else {
-                items[i].classList.add('hidden-res');
-            }
-        }
-        btn.innerText = isExpand ? '↑ 收合專欄' : '↓ 繼續閱讀';
-    }
-
-    // 初始化自動隱藏第四條之後的新聞與資源項目
-    function initListsVisibility() {
-        const lists = ['news_VTI', 'news_VXUS', 'news_VT', 'news_0050', 'news_2330', 'news_2317', 'news_00981A', 'res_清流君', 'res_周冠男', 'res_綠角', 'res_竹軒'];
-        lists.forEach(id => {
-            const el = document.getElementById(id);
-            if (!el) return;
-            const items = el.children;
-            if (items.length > 3) {
-                for (let i = 3; i < items.length; i++) {
-                    items[i].classList.add(id.startsWith('news_') ? 'hidden-news' : 'hidden-res');
-                }
-            } else {
-                const btn = el.nextElementSibling;
-                if (btn && btn.classList.contains('expand-news-btn')) {
-                    btn.style.display = 'none';
+        let hiddenCount = 0;
+        items.forEach((item, index) => {
+            if (index >= 3) {
+                if (isExpanded) {
+                    item.classList.add('hidden-news', 'hidden-res');
+                    hiddenCount++;
+                } else {
+                    item.classList.remove('hidden-news', 'hidden-res');
                 }
             }
         });
-    }
-
-    // 計算小工具的分頁切換
-    function switchTab(tab) {
-        document.querySelectorAll('.calc-tab-btn').forEach(btn => btn.classList.remove('active'));
-        document.querySelectorAll('.calc-panel').forEach(panel => panel.classList.remove('active'));
         
-        if (tab === 'rebalance') {
-            document.querySelectorAll('.calc-tab-btn')[0].classList.add('active');
-            document.getElementById('panel-rebalance').classList.add('active');
+        if (isExpanded) {
+            btn.innerHTML = containerId.startsWith('res') ? `↓ 展開更多意見` : `↓ 繼續閱讀`;
         } else {
-            document.querySelectorAll('.calc-tab-btn')[1].classList.add('active');
-            document.getElementById('panel-fire').classList.add('active');
+            btn.innerHTML = containerId.startsWith('res') ? `↑ 鎖定收合觀點` : `↑ 收合過多新聞`;
         }
     }
 
-    // 再平衡演算法
+    function switchTab(tabId) {
+        document.querySelectorAll('.calc-tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.calc-panel').forEach(p => p.classList.remove('active'));
+        
+        event.target.classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+    }
+
+    function calcFi() {
+        let expense = parseFloat(document.getElementById('fi_expense').value);
+        let rRate = parseFloat(document.getElementById('fi_return').value) / 100;
+        let swr = parseFloat(document.getElementById('fi_swr').value) / 100;
+        
+        if (isNaN(expense) || expense <= 0) {
+            document.getElementById('result-fi').innerHTML = `❌ 請輸入正確的每月生活開銷。`;
+            return;
+        }
+        
+        let annualExpense = expense * 12;
+        let targetAsset = annualExpense / swr;
+        
+        let report = `🎯 <strong>財務自主 (FI) 核心目標：</strong>總資產達 <strong>$${Math.round(targetAsset).toLocaleString()}</strong> 元<br>`;
+        report += `📈 <strong>核心推算模型：</strong>年提領支出額為 $${Math.round(annualExpense).toLocaleString()} 元。`;
+        document.getElementById('result-FI' ? 'result-fi' : 'result-fi').innerHTML = report;
+    }
+
     function calcRebalance() {
-        let us = parseFloat(document.getElementById('rb_us').value) || 0;
-        let tw = parseFloat(document.getElementById('rb_tw').value) || 0;
+        let us = parseFloat(document.getElementById('rb_us').value);
+        let tw = parseFloat(document.getElementById('rb_tw').value);
         let targetUsRatio = parseFloat(document.getElementById('rb_ratio_us').value) / 100;
         
         let total = us + tw;
@@ -517,34 +475,11 @@
         } else if (diffUs > 0) {
             report += `🛒 <strong>調整策略 (美股偏低)：</strong>建議加碼美股 <strong>$${Math.round(diffUs).toLocaleString()}</strong> 元，或由台日股中換股調整。`;
         } else {
-            report += `🌿 <strong>調整策略 (美股偏高)：</strong>建議加碼台日股 <strong>$${Math.round(Math.abs(diffUs)).toLocaleString()}</strong> 元，或由美股獲利了結換股调整。`;
+            report += `🛒 <strong>調整策略 (美股偏高)：</strong>建議加碼台日股 <strong>$${Math.round(Math.abs(diffUs)).toLocaleString()}</strong> 元，或將美股部分獲利了結換回台日股。`;
         }
         document.getElementById('result-rebalance').innerHTML = report;
     }
-
-    // FIRE 退休計算
-    function calcFIRE() {
-        let monthlyExpense = parseFloat(document.getElementById('fire_expense').value) || 0;
-        let roi = parseFloat(document.getElementById('fire_roi').value) || 7;
-        
-        if (monthlyExpense <= 0) {
-            document.getElementById('result-fire').innerHTML = `❌ 請輸入正確的月開銷數字。`;
-            return;
-        }
-        
-        let annualExpense = monthlyExpense * 12;
-        let fireTarget = annualExpense * 25; // 4% 原則反推
-        
-        let report = `🔥 <strong>預估年總開銷：</strong>$${Math.round(annualExpense).toLocaleString()} 元<br>`;
-        report += `🎯 <strong>安全退休金基本標竿：</strong><strong>$${Math.round(fireTarget).toLocaleString()}</strong> 元 (基於 4% 財務安全邊際原則)<br>`;
-        report += `📈 <strong>達標後預期年化複利收益：</strong>約 $${Math.round(fireTarget * (roi / 100)).toLocaleString()} 元 / 年，足夠覆蓋開銷且資產能自然熟成。`;
-        
-        document.getElementById('result-fire').innerHTML = report;
-    }
-
-    window.onload = function() {
-        initListsVisibility();
-    };
 </script>
+
 </body>
 </html>
