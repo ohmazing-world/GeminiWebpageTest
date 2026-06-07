@@ -20,7 +20,7 @@ def decode_google_news_url(source_url):
         return source_url
     try:
         path = source_url.split("articles/")[-1].split("?")[0]
-        padding = len(path) % 4ㄇ
+        padding = len(path) % 4
         if padding != 0:
             path += "=" * (4 - padding)
         decoded_bytes = base64.urlsafe_b64decode(path)
