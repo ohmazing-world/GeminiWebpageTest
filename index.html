@@ -365,85 +365,85 @@
     </div>
 
     <section class="section">
-        <h2>🛠️ 資產配置輔助工具</h2>
+        <h2>🛠️ 投資理財計算機</h2>
         
-        <div class="card" style="padding: 0; overflow: hidden; border: 1px solid #e0e0e0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-radius: 8px;">
-            <div style="display: flex; background: #f5f5f5; border-bottom: 1px solid #e0e0e0;">
-                <button class="calc-tab-btn active" onclick="switchCalcTab(event, 'tab-rebalance')" style="flex: 1; padding: 14px; background: #f5f5f5; border: none; cursor: pointer; font-weight: bold; font-size: 15px; border-bottom: 3px solid transparent; transition: all 0.3s; color: #555;">⚖️ 資產再平衡</button>
-                <button class="calc-tab-btn" onclick="switchCalcTab(event, 'tab-fire')" style="flex: 1; padding: 14px; background: #f5f5f5; border: none; cursor: pointer; font-weight: bold; font-size: 15px; border-bottom: 3px solid transparent; transition: all 0.3s; color: #555;">📈 FIRE 財務自由試算</button>
-                <button class="calc-tab-btn" onclick="switchCalcTab(event, 'tab-dca')" style="flex: 1; padding: 14px; background: #f5f5f5; border: none; cursor: pointer; font-weight: bold; font-size: 15px; border-bottom: 3px solid transparent; transition: all 0.3s; color: #555;">🛒 定期定額模擬</button>
+        <div class="card" style="padding: 0; overflow: hidden; border: 1px solid #e0e0e0; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-radius: 8px;">
+            <div style="display: flex; background: #f8f9fa; border-bottom: 1px solid #e0e0e0;">
+                <button class="calc-tab-btn active" onclick="switchCalcTab(event, 'tab-compound')" style="flex: 1; padding: 15px; background: #f8f9fa; border: none; cursor: pointer; font-weight: bold; font-size: 15px; border-bottom: 3px solid transparent; transition: all 0.3s; color: #555;">📈 定期定額複利試算</button>
+                <button class="calc-tab-btn" onclick="switchCalcTab(event, 'tab-rebalance')" style="flex: 1; padding: 15px; background: #f8f9fa; border: none; cursor: pointer; font-weight: bold; font-size: 15px; border-bottom: 3px solid transparent; transition: all 0.3s; color: #555;">⚖️ 資產再平衡</button>
+                <button class="calc-tab-btn" onclick="switchCalcTab(event, 'tab-dca')" style="flex: 1; padding: 15px; background: #f8f9fa; border: none; cursor: pointer; font-weight: bold; font-size: 15px; border-bottom: 3px solid transparent; transition: all 0.3s; color: #555;">🛒 微笑曲線模擬</button>
             </div>
 
-            <div style="padding: 25px; background: #ffffff;">
+            <div style="padding: 30px; background: #ffffff;">
                 
-                <div id="tab-rebalance" class="calc-tab-content" style="display: block;">
-                    <h3 style="margin-top: 0; color: #333; margin-bottom: 20px;">⚖️ 資產再平衡計算機</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 20px;">
+                <div id="tab-compound" class="calc-tab-content" style="display: block;">
+                    <h3 style="margin-top: 0; color: #222; margin-bottom: 20px; font-size: 18px;">📈 定期定額 / 複利加權精密試算</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 25px;">
                         <div>
-                            <label style="display:block; margin-bottom:8px; font-weight:bold; color: #666; font-size: 14px;">目前美股總值 (元)：</label>
-                            <input type="number" id="rb_us" value="600000" style="width:100%; padding:10px; border:1px solid #ccc; border-radius:6px; box-sizing: border-box; font-size: 15px;">
+                            <label style="display:block; margin-bottom:8px; font-weight:bold; color: #666; font-size: 14px;">單筆投入金額 (初始本金/元)：</label>
+                            <input type="number" id="fire_init" value="1000000" style="width:100%; padding:11px; border:1px solid #cccccc; border-radius:6px; box-sizing: border-box; font-size: 15px;">
                         </div>
                         <div>
-                            <label style="display:block; margin-bottom:8px; font-weight:bold; color: #666; font-size: 14px;">目前台日股總值 (元)：</label>
-                            <input type="number" id="rb_tw" value="400000" style="width:100%; padding:10px; border:1px solid #ccc; border-radius:6px; box-sizing: border-box; font-size: 15px;">
+                            <label style="display:block; margin-bottom:8px; font-weight:bold; color: #666; font-size: 14px;">定期定額金額 (每月投入/元)：</label>
+                            <input type="number" id="fire_monthly" value="30000" style="width:100%; padding:11px; border:1px solid #cccccc; border-radius:6px; box-sizing: border-box; font-size: 15px;">
                         </div>
                         <div>
-                            <label style="display:block; margin-bottom:8px; font-weight:bold; color: #666; font-size: 14px;">理想美股權重 (%)：</label>
-                            <input type="number" id="rb_ratio_us" value="60" style="width:100%; padding:10px; border:1px solid #ccc; border-radius:6px; box-sizing: border-box; font-size: 15px;">
+                            <label style="display:block; margin-bottom:8px; font-weight:bold; color: #666; font-size: 14px;">預期年化報酬率 (%)：</label>
+                            <input type="number" id="fire_roi" value="7" style="width:100%; padding:11px; border:1px solid #cccccc; border-radius:6px; box-sizing: border-box; font-size: 15px;">
+                        </div>
+                        <div>
+                            <label style="display:block; margin-bottom:8px; font-weight:bold; color: #666; font-size: 14px;">投資年數 (年)：</label>
+                            <input type="number" id="fire_years" value="20" style="width:100%; padding:11px; border:1px solid #cccccc; border-radius:6px; box-sizing: border-box; font-size: 15px;">
                         </div>
                     </div>
-                    <button onclick="calcRebalance()" class="calc-action-btn" style="background:#ff9800; color:white; border:none; padding:12px 20px; border-radius:6px; cursor:pointer; font-weight:bold; width:100%; font-size: 16px; transition: background 0.2s;">開始計算再平衡</button>
-                    <div id="result-rebalance" style="display:none; margin-top:20px; padding:15px; background:#fafafa; border-left:5px solid #ff9800; border-radius:4px; line-height:1.7; color: #444; font-size: 15px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);">
+                    <button onclick="calcCompound()" class="calc-action-btn" style="background:#2e7d32; color:white; border:none; padding:13px 20px; border-radius:6px; cursor:pointer; font-weight:bold; width:100%; font-size: 16px; transition: background 0.2s; box-shadow: 0 2px 4px rgba(46,125,50,0.15);">開始計算</button>
+                    <div id="result-compound" style="display:none; margin-top:25px; padding:18px; background:#fafafa; border-left:5px solid #2e7d32; border-radius:4px; line-height:1.8; color: #333; font-size: 15px; box-shadow: inset 0 1px 4px rgba(0,0,0,0.03);">
                     </div>
                 </div>
 
-                <div id="tab-fire" class="calc-tab-content" style="display: none;">
-                    <h3 style="margin-top: 0; color: #333; margin-bottom: 20px;">📈 FIRE 財務自由逆向規劃試算</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 20px;">
+                <div id="tab-rebalance" class="calc-tab-content" style="display: none;">
+                    <h3 style="margin-top: 0; color: #222; margin-bottom: 20px; font-size: 18px;">⚖️ 專業資產再平衡計算</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 25px;">
                         <div>
-                            <label style="display:block; margin-bottom:8px; font-weight:bold; color: #666; font-size: 14px;">目前年齡 (歲)：</label>
-                            <input type="number" id="fire_age_now" value="30" style="width:100%; padding:10px; border:1px solid #ccc; border-radius:6px; box-sizing: border-box; font-size: 15px;">
+                            <label style="display:block; margin-bottom:8px; font-weight:bold; color: #666; font-size: 14px;">目前美股總市值 (元)：</label>
+                            <input type="number" id="rb_us" value="600000" style="width:100%; padding:11px; border:1px solid #cccccc; border-radius:6px; box-sizing: border-box; font-size: 15px;">
                         </div>
                         <div>
-                            <label style="display:block; margin-bottom:8px; font-weight:bold; color: #666; font-size: 14px;">預計退休年齡 (歲)：</label>
-                            <input type="number" id="fire_age_retire" value="55" style="width:100%; padding:10px; border:1px solid #ccc; border-radius:6px; box-sizing: border-box; font-size: 15px;">
+                            <label style="display:block; margin-bottom:8px; font-weight:bold; color: #666; font-size: 14px;">目前台日股總市值 (元)：</label>
+                            <input type="number" id="rb_tw" value="400000" style="width:100%; padding:11px; border:1px solid #cccccc; border-radius:6px; box-sizing: border-box; font-size: 15px;">
                         </div>
                         <div>
-                            <label style="display:block; margin-bottom:8px; font-weight:bold; color: #666; font-size: 14px;">退休後每月預期開銷 (元)：</label>
-                            <input type="number" id="fire_monthly_expense" value="50000" style="width:100%; padding:10px; border:1px solid #ccc; border-radius:6px; box-sizing: border-box; font-size: 15px;">
-                        </div>
-                        <div>
-                            <label style="display:block; margin-bottom:8px; font-weight:bold; color: #666; font-size: 14px;">長期投資年化報酬率 (%)：</label>
-                            <input type="number" id="fire_roi_pct" value="7" style="width:100%; padding:10px; border:1px solid #ccc; border-radius:6px; box-sizing: border-box; font-size: 15px;">
+                            <label style="display:block; margin-bottom:8px; font-weight:bold; color: #666; font-size: 14px;">理想美股資產配置權重 (%)：</label>
+                            <input type="number" id="rb_ratio_us" value="60" style="width:100%; padding:11px; border:1px solid #cccccc; border-radius:6px; box-sizing: border-box; font-size: 15px;">
                         </div>
                     </div>
-                    <button onclick="calcFireUpgrade()" class="calc-action-btn" style="background:#ff9800; color:white; border:none; padding:12px 20px; border-radius:6px; cursor:pointer; font-weight:bold; width:100%; font-size: 16px; transition: background 0.2s;">開始進行 FIRE 試算</button>
-                    <div id="result-fire" style="display:none; margin-top:20px; padding:15px; background:#fafafa; border-left:5px solid #2e7d32; border-radius:4px; line-height:1.7; color: #444; font-size: 15px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);">
+                    <button onclick="calcRebalance()" class="calc-action-btn" style="background:#2e7d32; color:white; border:none; padding:13px 20px; border-radius:6px; cursor:pointer; font-weight:bold; width:100%; font-size: 16px; transition: background 0.2s; box-shadow: 0 2px 4px rgba(46,125,50,0.15);">開始計算</button>
+                    <div id="result-rebalance" style="display:none; margin-top:25px; padding:18px; background:#fafafa; border-left:5px solid #2e7d32; border-radius:4px; line-height:1.8; color: #333; font-size: 15px; box-shadow: inset 0 1px 4px rgba(0,0,0,0.03);">
                     </div>
                 </div>
 
                 <div id="tab-dca" class="calc-tab-content" style="display: none;">
-                    <h3 style="margin-top: 0; color: #333; margin-bottom: 20px;">🛒 定期定額微笑曲線與成本攤平模擬</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 20px;">
+                    <h3 style="margin-top: 0; color: #222; margin-bottom: 20px; font-size: 18px;">🛒 定期定額微笑曲線成本攤平模擬</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 25px;">
                         <div>
-                            <label style="display:block; margin-bottom:8px; font-weight:bold; color: #666; font-size: 14px;">標的初始淨值/價格：</label>
-                            <input type="number" id="dca_init_price" value="100" style="width:100%; padding:10px; border:1px solid #ccc; border-radius:6px; box-sizing: border-box; font-size: 15px;">
+                            <label style="display:block; margin-bottom:8px; font-weight:bold; color: #666; font-size: 14px;">資產初始淨值 / 價格：</label>
+                            <input type="number" id="dca_init_price" value="100" style="width:100%; padding:11px; border:1px solid #cccccc; border-radius:6px; box-sizing: border-box; font-size: 15px;">
                         </div>
                         <div>
-                            <label style="display:block; margin-bottom:8px; font-weight:bold; color: #666; font-size: 14px;">每月固定扣款金額 (元)：</label>
-                            <input type="number" id="dca_amount" value="10000" style="width:100%; padding:10px; border:1px solid #ccc; border-radius:6px; box-sizing: border-box; font-size: 15px;">
+                            <label style="display:block; margin-bottom:8px; font-weight:bold; color: #666; font-size: 14px;">每月固定紀律扣款金額 (元)：</label>
+                            <input type="number" id="dca_amount" value="10000" style="width:100%; padding:11px; border:1px solid #cccccc; border-radius:6px; box-sizing: border-box; font-size: 15px;">
                         </div>
                         <div>
-                            <label style="display:block; margin-bottom:8px; font-weight:bold; color: #666; font-size: 14px;">市場走勢模擬：</label>
-                            <select id="dca_scenario" style="width:100%; padding:10px; border:1px solid #ccc; border-radius:6px; box-sizing: border-box; font-size: 15px; height:41px; background: white;">
-                                <option value="smile">先跌後回升 (微笑曲線走勢)</option>
-                                <option value="up">一路震盪走高 (牛市走勢)</option>
-                                <option value="down">持續震盪走低 (熊市考驗)</option>
+                            <label style="display:block; margin-bottom:8px; font-weight:bold; color: #666; font-size: 14px;">市場走勢模擬情境：</label>
+                            <select id="dca_scenario" style="width:100%; padding:11px; border:1px solid #cccccc; border-radius:6px; box-sizing: border-box; font-size: 15px; height:43px; background: white;">
+                                <option value="smile">先跌後回升 (經典微笑曲線走勢)</option>
+                                <option value="up">一路震盪走高 (長期牛市走勢)</option>
+                                <option value="down">持續震盪走低 (熊市紀律考驗)</option>
                             </select>
                         </div>
                     </div>
-                    <button onclick="calcDcaSimulation()" class="calc-action-btn" style="background:#ff9800; color:white; border:none; padding:12px 20px; border-radius:6px; cursor:pointer; font-weight:bold; width:100%; font-size: 16px; transition: background 0.2s;">模擬定期定額扣款效果</button>
-                    <div id="result-dca" style="display:none; margin-top:20px; padding:15px; background:#fafafa; border-left:5px solid #e65100; border-radius:4px; line-height:1.7; color: #444; font-size: 15px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);">
+                    <button onclick="calcDcaSimulation()" class="calc-action-btn" style="background:#2e7d32; color:white; border:none; padding:13px 20px; border-radius:6px; cursor:pointer; font-weight:bold; width:100%; font-size: 16px; transition: background 0.2s; box-shadow: 0 2px 4px rgba(46,125,50,0.15);">開始計算</button>
+                    <div id="result-dca" style="display:none; margin-top:25px; padding:18px; background:#fafafa; border-left:5px solid #2e7d32; border-radius:4px; line-height:1.8; color: #333; font-size: 15px; box-shadow: inset 0 1px 4px rgba(0,0,0,0.03);">
                     </div>
                 </div>
 
@@ -454,19 +454,19 @@
     <style>
         .calc-tab-btn.active {
             background: #ffffff !important;
-            border-bottom: 3px solid #ff9800 !important;
-            color: #ff9800 !important;
+            border-bottom: 3px solid #2e7d32 !important;
+            color: #2e7d32 !important;
         }
         .calc-tab-btn:hover {
-            background: #f0f0f0;
+            background: #f1f3f5;
         }
         .calc-action-btn:hover {
-            background: #e68a00 !important;
+            background: #1b5e20 !important;
         }
     </style>
 
     <script>
-    // Tab 切換核心
+    // Tab 頁籤切換核心
     function switchCalcTab(event, tabId) {
         let i, tabcontent, tablinks;
         tabcontent = document.getElementsByClassName("calc-tab-content");
@@ -481,7 +481,44 @@
         event.currentTarget.classList.add("active");
     }
 
-    // 1. 資產再平衡計算
+    // 1. 完美複刻截圖：定期定額複利精密試算
+    function calcCompound() {
+        let initPrincipal = parseFloat(document.getElementById('fire_init').value) || 0;
+        let monthlyInvestment = parseFloat(document.getElementById('fire_monthly').value) || 0;
+        let annualRate = (parseFloat(document.getElementById('fire_roi').value) || 0) / 100;
+        let years = parseInt(document.getElementById('fire_years').value) || 0;
+        let resDiv = document.getElementById('result-compound');
+
+        if (years <= 0) {
+            resDiv.style.display = "block";
+            resDiv.innerHTML = `❌ 投資年數必須大於 0 年。`;
+            return;
+        }
+
+        let totalWealth = initPrincipal;
+        let totalInvested = initPrincipal;
+        let monthlyRate = annualRate / 12;
+        let months = years * 12;
+
+        for (let i = 0; i < months; i++) {
+            totalWealth = totalWealth * (1 + monthlyRate) + monthlyInvestment;
+            totalInvested += monthlyInvestment;
+        }
+
+        let totalInterest = totalWealth - totalInvested;
+        let roi = ((totalWealth - totalInvested) / totalInvested) * 100;
+
+        let report = `💰 <strong>累積總金額：</strong><span style="color:#2e7d32; font-weight:bold; font-size:17px;">$${Math.round(totalWealth).toLocaleString()}</span> 元<br>`;
+        report += `📅 <strong>累積投入本金：</strong>$${Math.round(totalInvested).toLocaleString()} 元<br>`;
+        report += `🌱 <strong>賺取利息總額：</strong><span style="color:#2e7d32; font-weight:bold;">$${Math.round(totalInterest).toLocaleString()}</span> 元<br>`;
+        report += `📊 <strong>歷史總報酬率：</strong><span style="color:#2e7d32; font-weight:bold;">${roi.toFixed(1)}%</span><br><hr style="border:0; border-top:1px solid #e0e0e0; margin:10px 0;">`;
+        report += `💡 <strong>小花園提示：</strong>這就是大盤指數化投資長期複利自然熟成的果實威力！`;
+        
+        resDiv.style.display = "block";
+        resDiv.innerHTML = report;
+    }
+
+    // 2. 資產再平衡計算
     function calcRebalance() {
         let us = parseFloat(document.getElementById('rb_us').value);
         let tw = parseFloat(document.getElementById('rb_tw').value);
@@ -491,7 +528,7 @@
         let resDiv = document.getElementById('result-rebalance');
         if (total <= 0 || isNaN(total)) {
             resDiv.style.display = "block";
-            resDiv.innerHTML = `❌ 請輸入正確的資產總額。`;
+            resDiv.innerHTML = `❌ 請輸入正確的資產總值金額。`;
             return;
         }
         
@@ -499,58 +536,21 @@
         let idealUs = total * targetUsRatio;
         let diffUs = idealUs - us;
         
-        let report = `⚖️ <strong>目前總資產：</strong><span style="color:#2e7d32; font-weight:bold;">$${Math.round(total).toLocaleString()}</span> 元<br>`;
-        report += `📊 <strong>目前美股權重：</strong>${(currentUsRatio * 100).toFixed(1)}% (理想目標 ${document.getElementById('rb_ratio_us').value}%)<br><hr style="border:0; border-top:1px solid #eee; margin:10px 0;">`;
+        let report = `⚖️ <strong>目前總資產評價：</strong><span style="color:#2e7d32; font-weight:bold; font-size:16px;">$${Math.round(total).toLocaleString()}</span> 元<br>`;
+        report += `📊 <strong>目前美股實際配置權重：</strong>${(currentUsRatio * 100).toFixed(1)}% (目標理想權重 ${document.getElementById('rb_ratio_us').value}%)<br><hr style="border:0; border-top:1px solid #e0e0e0; margin:10px 0;">`;
         
         if (Math.abs(diffUs) < 100) {
-            report += `✨ <strong>再平衡偏離度極低：</strong>目前結構非常完美，不需進行大幅度調整。`;
+            report += `✨ <strong>結構比例完美：</strong>目前偏離度極低，不需要做大幅調整。`;
         } else if (diffUs > 0) {
-            report += `🛒 <strong>調整策略：</strong>美股目前偏低，建議加碼美股 <span style="color:#d32f2f; font-weight:bold;">$${Math.round(diffUs).toLocaleString()}</span> 元，或由台日股中換股調整。`;
+            report += `🛒 <strong>建議決策：</strong>美股部位偏低，建議加碼買入美股 <span style="color:#b71c1c; font-weight:bold;">$${Math.round(diffUs).toLocaleString()}</span> 元。`;
         } else {
-            report += `💰 <strong>調整策略：</strong>美股目前偏高，建議加碼台日股 <span style="color:#d32f2f; font-weight:bold;">$${Math.round(Math.abs(diffUs)).toLocaleString()}</span> 元，或將美股獲利了結部位轉入台日股。`;
+            report += `💰 <strong>建議決策：</strong>美股部位偏高，建議加碼買入台日股 <span style="color:#b71c1c; font-weight:bold;">$${Math.round(Math.abs(diffUs)).toLocaleString()}</span> 元。`;
         }
         resDiv.style.display = "block";
         resDiv.innerHTML = report;
     }
 
-    // 2. 優化升級：FIRE 逆向規劃試算 (依據清流君網頁邏輯)
-    function calcFireUpgrade() {
-        let ageNow = parseInt(document.getElementById('fire_age_now').value) || 30;
-        let ageRetire = parseInt(document.getElementById('fire_age_retire').value) || 55;
-        let monthlyExpense = parseFloat(document.getElementById('fire_monthly_expense').value) || 50000;
-        let roiPct = parseFloat(document.getElementById('fire_roi_pct').value) || 7;
-        
-        let resDiv = document.getElementById('result-fire');
-        let yearsToRetire = ageRetire - ageNow;
-        
-        if (yearsToRetire <= 0) {
-            resDiv.style.display = "block";
-            resDiv.innerHTML = `❌ 預計退休年齡必須大於目前年齡。`;
-            return;
-        }
-        
-        // 4% 安全提領率法則：退休目標總資產 = 年開銷 * 25
-        let annualExpense = monthlyExpense * 12;
-        let targetWealth = annualExpense * 25;
-        
-        // 年化報酬率轉月報酬率
-        let annualRate = roiPct / 100;
-        let monthlyRate = annualRate / 12;
-        let totalMonths = yearsToRetire * 12;
-        
-        // 年金終值公式逆推：每月需投入金額 = 目標金額 / [((1 + r)^n - 1) / r]
-        let factor = (Math.pow(1 + monthlyRate, totalMonths) - 1) / monthlyRate;
-        let requiredMonthlyInvestment = targetWealth / factor;
-        
-        let report = `🎯 <strong>退休目標總資產 (4%法則)：</strong><span style="color:#e65100; font-weight:bold;">$${Math.round(targetWealth).toLocaleString()}</span> 元<br>`;
-        report += `⏳ <strong>距離退休尚有：</strong>${yearsToRetire} 年 (共 ${totalMonths} 個月)<br><hr style="border:0; border-top:1px solid #eee; margin:10px 0;">`;
-        report += `🚀 <strong>終極優化結論：</strong><br>在年化報酬率 ${roiPct}% 的指數化資產配置下，若想在 ${ageRetire} 歲準時財務自由，您從**現在開始每個月必須紀律投入**：<br><span style="color:#2e7d32; font-size:18px; font-weight:bold;">$${Math.round(requiredMonthlyInvestment).toLocaleString()}</span> 元！`;
-        
-        resDiv.style.display = "block";
-        resDiv.innerHTML = report;
-    }
-
-    // 3. 定期定額模擬試算
+    // 3. 定期定額微笑曲線模擬
     function calcDcaSimulation() {
         let initPrice = parseFloat(document.getElementById('dca_init_price').value) || 100;
         let monthlyMoney = parseFloat(document.getElementById('dca_amount').value) || 10000;
@@ -559,31 +559,17 @@
 
         if (initPrice <= 0 || monthlyMoney <= 0) {
             resDiv.style.display = "block";
-            resDiv.innerHTML = `❌ 請輸入正確的初始價格與扣款金額。`;
+            resDiv.innerHTML = `❌ 請輸入正確的數據。`;
             return;
         }
 
-        let priceFactors = [];
-        let scenarioText = "";
-        if (scenario === "smile") {
-            priceFactors = [1.0, 0.75, 0.55, 0.70, 0.95, 1.15];
-            scenarioText = "先跌後回升 (微笑曲線走勢)";
-        } else if (scenario === "up") {
-            priceFactors = [1.0, 1.08, 1.15, 1.22, 1.35, 1.50];
-            scenarioText = "一路震盪走高 (牛市走勢)";
-        } else {
-            priceFactors = [1.0, 0.88, 0.78, 0.70, 0.62, 0.55];
-            scenarioText = "持續震盪走低 (熊市考驗)";
-        }
-
-        let totalInvested = 0;
-        let totalShares = 0;
+        let priceFactors = scenario === "smile" ? [1.0, 0.75, 0.55, 0.70, 0.95, 1.15] : scenario === "up" ? [1.0, 1.08, 1.15, 1.22, 1.35, 1.50] : [1.0, 0.88, 0.78, 0.70, 0.62, 0.55];
+        let totalInvested = 0, totalShares = 0;
 
         for (let i = 0; i < priceFactors.length; i++) {
             let currentPrice = initPrice * priceFactors[i];
-            let sharesBought = monthlyMoney / currentPrice;
             totalInvested += monthlyMoney;
-            totalShares += sharesBought;
+            totalShares += (monthlyMoney / currentPrice);
         }
 
         let averageCost = totalInvested / totalShares;
@@ -591,18 +577,11 @@
         let finalValue = totalShares * finalPrice;
         let roi = ((finalValue - totalInvested) / totalInvested) * 100;
 
-        let report = `📊 <strong>模擬情境：</strong>${scenarioText}<br>`;
-        report += `💰 <strong>累積投入本金：</strong>$${totalInvested.toLocaleString()} 元<br>`;
-        report += `🎯 <strong>攤平後平均成本：</strong><span style="color:#2e7d32; font-weight:bold;">$${averageCost.toFixed(2)}</span> 元 (期末市價 $${finalPrice.toFixed(2)} 元)<br><hr style="border:0; border-top:1px solid #eee; margin:10px 0;">`;
-        report += `🏁 <strong>期末資產總值：</strong><strong>$${Math.round(finalValue).toLocaleString()}</strong> 元 (總報酬率：<span style="color:${roi >= 0 ? '#d32f2f' : '#2e7d32'}; font-weight:bold;">${roi.toFixed(1)}%</span>)<br><br>`;
-        
-        if (scenario === "smile") {
-            report += `💡 <strong>微笑曲線啟示：</strong>雖然中途歷經暴跌，但因為紀律扣款在低點累積了大量便宜股數，一旦市場回溫，攤平效益會讓您快速轉虧為盈！`;
-        } else if (scenario === "up") {
-            report += `💡 <strong>牛市扣款啟示：</strong>在持續上漲的市場中，定期定額雖會墊高成本，但依然能幫助您克服恐高心理，順利穩定累積大盤資產。`;
-        } else {
-            report += `💡 <strong>熊市扣款啟示：</strong>面對持續下跌，帳面上雖呈現虧損，但平均成本也成功被大幅壓低。這正是逢低累積長期便宜部位的黃金紀律期。`;
-        }
+        let report = `💰 <strong>期末資產總評價：</strong><span style="color:#2e7d32; font-weight:bold; font-size:16px;">$${Math.round(finalValue).toLocaleString()}</span> 元<br>`;
+        report += `📅 <strong>累積投入總本金：</strong>$${totalInvested.toLocaleString()} 元<br>`;
+        report += `🎯 <strong>定期定額平均成本：</strong>$${averageCost.toFixed(2)} 元 (最終市價 $${finalPrice.toFixed(2)} 元)<br>`;
+        report += `📊 <strong>模擬歷史總報酬率：</strong><span style="color:${roi >= 0 ? '#b71c1c' : '#2e7d32'}; font-weight:bold;">${roi.toFixed(1)}%</span><br><hr style="border:0; border-top:1px solid #e0e0e0; margin:10px 0;">`;
+        report += `💡 <strong>紀律啟示：</strong>微笑曲線證明在低迷期持續扣款累積便宜股數，市場反彈時便能快速滾出驚人複利。`;
 
         resDiv.style.display = "block";
         resDiv.innerHTML = report;
